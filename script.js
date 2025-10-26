@@ -213,4 +213,107 @@ document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector
       if(roleField) roleField.value = radio.value;
     });
   });
+  // ===== Role configs with common + role-specific fields =====
+const INDIA_STATES = [
+  "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat",
+  "Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh",
+  "Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan",
+  "Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal",
+  "Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"
+];
+
+const COMMON_FIELDS = [
+  { name:'business_name', ph:'Business Name', required:true },
+  { name:'signatory_name', ph:'Authorised Signatory Name', required:true },
+  { name:'contact', ph:'Mobile Number', required:true },
+  { name:'email', ph:'Email', type:'email', required:true },
+  { name:'gst', ph:'GSTIN', required:false },
+  { name:'state', type:'select', ph:'State', required:true, options: INDIA_STATES },
+  { name:'city', ph:'City', required:true },
+  { name:'pincode', ph:'Pincode (6 digits)', required:true },
+  { name:'address', type:'textarea', ph:'Full Address (Door No, Street, Area)', required:true, full:true }
+];
+
+const roleConfigs = {
+  wholesaler: {
+    title: 'Apply as Wholesaler',
+    subtitle: 'Tell us about your catalog and dispatch capabilities.',
+    fields: [
+      ...COMMON_FIELDS,
+      { name:'categories', ph:'Categories (e.g., kitchenware, electronics)', required:false },
+      { name:'moq', ph:'Typical MOQ (e.g., 20, 50)', required:false },
+      { name:'website', ph:'Website (optional)', required:false }
+    ]
+  },
+  retailer: {
+    title: 'Join as Retailer',
+    subtitle: 'We’ll help you source and sync products.',
+    fields: [
+      ...COMMON_FIELDS,
+      { name:'store_name', ph:'Store Name', required:true },
+      { name:'platform', ph:'Platform (Shopify / Woo / Dukaan)', required:true },
+      { name:'monthly_orders', ph:'Estimated Monthly Orders', required:false }
+    ]
+  },
+  logistics: {
+    title: 'Partner as Logistics',
+    subtitle: 'Share your coverage and services.',
+    fields: [
+      ...COMMON_FIELDS,
+      { name:'coverage', ph:'Coverage (states/cities)', required:false },
+      { name:'services', ph:'Services (FTL / PTL / Courier)', required:false }
+    ]
+  }
+};
+
+// ===== Render fields for selected role (supports input/select/textarea) =====
+function openForRole(role){
+  const cfg = roleConfigs[role];
+  if(!cfg) return;
+
+  document.getElementById('modal-title').textContent = cfg.title;
+  document.getElementById('modal-subtitle').textContent = cfg.subtitle;
+
+  const roleField = document.getElementById('role-field');
+  const fieldsWrap = document.getElementById('dynamic-fields');
+  roleField.value = role;
+  fieldsWrap.innerHTML = '';
+
+  cfg.fields.forEach(f => {
+    let el;
+    if (f.type === 'select') {
+      el = document.createElement('select');
+      el.name = f.name; el.required = !!f.required;
+      const first = document.createElement('option');
+      first.value = ''; first.textContent = f.ph || 'Select';
+      first.disabled = true; first.selected = true;
+      el.appendChild(first);
+      (f.options || []).forEach(opt => {
+        const o = document.createElement('option');
+        o.value = opt; o.textContent = opt;
+        el.appendChild(o);
+      });
+    } else if (f.type === 'textarea') {
+      el = document.createElement('textarea');
+      el.name = f.name; el.required = !!f.required; el.rows = 3;
+      el.placeholder = f.ph || '';
+      if (f.full) el.classList.add('full');
+    } else {
+      el = document.createElement('input');
+      el.type = f.type || 'text'; el.name = f.name; el.required = !!f.required;
+      el.placeholder = f.ph || '';
+    }
+    fieldsWrap.appendChild(el);
+  });
+
+  const modal = document.getElementById('modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden','false');
+
+  setTimeout(() => {
+    const first = fieldsWrap.querySelector('input,select,textarea');
+    if(first) first.focus();
+  }, 30);
+}
 })();
