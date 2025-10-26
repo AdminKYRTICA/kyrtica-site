@@ -77,4 +77,16 @@ img{max-width:100%;display:block}
 .toast-root { position: fixed; z-index: 100; right: 16px; bottom: 16px; display: grid; gap: 10px; }
 .toast { background:#141414; border:1px solid #2a2a2a; border-left:4px solid #5bb98a; padding:12px 14px; border-radius:12px; box-shadow: 0 12px 28px rgba(0,0,0,.35); animation: toastIn .2s ease-out; }
 .toast.error { border-left-color:#e55; }
-@keyframes toastIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform:none;} }
+@keyframes toastIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform:none;} /* Make certain fields span both columns in the grid */
+.grid-2 > .full { grid-column: 1 / -1; }
+
+/* Select style to match inputs */
+.form select {
+  width: 100%;
+  background:#0e0e0e;
+  color:#eaecef;
+  border:1px solid #2a2a2a;
+  border-radius:12px;
+  padding:12px;
+}}
+
