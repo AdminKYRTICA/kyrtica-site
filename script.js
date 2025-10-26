@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector
   const form = document.getElementById('partner-form');
   const roleField = document.getElementById('role-field');
   const fieldsWrap = document.getElementById('dynamic-fields');
-  const radios = document.querySelectorAll('input[name="role"]');
+  
 
   const roleConfigs = {
     wholesaler: {
