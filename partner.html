@@ -29,9 +29,8 @@
 
 <main class="page container">
   <h1 class="page-title animate-in">Partner With Us</h1>
-  <p class="muted animate-in-delayed">Choose your role to get started. We’ll only ask for what’s needed.</p>
+  <p class="muted animate-in-delayed">Choose the right track below. We’ll only ask what’s needed.</p>
 
-  <!-- Cards with CTA links (also open modal) -->
   <section class="grid-3 cards animate-in">
     <div class="info-card">
       <h3>Wholesalers</h3>
@@ -49,12 +48,10 @@
       <button class="btn btn-primary open-modal" data-role="logistics">Partner with Kyrtica</button>
     </div>
   </section>
-
 </main>
 
 <!-- Toast root -->
 <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
-
 
 <!-- Modal Root -->
 <div class="modal-backdrop" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
@@ -65,18 +62,18 @@
       <p class="muted small" id="modal-subtitle">Tell us a few details to get started.</p>
     </div>
 
-    <!-- Dynamic form container -->
     <form id="partner-form" class="form" action="https://formspree.io/f/xbldjylv" method="POST">
       <input type="hidden" name="role" id="role-field" value="">
-<input type="hidden" name="utm_source" id="utm_source" value="">
-<input type="hidden" name="utm_medium" id="utm_medium" value="">
-<input type="hidden" name="utm_campaign" id="utm_campaign" value="">
-<input type="hidden" name="utm_content" id="utm_content" value="">
-<input type="hidden" name="utm_term" id="utm_term" value="">
-      <div class="grid-2" id="dynamic-fields">
-        <!-- JS injects the correct fields here -->
-      </div>
-      <textarea name="notes" rows="4" placeholder="Anything else we should know?"></textarea>
+      <!-- UTM tracking -->
+      <input type="hidden" name="utm_source" id="utm_source" value="">
+      <input type="hidden" name="utm_medium" id="utm_medium" value="">
+      <input type="hidden" name="utm_campaign" id="utm_campaign" value="">
+      <input type="hidden" name="utm_content" id="utm_content" value="">
+      <input type="hidden" name="utm_term" id="utm_term" value="">
+
+      <div class="grid-2" id="dynamic-fields"></div>
+
+      <textarea name="notes" rows="4" class="full" placeholder="Anything else we should know?"></textarea>
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost modal-cancel">Cancel</button>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -98,13 +95,6 @@
       <a href="sitemap.xml">Sitemap</a>
     </nav>
   </div>
-  <form id="partner-form" class="form" action="https://formspree.io/f/xbldjylv" method="POST">
-  <input type="hidden" name="role" id="role-field" value="">
-  <!-- hidden utm_* fields also present -->
-  <div class="grid-2" id="dynamic-fields"></div>
-  <textarea name="notes" rows="4" placeholder="Anything else we should know?"></textarea>
-  <div class="modal-actions">...</div>
-</form>
 </footer>
 </body>
 </html>
