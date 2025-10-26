@@ -9,6 +9,37 @@
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
+  <!-- Toast root -->
+<div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Modal Root -->
+<div class="modal-backdrop" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal" role="document">
+    <button class="modal-close" aria-label="Close">✕</button>
+    <div class="modal-header">
+      <h2 id="modal-title">Apply</h2>
+      <p class="muted small" id="modal-subtitle">Tell us a few details to get started.</p>
+    </div>
+
+    <form id="partner-form" class="form" action="https://formspree.io/f/xbldjylv" method="POST">
+      <input type="hidden" name="role" id="role-field" value="">
+      <!-- UTM fields (auto-filled by JS) -->
+      <input type="hidden" name="utm_source" id="utm_source">
+      <input type="hidden" name="utm_medium" id="utm_medium">
+      <input type="hidden" name="utm_campaign" id="utm_campaign">
+      <input type="hidden" name="utm_content" id="utm_content">
+      <input type="hidden" name="utm_term" id="utm_term">
+
+      <div class="grid-2" id="dynamic-fields"></div>
+
+      <textarea name="notes" rows="4" class="full" placeholder="Anything else we should know?"></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
 <body>
 <header class="site-header">
   <div class="container nav">
