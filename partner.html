@@ -20,7 +20,7 @@
       <a href="index.html">Home</a>
       <a href="marketplace.html">Marketplace</a>
       <a href="services.html">Services</a>
-      <a href="partner.html">Partner</a>
+      <a class="active" href="partner.html">Partner</a>
       <a href="learning.html">Learning</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -28,57 +28,78 @@
 </header>
 
 <main class="page container">
-  <h1>Partner With Us</h1>
-  <div class="tabs">
-    <a href="#wholesalers">Wholesalers</a>
-    <a href="#retailers">Retailers</a>
-    <a href="#logistics">Logistics</a>
+  <h1 class="page-title animate-in">Partner With Us</h1>
+  <p class="muted animate-in-delayed">Choose your role to get started. We’ll only ask for what’s needed.</p>
+
+  <!-- Role selector (links + radios) -->
+  <div class="role-selector animate-in">
+    <label class="role-option">
+      <input type="radio" name="role" value="wholesaler" />
+      <span>Wholesaler</span>
+    </label>
+    <label class="role-option">
+      <input type="radio" name="role" value="retailer" />
+      <span>Retailer</span>
+    </label>
+    <label class="role-option">
+      <input type="radio" name="role" value="logistics" />
+      <span>Logistics Partner</span>
+    </label>
   </div>
 
-  <section id="wholesalers" class="partner-block">
-    <h2>For Wholesalers</h2>
-    <ul><li>List products with tiered pricing & MOQs</li><li>Manage quotes & bulk orders</li><li>Connect warehouses for fast dispatch</li></ul>
-    <form class="form" action="https://formspree.io/f/xbldjylv" method="POST">
-      <div class="grid-2">
-        <input name="business_name" placeholder="Business Name" required>
-        <input name="contact" placeholder="Contact Number / WhatsApp" required>
-        <input name="gst" placeholder="GSTIN (optional)">
-        <input name="city" placeholder="City">
-      </div>
-      <textarea name="notes" rows="4" placeholder="Categories, monthly volume, dispatch cities"></textarea>
-      <button class="btn btn-primary" type="submit">Apply as Wholesaler</button>
-    </form>
+  <!-- Cards with CTA links (also open modal) -->
+  <section class="grid-3 cards animate-in">
+    <div class="info-card">
+      <h3>Wholesalers</h3>
+      <p>List products with tiered pricing, MOQs and dispatch SLAs.</p>
+      <button class="btn btn-primary open-modal" data-role="wholesaler">Apply as Wholesaler</button>
+    </div>
+    <div class="info-card">
+      <h3>Retailers</h3>
+      <p>Discover suppliers, request quotes and sync products to your store.</p>
+      <button class="btn btn-primary open-modal" data-role="retailer">Join as Retailer</button>
+    </div>
+    <div class="info-card">
+      <h3>Logistics Partners</h3>
+      <p>Offer competitive lane rates and scale with our B2B network.</p>
+      <button class="btn btn-primary open-modal" data-role="logistics">Partner with Kyrtica</button>
+    </div>
   </section>
 
-  <section id="retailers" class="partner-block">
-    <h2>For Retailers</h2>
-    <ul><li>Discover suppliers and request quotes</li><li>Sync products to your store</li><li>Automated stock & price updates</li></ul>
-    <form class="form" action="https://formspree.io/f/xbldjylv" method="POST">
-      <div class="grid-2">
-        <input name="store_name" placeholder="Store Name" required>
-        <input name="platform" placeholder="Platform (Shopify/Woo/Dukaan)" required>
-        <input name="email" type="email" placeholder="Email" required>
-        <input name="city" placeholder="City">
-      </div>
-      <textarea name="needs" rows="4" placeholder="What categories do you want to sell?"></textarea>
-      <button class="btn btn-primary" type="submit">Join as Retailer</button>
-    </form>
-  </section>
-
-  <section id="logistics" class="partner-block">
-    <h2>For Logistics Partners</h2>
-    <p>Offer competitive B2B lane rates and grow with our network.</p>
-    <form class="form" action="https://formspree.io/f/xbldjylv" method="POST">
-      <div class="grid-2">
-        <input name="company" placeholder="Company Name" required>
-        <input name="contact" placeholder="Contact Number" required>
-        <input name="coverage" placeholder="Coverage (states/cities)">
-        <input name="services" placeholder="Services (FTL / PTL / Courier)">
-      </div>
-      <button class="btn btn-primary" type="submit">Partner With Kyrtica</button>
-    </form>
-  </section>
 </main>
+
+<!-- Toast root -->
+<div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+
+<!-- Modal Root -->
+<div class="modal-backdrop" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal" role="document">
+    <button class="modal-close" aria-label="Close">✕</button>
+    <div class="modal-header">
+      <h2 id="modal-title">Apply</h2>
+      <p class="muted small" id="modal-subtitle">Tell us a few details to get started.</p>
+    </div>
+
+    <!-- Dynamic form container -->
+    <form id="partner-form" class="form" action="https://formspree.io/f/xbldjylv" method="POST">
+      <input type="hidden" name="role" id="role-field" value="">
+<input type="hidden" name="utm_source" id="utm_source" value="">
+<input type="hidden" name="utm_medium" id="utm_medium" value="">
+<input type="hidden" name="utm_campaign" id="utm_campaign" value="">
+<input type="hidden" name="utm_content" id="utm_content" value="">
+<input type="hidden" name="utm_term" id="utm_term" value="">
+      <div class="grid-2" id="dynamic-fields">
+        <!-- JS injects the correct fields here -->
+      </div>
+      <textarea name="notes" rows="4" placeholder="Anything else we should know?"></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="container footer-grid">
