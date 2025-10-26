@@ -3,81 +3,120 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kyrtica — India-first B2B Dropshipping — Kyrtica</title>
-  <meta name="description" content="Kyrtica — India-first B2B dropshipping network connecting wholesalers, retailers and logistics.">
+  <title>Kyrtica — India’s B2B Dropshipping Network</title>
+  <meta name="description" content="Connect with verified wholesalers, sync to your store, and ship fast via domestic logistics.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <script defer src="script.js"></script>
 </head>
 <body>
+
+<!-- Top bar (same snippet you’ll use on all pages) -->
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="index.html">
       <img src="assets/logo.svg" alt="Kyrtica" width="28" height="28"><span>Kyrtica</span>
     </a>
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
     <nav class="menu">
-      <a href="index.html">Home</a>
+      <a href="index.html" class="nav-home">Home</a>
       <a href="marketplace.html">Marketplace</a>
       <a href="services.html">Services</a>
       <a href="partner.html">Partner</a>
       <a href="learning.html">Learning</a>
       <a href="contact.html">Contact</a>
     </nav>
+    <div class="topbar-right">
+      <div class="selects">
+        <select id="langSel" aria-label="Language">
+          <option>English</option><option>हिन्दी</option><option>தமிழ்</option><option>తెలుగు</option>
+        </select>
+        <select id="curSel" aria-label="Currency">
+          <option value="INR">INR ₹</option><option value="USD">USD $</option>
+        </select>
+      </div>
+      <a class="btn btn-ghost small" href="signin.html">Sign In</a>
+      <a class="btn btn-primary small" href="register.html">Register</a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+    </div>
   </div>
 </header>
 
 <main>
-  <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <h1>India’s B2B Dropshipping Network</h1>
-        <p>Connect with verified wholesalers, sync products to your store, and ship faster with domestic logistics — all in one platform.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="partner.html#retailers">For Retailers</a>
-          <a class="btn btn-ghost" href="partner.html#wholesalers">List as Wholesaler</a>
-        </div>
-        <ul class="hero-points">
-          <li>Pan-India warehouses &amp; fast dispatch</li>
-          <li>MOQ-aware pricing &amp; quote requests</li>
-          <li>Shopify/Woo/Dukaan integrations</li>
-          <li>Real-time inventory sync</li>
-        </ul>
-      </div>
-      <div class="hero-card">
-        <div class="card">
-          <h3 class="card-title">Live Lane Estimate (Demo)</h3>
-          <div class="card-row"><span>From</span><b>Coimbatore</b></div>
-          <div class="card-row"><span>To</span><b>Bangalore</b></div>
-          <div class="card-row"><span>Weight</span><b>50 kg</b></div>
-          <div class="card-row total"><span>Rate</span><b>₹18/kg</b></div>
-          <a class="btn btn-block" href="services.html#logistics">See Logistics</a>
-        </div>
+
+  <!-- HERO (background image + dual CTAs) -->
+  <section class="hero-bleed">
+    <!-- Upload your hero image to assets/hero.jpg -->
+    <div class="hero-bg" style="background-image:url('assets/hero.jpg')"></div>
+    <div class="container hero-content">
+      <h1>Dream big with India’s All-in-One Dropshipping Solution</h1>
+      <p>From verified domestic suppliers to seamless store integrations — your hassle-free growth starts here.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="partner.html">Start Dropshipping</a>
+        <a class="btn btn-ghost" href="services.html#integration">Connect Your Store</a>
       </div>
     </div>
   </section>
 
-  <section class="features">
-    <div class="container grid-3">
-      <div class="feature"><div class="feat-icon">🧾</div><h3>Verified Wholesalers</h3><p>GST-verified suppliers with dispatch SLAs.</p></div>
-      <div class="feature"><div class="feat-icon">⚙️</div><h3>One-click Sync</h3><p>Push products to your store with auto-updates.</p></div>
-      <div class="feature"><div class="feat-icon">🚚</div><h3>Domestic Logistics</h3><p>Shiprocket, DTDC, Delhivery integrations.</p></div>
+  <!-- SEARCH + STRIP -->
+  <section class="container search-and-strip">
+    <div class="search-bar">
+      <div class="search-left">
+        <span class="pill">CJ</span>
+        <input id="searchInput" type="text" placeholder="Find the product you’re looking for">
+      </div>
+      <button class="btn btn-primary" id="searchBtn">Search</button>
+    </div>
+
+    <div class="strip">
+      <button class="strip-nav left" aria-label="Scroll left">‹</button>
+      <div class="strip-track" id="stripTrack" aria-label="Trending products">
+        <!-- product cards (use your own) -->
+        <a class="pcard" href="marketplace.html"><img src="assets/pan.png" alt=""><div class="pname">Nonstick Tawa 28cm</div><div class="pprice">₹420</div></a>
+        <a class="pcard" href="marketplace.html"><img src="assets/bottle.png" alt=""><div class="pname">Steel Bottle 500ml</div><div class="pprice">₹235</div></a>
+        <a class="pcard" href="marketplace.html"><img src="assets/notebook.png" alt=""><div class="pname">Notebook A5</div><div class="pprice">₹38</div></a>
+        <a class="pcard" href="marketplace.html"><img src="assets/pan.png" alt=""><div class="pname">Fry Pan 24cm</div><div class="pprice">₹370</div></a>
+        <a class="pcard" href="marketplace.html"><img src="assets/bottle.png" alt=""><div class="pname">Shaker 700ml</div><div class="pprice">₹199</div></a>
+        <a class="pcard" href="marketplace.html"><img src="assets/notebook.png" alt=""><div class="pname">Spiral Book</div><div class="pprice">₹45</div></a>
+      </div>
+      <button class="strip-nav right" aria-label="Scroll right">›</button>
     </div>
   </section>
 
-  <section class="strip">
-    <div class="container strip-inner">
-      <h2>Explore the Marketplace</h2>
-      <p>Kitchenware, electronics, office supplies and more — sourced from Indian manufacturers.</p>
-      <a class="btn btn-primary" href="marketplace.html">Browse Products</a>
+  <!-- “Already running a store?” integration band -->
+  <section class="integrations">
+    <div class="container">
+      <div class="int-left">
+        <h3>Already running a store?</h3>
+        <p>Connect now for hyper-growth. Unlock real-time inventory sync, quotes, and fast dispatch.</p>
+        <a class="btn btn-ghost" href="services.html#integration">Learn about integrations</a>
+      </div>
+      <div class="int-logos">
+        <img src="assets/shopify.svg" alt="Shopify">
+        <img src="assets/woocommerce.svg" alt="WooCommerce">
+        <img src="assets/dukaan.svg" alt="Dukaan">
+        <img src="assets/etsy.svg" alt="Etsy">
+      </div>
     </div>
   </section>
 
-  <section class="container grid-3 cards">
-    <a class="info-card" href="services.html#sourcing"><h3>Product Sourcing</h3><p>We help you find domestic equivalents and negotiate MOQs.</p></a>
-    <a class="info-card" href="services.html#branding"><h3>Branding &amp; Packaging</h3><p>Custom labels, brand boxes, and eco packaging.</p></a>
-    <a class="info-card" href="services.html#integration"><h3>Website Integration</h3><p>Connect Shopify, WooCommerce, or Dukaan in minutes.</p></a>
+  <!-- Three feature tiles -->
+  <section class="container grid-3 features-tiles">
+    <div class="tile">
+      <div class="ticon">🧾</div>
+      <h4>Verified Wholesalers</h4>
+      <p>GST-verified suppliers with dispatch SLAs and MOQ-aware pricing.</p>
+    </div>
+    <div class="tile">
+      <div class="ticon">⚙️</div>
+      <h4>One-click Sync</h4>
+      <p>Push products to your store with real-time stock updates.</p>
+    </div>
+    <div class="tile">
+      <div class="ticon">🚚</div>
+      <h4>Domestic Logistics</h4>
+      <p>Shiprocket, DTDC, Delhivery and more — fast pan-India delivery.</p>
+    </div>
   </section>
+
 </main>
 
 <footer class="site-footer">
@@ -94,5 +133,30 @@
     </nav>
   </div>
 </footer>
+
+<script src="script.js"></script>
+
+<!-- Page-local JS to power search & carousel (append-safe) -->
+<script>
+  // mark active nav
+  (function(){ const p = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.menu a').forEach(a => { if(a.getAttribute('href')===p) a.classList.add('active'); });
+  })();
+
+  // simple search redirect
+  document.getElementById('searchBtn').addEventListener('click', () => {
+    const q = document.getElementById('searchInput').value.trim();
+    location.href = q ? ('marketplace.html?q=' + encodeURIComponent(q)) : 'marketplace.html';
+  });
+
+  // horizontal strip scroll
+  const track = document.getElementById('stripTrack');
+  document.querySelector('.strip-nav.left').onclick  = () => track.scrollBy({left: -600, behavior:'smooth'});
+  document.querySelector('.strip-nav.right').onclick = () => track.scrollBy({left:  600, behavior:'smooth'});
+
+  // mobile menu toggle (if not already in your global script)
+  const toggle = document.querySelector('.menu-toggle'), menu = document.querySelector('.menu');
+  if(toggle && menu){ toggle.addEventListener('click', () => menu.classList.toggle('show')); }
+</script>
 </body>
 </html>
