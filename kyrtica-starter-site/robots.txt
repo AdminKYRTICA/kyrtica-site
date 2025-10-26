@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kyrtica.in/sitemap.xml
