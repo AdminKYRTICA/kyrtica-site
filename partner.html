@@ -8,30 +8,25 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Page-local styles (modal, validation, toast). Safe to leave inline. -->
+  <!-- Inline modal & validation styles -->
   <style>
     :root { --overlay: rgba(0,0,0,.5); --modal:#151515; --ring:#2a2a2a; }
-    .animate-in{animation:fadeUp .35s ease-out both} @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
     .modal-backdrop{position:fixed;inset:0;background:var(--overlay);display:none;align-items:center;justify-content:center;padding:16px;z-index:999}
     .modal-backdrop.show{display:flex;animation:fadeIn .2s ease-out}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
     .modal{width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--modal);border:1px solid #262626;border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.45);animation:scaleIn .18s ease-out;position:relative}
     @keyframes scaleIn{from{transform:scale(.98);opacity:.0}to{transform:scale(1);opacity:1}}
     .modal-header h2{margin:0 0 6px}
-    .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
     .modal-close{position:absolute;top:10px;right:10px;background:#0e0e0e;border:1px solid #2b2b2b;color:#eee;border-radius:10px;padding:6px 10px;cursor:pointer}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}@media(max-width:700px){.grid-2{grid-template-columns:1fr}}
     .form input,.form textarea,.form select{width:100%;background:#0e0e0e;color:#eaecef;border:1px solid #2a2a2a;border-radius:12px;padding:12px}
     .form textarea{resize:vertical}
     .form input:focus,.form textarea:focus,.form select:focus{outline:none;border-color:#3a3a3a;box-shadow:0 0 0 3px rgba(229,183,0,.15)}
-    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .grid-2>.full{grid-column:1 / -1}
-    @media(max-width:700px){.grid-2{grid-template-columns:1fr}}
+    .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
     .error-hint{color:#ffb3b3;font-size:.85rem;margin-top:6px;display:none}
     .input-error{border-color:#7a2b2b!important;box-shadow:0 0 0 3px rgba(255,0,0,.1)!important}
     .toast-root{position:fixed;z-index:1000;right:16px;bottom:16px;display:grid;gap:10px}
     .toast{background:#141414;border:1px solid #2a2a2a;border-left:4px solid #5bb98a;padding:12px 14px;border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.35);animation:toastIn .2s ease-out}
     .toast.error{border-left-color:#e55}@keyframes toastIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-    .info-card{transition:transform .18s ease,box-shadow .18s ease}
-    .info-card:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(0,0,0,.35)}
   </style>
 </head>
 <body>
@@ -53,10 +48,9 @@
 </header>
 
 <main class="page container">
-  <h1 class="page-title animate-in">Partner With Us</h1>
-  <p class="muted animate-in">Choose your role to get started. We’ll only ask for what’s needed.</p>
+  <h1 class="page-title">Partner With Us</h1>
+  <p class="muted">Choose your role to get started. We’ll only ask for what’s needed.</p>
 
-  <!-- Cards -->
   <section class="grid-3 cards animate-in">
     <div class="info-card">
       <h3>Wholesalers</h3>
@@ -76,11 +70,10 @@
   </section>
 </main>
 
-<!-- Toast root -->
 <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
-<!-- Modal Root -->
-<div class="modal-backdrop" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+<!-- Modal -->
+<div class="modal-backdrop" id="modal" aria-hidden="true" role="dialog">
   <div class="modal" role="document">
     <button class="modal-close" aria-label="Close">✕</button>
     <div class="modal-header">
@@ -88,9 +81,9 @@
       <p class="muted small" id="modal-subtitle">Tell us a few details to get started.</p>
     </div>
 
-    <form id="partner-form" class="form" action="https://formspree.io/f/xbldjylv" method="POST">
+    <!-- We disable native validation -->
+    <form id="partner-form" class="form" action="https://formspree.io/f/xbldjylv" method="POST" novalidate>
       <input type="hidden" name="role" id="role-field" value="">
-      <!-- UTM (auto-populated) -->
       <input type="hidden" name="utm_source" id="utm_source">
       <input type="hidden" name="utm_medium" id="utm_medium">
       <input type="hidden" name="utm_campaign" id="utm_campaign">
@@ -123,166 +116,89 @@
   </div>
 </footer>
 
-<!-- Page-local logic: modal, dynamic fields, validation, UTM capture, AJAX submit -->
 <script>
 (function(){
-  // Menu (if your global JS is missing it)
-  const toggle=document.querySelector('.menu-toggle'),menu=document.querySelector('.menu');
-  if(toggle&&menu) toggle.addEventListener('click',()=>menu.classList.toggle('show'));
+  const modal=document.getElementById('modal'),form=document.getElementById('partner-form'),roleField=document.getElementById('role-field'),fieldsWrap=document.getElementById('dynamic-fields'),toastRoot=document.getElementById('toast-root');
+  if(!modal||!form)return;
 
-  const modal = document.getElementById('modal');
-  const form = document.getElementById('partner-form');
-  const roleField = document.getElementById('role-field');
-  const fieldsWrap = document.getElementById('dynamic-fields');
-  const toastRoot = document.getElementById('toast-root');
-  if(!modal || !form) return;
-
-  function showToast(msg, isError=false){
-    if(!toastRoot) return alert(msg);
-    const el = document.createElement('div');
-    el.className = 'toast' + (isError ? ' error' : '');
-    el.textContent = msg;
-    toastRoot.appendChild(el);
-    setTimeout(()=>{ el.remove(); }, 4200);
-  }
+  function showToast(msg,isError=false){const t=document.createElement('div');t.className='toast'+(isError?' error':'');t.textContent=msg;toastRoot.appendChild(t);setTimeout(()=>t.remove(),4200)}
 
   // UTM capture
-  const params = new URLSearchParams(window.location.search);
+  const params=new URLSearchParams(window.location.search);
   ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k=>{
-    const v = params.get(k) || sessionStorage.getItem(k) || '';
-    if(v) sessionStorage.setItem(k, v);
-    const el = document.getElementById(k); if(el) el.value = v || '';
+    const v=params.get(k)||sessionStorage.getItem(k)||'';if(v)sessionStorage.setItem(k,v);
+    const el=document.getElementById(k);if(el)el.value=v||'';
   });
 
-  // India States
-  const STATES = ["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu","Delhi","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"];
+  const STATES=["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Delhi","Jammu and Kashmir","Ladakh"];
 
-  // Common + role-specific fields
-  const COMMON_FIELDS = [
-    { name:'business_name', ph:'Business Name', required:true },
-    { name:'signatory_name', ph:'Authorised Signatory Name', required:true },
-    { name:'contact', ph:'Mobile Number', required:true },
-    { name:'email', ph:'Email', type:'email', required:true },
-    { name:'gst', ph:'GSTIN', required:false },
-    { name:'state', type:'select', ph:'State', required:true, options: STATES },
-    { name:'city', ph:'City', required:true },
-    { name:'pincode', ph:'Pincode (6 digits)', required:true },
-    { name:'address', type:'textarea', ph:'Full Address (Door No, Street, Area)', required:true, full:true }
+  const COMMON=[
+    {n:'business_name',ph:'Business Name',req:true},
+    {n:'signatory_name',ph:'Authorised Signatory Name',req:true},
+    {n:'contact',ph:'Mobile Number',req:true},
+    {n:'email',ph:'Email',type:'email',req:true},
+    {n:'gst',ph:'GSTIN'},
+    {n:'state',type:'select',ph:'State',req:true,opts:STATES},
+    {n:'city',ph:'City',req:true},
+    {n:'pincode',ph:'Pincode (6 digits)',req:true},
+    {n:'address',type:'textarea',ph:'Full Address (Door No, Street, Area)',req:true,full:true}
   ];
 
-  const roleConfigs = {
-    wholesaler: {
-      title: 'Apply as Wholesaler',
-      subtitle: 'Tell us about your catalog and dispatch capabilities.',
-      fields: [...COMMON_FIELDS,
-        { name:'categories', ph:'Categories (e.g., kitchenware, electronics)' },
-        { name:'moq', ph:'Typical MOQ (e.g., 20, 50)' },
-        { name:'website', ph:'Website (optional)' }
-      ]
-    },
-    retailer: {
-      title: 'Join as Retailer',
-      subtitle: 'We’ll help you source and sync products.',
-      fields: [...COMMON_FIELDS,
-        { name:'store_name', ph:'Store Name', required:true },
-        { name:'platform', ph:'Platform (Shopify / Woo / Dukaan)', required:true },
-        { name:'monthly_orders', ph:'Estimated Monthly Orders' }
-      ]
-    },
-    logistics: {
-      title: 'Partner as Logistics',
-      subtitle: 'Share your coverage and services.',
-      fields: [...COMMON_FIELDS,
-        { name:'coverage', ph:'Coverage (states/cities)' },
-        { name:'services', ph:'Services (FTL / PTL / Courier)' }
-      ]
-    }
+  const roles={
+    wholesaler:{title:'Apply as Wholesaler',sub:'Tell us about your catalog.',f:[...COMMON,{n:'categories',ph:'Categories (e.g., kitchenware, electronics)'},{n:'moq',ph:'Typical MOQ (e.g., 20, 50)'},{n:'website',ph:'Website (optional)'}]},
+    retailer:{title:'Join as Retailer',sub:'We’ll help you source and sync products.',f:[...COMMON,{n:'store_name',ph:'Store Name',req:true},{n:'platform',ph:'Platform (Shopify / Woo / Dukaan)',req:true},{n:'monthly_orders',ph:'Estimated Monthly Orders'}]},
+    logistics:{title:'Partner as Logistics',sub:'Share your coverage and services.',f:[...COMMON,{n:'coverage',ph:'Coverage (states/cities)'},{n:'services',ph:'Services (FTL / PTL / Courier)'}]}
   };
 
-  // Render a role form inside the modal
-  function openForRole(role){
-    const cfg = roleConfigs[role]; if(!cfg) return;
-    document.getElementById('modal-title').textContent = cfg.title;
-    document.getElementById('modal-subtitle').textContent = cfg.subtitle;
-    roleField.value = role;
-    fieldsWrap.innerHTML = '';
-    cfg.fields.forEach(f=>{
-      let el;
-      if (f.type === 'select') {
-        el = document.createElement('select');
-        el.name = f.name; el.required = !!f.required;
-        const first = document.createElement('option');
-        first.value = ''; first.textContent = f.ph || 'Select'; first.disabled = true; first.selected = true;
-        el.appendChild(first);
-        (f.options||[]).forEach(opt=>{ const o=document.createElement('option'); o.value=opt; o.textContent=opt; el.appendChild(o); });
-      } else if (f.type === 'textarea') {
-        el = document.createElement('textarea');
-        el.name = f.name; el.rows = 3; el.placeholder = f.ph || ''; el.required = !!f.required;
-        if(f.full) el.classList.add('full');
-      } else {
-        el = document.createElement('input');
-        el.name = f.name; el.type = f.type || 'text'; el.placeholder = f.ph || ''; el.required = !!f.required;
-      }
+  function openFor(r){const cfg=roles[r];if(!cfg)return;
+    document.getElementById('modal-title').textContent=cfg.title;
+    document.getElementById('modal-subtitle').textContent=cfg.sub;
+    roleField.value=r;fieldsWrap.innerHTML='';
+    cfg.f.forEach(f=>{
+      let el; if(f.type==='select'){el=document.createElement('select');el.name=f.n;if(f.req)el.required=true;const def=document.createElement('option');def.value='';def.textContent=f.ph;def.disabled=true;def.selected=true;el.appendChild(def);(f.opts||[]).forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;el.appendChild(opt)});}
+      else if(f.type==='textarea'){el=document.createElement('textarea');el.name=f.n;el.placeholder=f.ph;el.rows=3;if(f.req)el.required=true;if(f.full)el.classList.add('full')}
+      else{el=document.createElement('input');el.name=f.n;el.type=f.type||'text';el.placeholder=f.ph;if(f.req)el.required=true}
       fieldsWrap.appendChild(el);
     });
-    modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
-    setTimeout(()=>{ const first = fieldsWrap.querySelector('input,select,textarea'); if(first) first.focus(); }, 30);
+    modal.classList.add('show');modal.setAttribute('aria-hidden','false');
   }
-  function closeModal(){ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
 
-  // Triggers
-  document.querySelectorAll('.open-modal').forEach(btn=>{
-    btn.addEventListener('click', ()=> openForRole(btn.dataset.role));
-  });
-  modal.querySelector('.modal-close').addEventListener('click', closeModal);
-  modal.querySelector('.modal-cancel').addEventListener('click', closeModal);
-  modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.classList.contains('show')) closeModal(); });
+  function closeModal(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 
-  // Inline validation
-  function ensureHint(input){
-    let hint = input.nextElementSibling;
-    if(!hint || !hint.classList || !hint.classList.contains('error-hint')){
-      hint = document.createElement('div'); hint.className='error-hint'; input.insertAdjacentElement('afterend', hint);
-    }
-    return hint;
-  }
-  function setError(input,msg){ const h=ensureHint(input); h.textContent=msg; h.style.display='block'; input.classList.add('input-error'); }
-  function clearError(input){ const h=input.nextElementSibling; if(h && h.classList && h.classList.contains('error-hint')){h.style.display='none';h.textContent='';} input.classList.remove('input-error'); }
-  function validateInput(input){
-    clearError(input);
-    const v=(input.value||'').trim(), n=input.name;
-    if(input.required && !v){ setError(input,'This field is required'); return false; }
-    if(n==='email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ setError(input,'Enter a valid email'); return false; }
-    if(n==='contact' && v && !/^[6-9]\d{9}$/.test(v)){ setError(input,'Enter a valid 10-digit mobile'); return false; }
-    if(n==='pincode' && v && !/^\d{6}$/.test(v)){ setError(input,'Enter a valid 6-digit pincode'); return false; }
-    if(n==='gst' && v && !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(v.toUpperCase())){ setError(input,'GSTIN format looks invalid'); return false; }
+  document.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',()=>openFor(b.dataset.role)));
+  modal.querySelector('.modal-close').addEventListener('click',closeModal);
+  modal.querySelector('.modal-cancel').addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))closeModal()});
+
+  function setErr(i,m){let h=i.nextElementSibling;if(!h||!h.classList.contains('error-hint')){h=document.createElement('div');h.className='error-hint';i.insertAdjacentElement('afterend',h)}h.textContent=m;h.style.display='block';i.classList.add('input-error')}
+  function clrErr(i){const h=i.nextElementSibling;if(h&&h.classList.contains('error-hint')){h.style.display='none';h.textContent=''}i.classList.remove('input-error')}
+  function validate(i){clrErr(i);const v=(i.value||'').trim(),n=i.name;
+    if(i.required&&!v){setErr(i,'This field is required');return false;}
+    if(n==='email'&&v&&!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(v)){setErr(i,'Enter a valid email');return false;}
+    if(n==='contact'&&v&&!/^[6-9]\\d{9}$/.test(v)){setErr(i,'Enter a valid 10-digit mobile');return false;}
+    if(n==='pincode'&&v&&!/^\\d{6}$/.test(v)){setErr(i,'Enter a valid 6-digit pincode');return false;}
+    if(n==='gst'&&v&&!/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(v.toUpperCase())){setErr(i,'GSTIN format looks invalid');return false;}
     return true;
   }
-  form.addEventListener('focusout', e=>{
-    const t=e.target; if(t && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) validateInput(t);
-  });
 
-  // Smooth submit via fetch
-  form.addEventListener('submit', async (e)=>{
+  form.addEventListener('focusout',e=>{const t=e.target;if(t&&/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName))validate(t)});
+
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
-    const inputs = form.querySelectorAll('input,select,textarea');
-    let ok = true; inputs.forEach(i=>{ if(!validateInput(i)) ok=false; });
-    if(!ok){ showToast('Please fix the highlighted fields.', true); return; }
-
+    const all=form.querySelectorAll('input,select,textarea');
+    let ok=true;all.forEach(x=>{if(!validate(x))ok=false});
+    if(!ok){showToast('Please fix highlighted fields.',true);return;}
     try{
-      const fd = new FormData(form);
-      fd.append('submitted_at', new Date().toISOString());
-      fd.append('page', location.pathname + location.search);
-      const resp = await fetch(form.action, { method:'POST', body:fd, headers:{'Accept':'application/json'} });
-      if(resp.ok){ showToast('Thanks! Your application has been submitted.'); form.reset(); setTimeout(closeModal, 600); }
-      else{ showToast('Submission failed. Please try again.', true); }
-    }catch(err){ showToast('Network error. Please try again.', true); }
+      const fd=new FormData(form);
+      fd.append('submitted_at',new Date().toISOString());
+      fd.append('page',location.pathname+location.search);
+      const r=await fetch(form.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}});
+      if(r.ok){showToast('Thanks! Submitted successfully.');form.reset();setTimeout(closeModal,600)}
+      else showToast('Submission failed. Try again.',true);
+    }catch(err){showToast('Network error. Try again.',true)}
   });
 })();
 </script>
-
-<!-- you can keep your existing global script if you like -->
-<script defer src="script.js"></script>
 </body>
 </html>
