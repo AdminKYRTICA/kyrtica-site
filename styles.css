@@ -78,3 +78,32 @@ img{max-width:100%;display:block}
 .toast { background:#141414; border:1px solid #2a2a2a; border-left:4px solid #5bb98a; padding:12px 14px; border-radius:12px; box-shadow: 0 12px 28px rgba(0,0,0,.35); animation: toastIn .2s ease-out; }
 .toast.error { border-left-color:#e55; }
 @keyframes toastIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform:none;} }
+/* ==== Partner modal, animations, validation & toast (add-only) ==== */
+:root { --overlay: rgba(0,0,0,.5); --modal:#151515; --ring:#2a2a2a; }
+
+@keyframes fadeUp { from { opacity:0; transform: translateY(8px);} to{opacity:1; transform:none;} }
+.animate-in { animation: fadeUp .35s ease-out both; }
+.animate-in-delayed { animation: fadeUp .55s ease-out both; }
+
+.modal-backdrop { position: fixed; inset: 0; background: var(--overlay); display:none; align-items: center; justify-content: center; padding: 16px; z-index: 999; }
+.modal-backdrop.show { display:flex; animation: fadeIn .2s ease-out; }
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+
+@keyframes scaleIn { from { transform: scale(.98); opacity:.0 } to { transform: scale(1); opacity:1 } }
+.modal { width: min(760px, 100%); max-height: 90vh; overflow:auto; background: var(--modal); border:1px solid #262626; border-radius: 16px; padding: 18px; box-shadow: 0 20px 60px rgba(0,0,0,.45); animation: scaleIn .18s ease-out; position: relative; }
+.modal-header h2 { margin: 0 0 6px; }
+.modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top: 8px; }
+.modal-close { position:absolute; top:10px; right:10px; background:#0e0e0e; border:1px solid #2b2b2b; color:#eee; border-radius:10px; padding:6px 10px; cursor:pointer; }
+
+.form input,.form textarea,.form select { width:100%; background:#0e0e0e; color:#eaecef; border:1px solid #2a2a2a; border-radius:12px; padding:12px }
+.form textarea{ resize:vertical }
+.form input:focus,.form textarea:focus,.form select:focus{ outline:none; border-color:#3a3a3a; box-shadow:0 0 0 3px rgba(229,183,0,.15); transition: box-shadow .15s ease; }
+.grid-2 > .full{ grid-column: 1 / -1; }
+
+.error-hint { color: #ffb3b3; font-size: .85rem; margin-top: 6px; display:none; }
+.input-error { border-color: #7a2b2b !important; box-shadow: 0 0 0 3px rgba(255,0,0,.1) !important; }
+
+.toast-root { position: fixed; z-index: 1000; right: 16px; bottom: 16px; display: grid; gap: 10px; }
+.toast { background:#141414; border:1px solid #2a2a2a; border-left:4px solid #5bb98a; padding:12px 14px; border-radius:12px; box-shadow: 0 12px 28px rgba(0,0,0,.35); animation: toastIn .2s ease-out; }
+.toast.error { border-left-color:#e55; }
+@keyframes toastIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform:none;} }
