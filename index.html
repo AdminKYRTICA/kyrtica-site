@@ -1,162 +1,168 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kyrtica — India’s B2B Dropshipping Network</title>
-  <meta name="description" content="Connect with verified wholesalers, sync to your store, and ship fast via domestic logistics.">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kyrtica – India’s All-in-One B2B Dropshipping</title>
+  <meta name="description" content="Source from verified Indian wholesalers and connect your store for seamless dropshipping." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      --brand:#f59e0b; /* warm orange */
+      --bg:#fff;
+      --text:#111;
+      --muted:#666;
+      --border:#e2e2e2;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif;}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    button{cursor:pointer;font-family:inherit}
+
+    /* ===== Top bar ===== */
+    header{
+      position:sticky;top:0;z-index:20;
+      background:#fff;border-bottom:1px solid var(--border);
+      box-shadow:0 2px 6px rgba(0,0,0,.05);
+    }
+    .navwrap{
+      max-width:1220px;margin:auto;display:flex;align-items:center;justify-content:space-between;
+      padding:10px 20px;
+    }
+    .brand img{height:30px;margin-right:8px}
+    .brand{display:flex;align-items:center;font-weight:700;font-size:1.2rem;color:#f59e0b}
+    nav{display:flex;gap:24px;font-weight:500}
+    nav a{color:#333;transition:.2s}
+    nav a:hover{color:#f59e0b}
+    .right{display:flex;align-items:center;gap:12px}
+    select{border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-size:.9rem;background:#fafafa}
+    .btn{border:1px solid transparent;border-radius:6px;padding:7px 14px;font-weight:600}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-outline{border-color:var(--brand);color:var(--brand);background:transparent}
+    .btn-outline:hover{background:var(--brand);color:#fff}
+
+    /* ===== Hero ===== */
+    .hero{
+      position:relative;
+      background:url('assets/hero.jpg') center/cover no-repeat;
+      color:#fff;text-align:left;
+      padding:120px 20px;
+    }
+    .hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45);}
+    .hero-content{position:relative;z-index:1;max-width:640px;margin:auto;text-align:center}
+    .hero h1{font-size:2.4rem;margin-bottom:12px}
+    .hero p{color:#f1f1f1;margin-bottom:20px;font-size:1.1rem}
+    .cta{display:flex;gap:14px;justify-content:center}
+    .cta .btn{padding:12px 24px;font-size:1rem}
+
+    /* ===== Search ===== */
+    .searchbar{
+      max-width:720px;margin:-40px auto 40px;background:#fff;
+      border-radius:50px;box-shadow:0 4px 12px rgba(0,0,0,.1);
+      display:flex;align-items:center;overflow:hidden;
+    }
+    .searchbar input{flex:1;border:none;padding:16px 24px;font-size:1rem;outline:none}
+    .searchbar button{background:var(--brand);color:#fff;border:none;padding:14px 30px;font-weight:600}
+
+    /* ===== Product carousel ===== */
+    .carousel{max-width:1220px;margin:auto;position:relative;overflow:hidden;padding:0 40px}
+    .track{display:flex;gap:18px;overflow-x:auto;scroll-behavior:smooth;padding:10px 0}
+    .track::-webkit-scrollbar{height:6px}.track::-webkit-scrollbar-thumb{background:#ccc;border-radius:6px}
+    .card{min-width:220px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;transition:.2s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+    .card img{height:160px;object-fit:cover;border-radius:10px}
+    .pname{margin-top:8px;font-weight:600;color:#111}
+    .pprice{color:#f59e0b;margin:4px 0}
+
+    /* ===== Integrations band ===== */
+    .integrations{
+      background:linear-gradient(180deg,#fff7ef,#fff2e0);
+      border-top:1px solid #fce0b0;
+      margin-top:40px;padding:40px 20px;
+    }
+    .integrations .container{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+    .integrations h3{color:#111;margin-bottom:6px}
+    .logos{display:flex;gap:22px;align-items:center}
+    .logos img{height:40px;filter:grayscale(100%);opacity:.9}
+    .logos img:hover{filter:none;opacity:1}
+
+    footer{background:#111;color:#bbb;padding:30px 20px;text-align:center;font-size:.9rem;margin-top:50px}
+  </style>
 </head>
 <body>
 
-<!-- Top bar (same snippet you’ll use on all pages) -->
-<header class="site-header">
-  <div class="container nav">
-    <a class="brand" href="index.html">
-      <img src="assets/logo.svg" alt="Kyrtica" width="28" height="28"><span>Kyrtica</span>
-    </a>
-    <nav class="menu">
-      <a href="index.html" class="nav-home">Home</a>
+<header>
+  <div class="navwrap">
+    <a class="brand" href="index.html"><img src="assets/logo.svg" alt="Kyrtica"/>Kyrtica</a>
+    <nav>
+      <a href="index.html">Home</a>
       <a href="marketplace.html">Marketplace</a>
       <a href="services.html">Services</a>
       <a href="partner.html">Partner</a>
       <a href="learning.html">Learning</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <div class="topbar-right">
-      <div class="selects">
-        <select id="langSel" aria-label="Language">
-          <option>English</option><option>हिन्दी</option><option>தமிழ்</option><option>తెలుగు</option>
-        </select>
-        <select id="curSel" aria-label="Currency">
-          <option value="INR">INR ₹</option><option value="USD">USD $</option>
-        </select>
-      </div>
-      <a class="btn btn-ghost small" href="signin.html">Sign In</a>
-      <a class="btn btn-primary small" href="register.html">Register</a>
-      <button class="menu-toggle" aria-label="Open menu">☰</button>
+    <div class="right">
+      <select><option>English-INR</option><option>हिन्दी-INR</option></select>
+      <a class="btn-outline" href="signin.html">Sign In</a>
+      <a class="btn-primary" href="register.html">Register</a>
     </div>
   </div>
 </header>
 
-<main>
-
-  <!-- HERO (background image + dual CTAs) -->
-  <section class="hero-bleed">
-    <!-- Upload your hero image to assets/hero.jpg -->
-    <div class="hero-bg" style="background-image:url('assets/hero.jpg')"></div>
-    <div class="container hero-content">
-      <h1>Dream big with India’s All-in-One Dropshipping Solution</h1>
-      <p>From verified domestic suppliers to seamless store integrations — your hassle-free growth starts here.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="partner.html">Start Dropshipping</a>
-        <a class="btn btn-ghost" href="services.html#integration">Connect Your Store</a>
-      </div>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Dreams with Kyrtica’s All-in-One Solution</h1>
+    <p>From verified Indian suppliers to seamless store automation — your hassle-free success starts here.</p>
+    <div class="cta">
+      <a class="btn-primary btn" href="partner.html">Start Dropshipping</a>
+      <a class="btn-outline btn" href="services.html">Connect Your Store</a>
     </div>
-  </section>
-
-  <!-- SEARCH + STRIP -->
-  <section class="container search-and-strip">
-    <div class="search-bar">
-      <div class="search-left">
-        <span class="pill">CJ</span>
-        <input id="searchInput" type="text" placeholder="Find the product you’re looking for">
-      </div>
-      <button class="btn btn-primary" id="searchBtn">Search</button>
-    </div>
-
-    <div class="strip">
-      <button class="strip-nav left" aria-label="Scroll left">‹</button>
-      <div class="strip-track" id="stripTrack" aria-label="Trending products">
-        <!-- product cards (use your own) -->
-        <a class="pcard" href="marketplace.html"><img src="assets/pan.png" alt=""><div class="pname">Nonstick Tawa 28cm</div><div class="pprice">₹420</div></a>
-        <a class="pcard" href="marketplace.html"><img src="assets/bottle.png" alt=""><div class="pname">Steel Bottle 500ml</div><div class="pprice">₹235</div></a>
-        <a class="pcard" href="marketplace.html"><img src="assets/notebook.png" alt=""><div class="pname">Notebook A5</div><div class="pprice">₹38</div></a>
-        <a class="pcard" href="marketplace.html"><img src="assets/pan.png" alt=""><div class="pname">Fry Pan 24cm</div><div class="pprice">₹370</div></a>
-        <a class="pcard" href="marketplace.html"><img src="assets/bottle.png" alt=""><div class="pname">Shaker 700ml</div><div class="pprice">₹199</div></a>
-        <a class="pcard" href="marketplace.html"><img src="assets/notebook.png" alt=""><div class="pname">Spiral Book</div><div class="pprice">₹45</div></a>
-      </div>
-      <button class="strip-nav right" aria-label="Scroll right">›</button>
-    </div>
-  </section>
-
-  <!-- “Already running a store?” integration band -->
-  <section class="integrations">
-    <div class="container">
-      <div class="int-left">
-        <h3>Already running a store?</h3>
-        <p>Connect now for hyper-growth. Unlock real-time inventory sync, quotes, and fast dispatch.</p>
-        <a class="btn btn-ghost" href="services.html#integration">Learn about integrations</a>
-      </div>
-      <div class="int-logos">
-        <img src="assets/shopify.svg" alt="Shopify">
-        <img src="assets/woocommerce.svg" alt="WooCommerce">
-        <img src="assets/dukaan.svg" alt="Dukaan">
-        <img src="assets/etsy.svg" alt="Etsy">
-      </div>
-    </div>
-  </section>
-
-  <!-- Three feature tiles -->
-  <section class="container grid-3 features-tiles">
-    <div class="tile">
-      <div class="ticon">🧾</div>
-      <h4>Verified Wholesalers</h4>
-      <p>GST-verified suppliers with dispatch SLAs and MOQ-aware pricing.</p>
-    </div>
-    <div class="tile">
-      <div class="ticon">⚙️</div>
-      <h4>One-click Sync</h4>
-      <p>Push products to your store with real-time stock updates.</p>
-    </div>
-    <div class="tile">
-      <div class="ticon">🚚</div>
-      <h4>Domestic Logistics</h4>
-      <p>Shiprocket, DTDC, Delhivery and more — fast pan-India delivery.</p>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="brand-row"><img src="assets/logo.svg" width="22" height="22" alt="Kyrtica"><strong>Kyrtica</strong></div>
-      <p class="muted">© 2025 Kyrtica — Built for Indian B2B dropshipping.</p>
-    </div>
-    <nav class="footer-links">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="sitemap.xml">Sitemap</a>
-    </nav>
   </div>
+</section>
+
+<form class="searchbar" onsubmit="event.preventDefault();alert('Search '+this.q.value)">
+  <input type="text" name="q" placeholder="Find the product you’re looking for" />
+  <button type="submit">Search</button>
+</form>
+
+<section class="carousel">
+  <div class="track" id="track">
+    <div class="card"><img src="assets/pan.png" alt="Pan"/><div class="pname">Non-Stick Fry Pan</div><div class="pprice">₹499</div></div>
+    <div class="card"><img src="assets/bottle.png" alt="Bottle"/><div class="pname">Steel Bottle 1L</div><div class="pprice">₹349</div></div>
+    <div class="card"><img src="assets/notebook.png" alt="Notebook"/><div class="pname">A5 Notebook</div><div class="pprice">₹45</div></div>
+    <div class="card"><img src="assets/pan.png" alt="Pan"/><div class="pname">Tawa 28 cm</div><div class="pprice">₹399</div></div>
+    <div class="card"><img src="assets/bottle.png" alt="Bottle"/><div class="pname">Shaker 700 ml</div><div class="pprice">₹220</div></div>
+  </div>
+</section>
+
+<section class="integrations">
+  <div class="container">
+    <div>
+      <h3>Already running a store?</h3>
+      <p>Connect now for hyper-growth and unlock advanced tools — real-time inventory, price sync &amp; fast dispatch.</p>
+    </div>
+    <div class="logos">
+      <img src="assets/shopify.svg" alt="Shopify" />
+      <img src="assets/woocommerce.svg" alt="Woo" />
+      <img src="assets/dukaan.svg" alt="Dukaan" />
+      <img src="assets/etsy.svg" alt="Etsy" />
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Kyrtica — Built for Indian B2B dropshipping.
 </footer>
 
-<script src="script.js"></script>
-
-<!-- Page-local JS to power search & carousel (append-safe) -->
 <script>
-  // mark active nav
-  (function(){ const p = location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.menu a').forEach(a => { if(a.getAttribute('href')===p) a.classList.add('active'); });
-  })();
-
-  // simple search redirect
-  document.getElementById('searchBtn').addEventListener('click', () => {
-    const q = document.getElementById('searchInput').value.trim();
-    location.href = q ? ('marketplace.html?q=' + encodeURIComponent(q)) : 'marketplace.html';
+  // simple horizontal scroll via mouse wheel
+  const track=document.getElementById('track');
+  track.addEventListener('wheel',e=>{
+    e.preventDefault();
+    track.scrollBy({left:e.deltaY<0?-200:200,behavior:'smooth'});
   });
-
-  // horizontal strip scroll
-  const track = document.getElementById('stripTrack');
-  document.querySelector('.strip-nav.left').onclick  = () => track.scrollBy({left: -600, behavior:'smooth'});
-  document.querySelector('.strip-nav.right').onclick = () => track.scrollBy({left:  600, behavior:'smooth'});
-
-  // mobile menu toggle (if not already in your global script)
-  const toggle = document.querySelector('.menu-toggle'), menu = document.querySelector('.menu');
-  if(toggle && menu){ toggle.addEventListener('click', () => menu.classList.toggle('show')); }
 </script>
+
 </body>
 </html>
