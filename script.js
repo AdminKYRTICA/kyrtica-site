@@ -282,28 +282,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  /* ==============================
-   * 4) Cards: Reveal on Scroll
-   * ============================== */
-  (function () {
-    const cards = document.querySelectorAll('.card');
-    if (!cards.length) return;
+  // Reveal-on-scroll for Kyrtica cards
+(function () {
+  const cards = document.querySelectorAll('.k-card');
+  if (!cards.length) return;
 
-    // If IntersectionObserver unsupported, show immediately
-    if (!('IntersectionObserver' in window)) {
-      cards.forEach(c => c.classList.add('in-view'));
-      return;
-    }
+  if (!('IntersectionObserver' in window)) {
+    cards.forEach(c => c.classList.add('in-view'));
+    return;
+  }
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.18 });
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.18 });
 
-    cards.forEach(c => io.observe(c));
-  })();
+  cards.forEach(c => io.observe(c));
+})();
 });
