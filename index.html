@@ -3,343 +3,345 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kyrtica — India’s All-in-One B2B Dropshipping Platform</title>
-  <meta name="description" content="Connect with verified Indian wholesalers, retailers, and logistics partners through Kyrtica." />
+  <title>Kyrtica — India’s B2B Commerce OS</title>
+  <meta name="description" content="Kyrtica connects Indian wholesalers, retailers, and manufacturers with dropship fulfilment, brand packaging, logistics, payments, legal and credit — all in one place." />
   <meta name="theme-color" content="#0e0e0e" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Kyrtica — India’s All-in-One B2B Dropshipping Platform" />
-  <meta property="og:description" content="From verified wholesalers to logistics & store integrations — start and scale with Kyrtica." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/og.jpg" />
-  <meta property="og:url" content="https://kyrtica.in/" />
-  <meta name="twitter:card" content="summary_large_image" />
-
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/hero.jpg" imagesrcset="assets/hero.jpg 1200w" />
+  <link rel="preload" as="image" href="assets/hero.jpg" />
   <link rel="stylesheet" href="styles.css?v=1" />
 </head>
 
 <body>
   <!-- Header -->
-  <header>
-    <div class="container navwrap" role="navigation" aria-label="Primary">
+  <header class="site-header">
+    <div class="container navwrap">
       <a class="brand" href="index.html">
-        <img src="assets/logo.svg" alt="Kyrtica logo" loading="eager" decoding="async" />Kyrtica
+        <img src="assets/logo.svg" alt="Kyrtica" />
+        Kyrtica
       </a>
 
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
 
-      <nav id="site-nav">
-        <a href="index.html" class="active" aria-current="page">Home</a>
-        <a href="marketplace.html">Marketplace</a>
-        <a href="services.html">Services</a>
-        <a href="partner.html">Partner</a>
-        <a href="learning.html">Learning</a>
-        <a href="contact.html">Contact</a>
+      <nav id="site-nav" class="menu">
+        <a class="active" href="index.html" aria-current="page">Home</a>
+        <a href="#market">Marketplace</a>
+        <a href="#hubs">Hubs</a>
+        <a href="#services">Services</a>
+        <a href="#learning">Learning</a>
+        <a href="#contact">Contact</a>
       </nav>
 
       <div class="right">
-        <label class="sr-only" for="lang">Language & Currency</label>
-        <select id="lang" aria-label="Language and currency">
+        <select aria-label="Language & Currency">
           <option>English-INR</option>
           <option>தமிழ்-INR</option>
         </select>
-        <a class="btn btn-outline" href="signin.html">Sign In</a>
-        <a class="btn btn-primary" href="register.html">Register</a>
+        <a class="btn btn-outline" href="#signin">Sign In</a>
+        <a class="btn btn-primary" href="#register">Register</a>
       </div>
     </div>
   </header>
 
-  <main id="main">
+  <main>
     <!-- Hero -->
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-content">
-        <h1 id="hero-heading">India’s All-in-One Business Solution</h1>
-        <p>From verified Indian wholesalers to seamless logistics and integrations — your growth journey starts with Kyrtica.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="partner.html">Kickstart Your Business Dream</a>
-          <a class="btn btn-outline" href="services.html">Connect Your Store</a>
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>India’s B2B Commerce OS for Wholesalers, Retailers & Makers</h1>
+          <p>Source locally, sell nationally. Dropship fulfilment, brand packaging, logistics, payments, legal & NBFC credit — all in one place.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#hubs">Explore Hubs</a>
+            <a class="btn btn-ghost" href="#services">Connect Your Store</a>
+          </div>
+
+          <form class="searchbar" role="search" action="#market">
+            <input name="q" placeholder="Search wholesale products or manufacturers…" />
+            <button type="submit">Search</button>
+          </form>
+
+          <ul class="hero-points">
+            <li>Verified Indian suppliers</li>
+            <li>Auto-sync to Shopify/Woo</li>
+            <li>Fast settlement</li>
+            <li>Mentors & legal desk</li>
+          </ul>
         </div>
+
+        <aside class="hero-cards">
+          <div class="card">
+            <div class="card-head">Average Dispatch</div>
+            <div class="big">24–48h</div>
+            <div class="sub">Pan-India 3PL network</div>
+          </div>
+          <div class="card">
+            <div class="card-head">Retailers Onboarded</div>
+            <div class="big">10,000+</div>
+            <div class="sub">Tier-2 & Tier-3 first</div>
+          </div>
+          <div class="card">
+            <div class="card-head">Payment Success</div>
+            <div class="big">99.3%</div>
+            <div class="sub">GST invoicing built-in</div>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <!-- Search -->
-    <form class="searchbar" role="search" method="GET" action="search.html" aria-label="Product search">
-      <input type="text" name="q" placeholder="Find the product you’re looking for" aria-label="Search products" />
-      <button type="submit" aria-label="Search">Search</button>
-    </form>
-
-    <!-- Carousel -->
-    <section class="carousel" aria-labelledby="trending-heading">
-      <div class="carousel-header">
-        <h2 id="trending-heading">Trending Wholesale Picks</h2>
-        <div class="controls">
-          <button class="ctrl" data-dir="prev" aria-label="Scroll left">◀</button>
-          <button class="ctrl" data-dir="next" aria-label="Scroll right">▶</button>
-        </div>
-      </div>
-
-      <div class="track" id="track" tabindex="0" aria-roledescription="carousel" aria-label="Trending products">
-        <article class="card">
-          <img src="assets/pan.png" alt="Non-Stick Fry Pan" loading="lazy" decoding="async" />
-          <div class="pname">Non-Stick Fry Pan</div><div class="pprice">₹499</div>
-        </article>
-        <article class="card">
-          <img src="assets/bottle.png" alt="Steel Bottle 1 L" loading="lazy" decoding="async" />
-          <div class="pname">Steel Bottle 1 L</div><div class="pprice">₹349</div>
-        </article>
-        <article class="card">
-          <img src="assets/notebook.png" alt="A5 Notebook" loading="lazy" decoding="async" />
-          <div class="pname">A5 Notebook</div><div class="pprice">₹45</div>
-        </article>
-        <article class="card">
-          <img src="assets/pan.png" alt="Tawa 28 cm" loading="lazy" decoding="async" />
-          <div class="pname">Tawa 28 cm</div><div class="pprice">₹399</div>
-        </article>
-        <article class="card">
-          <img src="assets/bottle.png" alt="Shaker 700 ml" loading="lazy" decoding="async" />
-          <div class="pname">Shaker 700 ml</div><div class="pprice">₹220</div>
-        </article>
+    <!-- Marquee logos (optional) -->
+    <section class="logos-strip">
+      <div class="container logos-wrap">
+        <img src="assets/shopify.svg" alt="Shopify" />
+        <img src="assets/woocommerce.svg" alt="WooCommerce" />
+        <img src="assets/dukaan.svg" alt="Dukaan" />
+        <img src="assets/razorpay.svg" alt="Razorpay" />
+        <img src="assets/delhivery.svg" alt="Delhivery" />
+        <img src="assets/xpressbees.svg" alt="Xpressbees" />
       </div>
     </section>
 
-    <!-- Integrations -->
-    <section class="integrations">
+    <!-- Core Hubs (your key ideas) -->
+    <section id="hubs" class="k-section">
       <div class="container">
-        <div>
-          <h3>Already running a store?</h3>
-          <p>Connect now for hyper-growth and unlock advanced tools — real-time inventory sync, quotes, and fast dispatch.</p>
-        </div>
-        <div class="logos" aria-label="Supported platforms">
-          <img src="assets/shopify.svg" alt="Shopify" loading="lazy" />
-          <img src="assets/woocommerce.svg" alt="WooCommerce" loading="lazy" />
-          <img src="assets/dukaan.svg" alt="Dukaan" loading="lazy" />
-          <img src="assets/etsy.svg" alt="Etsy" loading="lazy" />
+        <p class="k-eyebrow">Built for Indian Business</p>
+        <h2 class="k-title-xl">Choose a Hub to Get Started</h2>
+        <p class="k-sub">Kyrtica connects wholesalers, retailers, manufacturers, mentors, investors and credit partners across India.</p>
+
+        <div class="k-grid">
+          <!-- 1 Easy connect between wholesaler & retailers -->
+          <a class="k-card" href="#market">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 7h18M6 7v10m12-10v10M3 17h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Wholesale Marketplace</h3>
+            <p>Match retailers with verified wholesalers. Post RFQs, compare quotes, close deals.</p>
+            <span class="k-chip"><span class="k-dot"></span>Find suppliers</span>
+          </a>
+
+          <!-- 2 Dropshipping fulfilment -->
+          <a class="k-card" href="#services">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 12l3-3h8l3 3v7H3zM17 12h4v7h-4z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Dropship Fulfilment</h3>
+            <p>Pick, pack & ship from partner 3PLs. Auto-sync orders to your store.</p>
+            <span class="k-chip"><span class="k-dot"></span>Start shipping</span>
+          </a>
+
+          <!-- 3 Brand packaging -->
+          <a class="k-card" href="#services">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4zm0 0v10l9 4 9-4V7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Brand Packaging</h3>
+            <p>Low-MOQ boxes, sleeves & labels. Private-label made simple.</p>
+            <span class="k-chip"><span class="k-dot"></span>Upgrade my brand</span>
+          </a>
+
+          <!-- 4 Online store creation -->
+          <a class="k-card" href="#services">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v12H4zM2 18h20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Online Store Creation</h3>
+            <p>Launch a commission-free storefront with payments & GST.</p>
+            <span class="k-chip"><span class="k-dot"></span>Create my site</span>
+          </a>
+
+          <!-- 5 Integrated logistics & payments -->
+          <a class="k-card" href="#services">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 10h16M4 14h16M6 18h12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Logistics & Payments</h3>
+            <p>Multi-carrier shipping, COD/Prepaid, fast settlement & reconciliations.</p>
+            <span class="k-chip"><span class="k-dot"></span>Connect now</span>
+          </a>
+
+          <!-- 6 Business ideas & mentors -->
+          <a class="k-card" href="#learning">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 3l9 4-9 4-9-4 9-4zm-5 9v5a5 5 0 0 0 10 0v-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Mentors & Academy</h3>
+            <p>Courses, playbooks & 1:1 mentors to grow from Starter to Pro.</p>
+            <span class="k-chip"><span class="k-dot"></span>Explore courses</span>
+          </a>
+
+          <!-- 7 Legal advice & cheap registration -->
+          <a class="k-card" href="#services">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3 9-7 11-4-2-7-6-7-11V6l7-4zM9 11h6M9 15h6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Legal & Compliance</h3>
+            <p>MSME, GST, IEC, trademark — docs automated, costs transparent.</p>
+            <span class="k-chip"><span class="k-dot"></span>Get help</span>
+          </a>
+
+          <!-- 8 Manufacturers Hub -->
+          <a class="k-card" href="#market">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 10h18M5 6h14M4 14h16M7 18h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Manufacturers Hub</h3>
+            <p>Discover factories from Jammu to Kanyakumari. NDAs & specs handled.</p>
+            <span class="k-chip"><span class="k-dot"></span>Post a requirement</span>
+          </a>
+
+          <!-- 9 Investors Hub -->
+          <a class="k-card" href="#invest">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 18l6-6 4 4 6-8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            </div>
+            <h3>Investors Hub</h3>
+            <p>Pitch to angels for inventory cycles & growth capital.</p>
+            <span class="k-chip"><span class="k-dot"></span>Apply to pitch</span>
+          </a>
+
+          <!-- 10 Credit with NBFCs -->
+          <a class="k-card" href="#credit">
+            <div class="k-topbar"></div>
+            <div class="k-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 7h18v10H3zM7 11h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h3>Credit via NBFC Partners</h3>
+            <p>Invoice financing & working capital for eligible sellers.</p>
+            <span class="k-chip"><span class="k-dot"></span>Check eligibility</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Growth cards -->
-    <section class="k-section" aria-labelledby="growth-heading">
-      <div class="k-container">
-        <p class="k-eyebrow">Kyrtica supports you at every step</p>
-        <h2 id="growth-heading">Tools & Services to Launch and Scale Your Business</h2>
-        <p class="k-sub">From sourcing and branding to logistics and settlements, Kyrtica connects wholesalers, manufacturers, and retailers across India with an end-to-end stack built for everyone's growth.</p>
-
-        <div class="k-grid" id="growth-grid">
-          <a class="k-card" href="#sourcing"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <rect x="3" y="3" width="8" height="6" rx="1.5"/><rect x="13" y="3" width="8" height="6" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><circle cx="18" cy="18" r="3.2"/><path d="M20.6 20.6l2.2 2.2"/>
-            </svg></div><h3 class="k-title">Sourcing Hub</h3><p class="k-desc">Post requirements, compare quotes, and match with verified manufacturers from Jammu to Kanyakumari.</p><span class="k-chip"><span class="k-dot"></span>Find suppliers</span></a>
-
-          <a class="k-card" href="#packaging"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/>
-            </svg></div><h3 class="k-title">Custom Brand Packaging</h3><p class="k-desc">On-demand labels, boxes, and design support to launch your private label without MOQ fear.</p><span class="k-chip"><span class="k-dot"></span>Upgrade your brand</span></a>
-
-          <a class="k-card" href="#odm"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M4 4h16v8H4z"/><path d="M2 16h20v4H2z"/><circle cx="7" cy="18" r="1"/><circle cx="17" cy="18" r="1"/>
-            </svg></div><h3 class="k-title">ODM Power</h3><p class="k-desc">Co-create exclusive products with partner factories. Kyrtica handles specs, NDAs, and timelines.</p><span class="k-chip"><span class="k-dot"></span>Build unique SKUs</span></a>
-
-          <a class="k-card" href="#store"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M4 9h16l-1.5 10H5.5L4 9Z"/><path d="M3 9l2-4h14l2 4"/><path d="M9 13h6M8 17h8"/>
-            </svg></div><h3 class="k-title">Online Store Creation</h3><p class="k-desc">Launch a commission-free store with Kyrtica’s catalog integration, payments, and GST invoicing built-in.</p><span class="k-chip"><span class="k-dot"></span>Create my site</span></a>
-
-          <a class="k-card" href="#bulk"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M3 14h18"/>
-            </svg></div><h3 class="k-title">Bulk Purchase Desk</h3><p class="k-desc">Unlock wholesale pricing, flexible terms, and pooled shipping for higher margins.</p><span class="k-chip"><span class="k-dot"></span>Request a quote</span></a>
-
-          <a class="k-card" href="#fulfilment"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M3 12l3-3h8l3 3v7H3z"/><path d="M17 12h4v7h-4z"/><path d="M6 18h6"/>
-            </svg></div><h3 class="k-title">3PL & Dropship Fulfilment</h3><p class="k-desc">Hassle-free pick, pack, and ship with fast settlements. Perfect for new retailers.</p><span class="k-chip"><span class="k-dot"></span>Start shipping</span></a>
-
-          <a class="k-card" href="#academy"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M7 12v5a5 5 0 0 0 10 0v-5"/>
-            </svg></div><h3 class="k-title">Mentor Match & Academy</h3><p class="k-desc">Learn, earn credits, and get guided by top sellers. Grow from Starter to Pro faster.</p><span class="k-chip"><span class="k-dot"></span>Explore courses</span></a>
-
-          <a class="k-card" href="#legal"><div class="k-topbar"></div><div class="k-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M12 2l7 4v5c0 5-3 9-7 11-4-2-7-6-7-11V6l7-4Z"/><path d="M9 11h6M9 15h6"/>
-            </svg></div><h3 class="k-title">Legal & Compliance</h3><p class="k-desc">Affordable GST, IEC, MSME, and trademark assistance with AI-powered document automation.</p><span class="k-chip"><span class="k-dot"></span>Get help</span></a>
+    <!-- How it works -->
+    <section class="steps">
+      <div class="container">
+        <h2>How Kyrtica Works</h2>
+        <div class="grid-3">
+          <div class="step">
+            <div class="badge">1</div>
+            <h3>Create your account</h3>
+            <p>Tell us if you’re a wholesaler, retailer or manufacturer. KYC is quick.</p>
+          </div>
+          <div class="step">
+            <div class="badge">2</div>
+            <h3>Connect hubs & tools</h3>
+            <p>Enable marketplace, dropship, packaging, payments, logistics & legal.</p>
+          </div>
+          <div class="step">
+            <div class="badge">3</div>
+            <h3>Scale with mentors & credit</h3>
+            <p>Join cohorts, pitch investors, and access NBFC working capital.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Reviews -->
-    <section class="reviews" aria-labelledby="review-heading">
+    <section class="reviews">
       <div class="container">
-        <h2 id="review-heading" class="reviews-title">What Do Our Entrepreneurs & Partners Say?</h2>
-        <p class="reviews-sub">Trusted by 10,000+ wholesalers, retailers & startups across India • <strong>4.9 ★</strong></p>
+        <h2 class="reviews-title">What Do Our Entrepreneurs Say?</h2>
+        <p class="reviews-sub">Trusted by 10,000+ wholesalers, retailers & startups • <strong>4.9 ★</strong></p>
 
         <div class="review-grid">
+          <!-- 6 sample review cards (use your own images) -->
           <article class="r-card">
-            <div class="r-head">
-              <img src="assets/user1.jpg" alt="Anjali Verma" />
-              <div><h4>Anjali Verma</h4><p class="role">Private-Label Seller • Delhi</p></div>
-            </div>
-            <p class="r-text">Kyrtica helped me launch my cookware brand within weeks! Their brand-packaging team designed labels and boxes that look premium. My first 500-unit batch shipped seamlessly through their fulfilment partner.</p>
-            <p class="r-meta">May 15, 2025 • <span class="src">from Shopify Store</span></p>
+            <div class="r-head"><img src="assets/user1.jpg" alt=""><div><h4>Private-Label Seller</h4><p class="role">Delhi</p></div></div>
+            <p class="r-text">Brand packaging + dropship made my launch painless. First 500 units shipped in a week.</p>
+            <p class="r-meta">May 2025 • Shopify</p>
           </article>
 
           <article class="r-card">
-            <div class="r-head">
-              <img src="assets/user2.jpg" alt="Rahul Iyer" />
-              <div><h4>Rahul Iyer</h4><p class="role">Wholesaler • Coimbatore</p></div>
-            </div>
-            <p class="r-text">The wholesaler dashboard is amazing. I can upload my catalogue and instantly connect with hundreds of verified retailers. Kyrtica’s logistics integration saved me a lot of coordination headaches.</p>
-            <p class="r-meta">June 02, 2025 • <span class="src">via Kyrtica Partner App</span></p>
+            <div class="r-head"><img src="assets/user2.jpg" alt=""><div><h4>Wholesaler</h4><p class="role">Coimbatore</p></div></div>
+            <p class="r-text">Uploaded catalogue and instantly got retailer RFQs. Integrated payments are smooth.</p>
+            <p class="r-meta">Jun 2025 • Partner App</p>
           </article>
 
           <article class="r-card">
-            <div class="r-head">
-              <img src="assets/user3.jpg" alt="Suhasini Rao" />
-              <div><h4>Suhasini Rao</h4><p class="role">Startup Founder • Hyderabad</p></div>
-            </div>
-            <p class="r-text">I joined Kyrtica’s Mentor & Investor Hub to pitch my handmade-homeware idea. Within two weeks I connected with an angel investor who funded my first inventory cycle!</p>
-            <p class="r-meta">July 11, 2025 • <span class="src">from Investor Hub</span></p>
+            <div class="r-head"><img src="assets/user3.jpg" alt=""><div><h4>Founder</h4><p class="role">Hyderabad</p></div></div>
+            <p class="r-text">Mentor + Investor Hub helped fund my first inventory cycle.</p>
+            <p class="r-meta">Jul 2025 • Investor Hub</p>
           </article>
 
           <article class="r-card">
-            <div class="r-head">
-              <img src="assets/user4.jpg" alt="Mohammed Imran" />
-              <div><h4>Mohammed Imran</h4><p class="role">Retailer • Lucknow</p></div>
-            </div>
-            <p class="r-text">I started as a small shop owner. With Kyrtica’s dropshipping fulfilment I can sell pan-India without stock. Easy payments, fast dispatch — it truly simplified e-commerce for me.</p>
-            <p class="r-meta">Aug 09, 2025 • <span class="src">via Facebook Review</span></p>
+            <div class="r-head"><img src="assets/user4.jpg" alt=""><div><h4>Retailer</h4><p class="role">Lucknow</p></div></div>
+            <p class="r-text">No inventory, national reach. Dropship fulfilment is a lifesaver.</p>
+            <p class="r-meta">Aug 2025 • Facebook</p>
           </article>
 
           <article class="r-card">
-            <div class="r-head">
-              <img src="assets/user5.jpg" alt="Priya Menon" />
-              <div><h4>Priya Menon</h4><p class="role">Entrepreneur • Kochi</p></div>
-            </div>
-            <p class="r-text">Their mentor program is gold. The business coach helped me price my products correctly and even guided me through MSME registration and NBFC credit options.</p>
-            <p class="r-meta">Sept 01, 2025 • <span class="src">from Mentor Match</span></p>
+            <div class="r-head"><img src="assets/user5.jpg" alt=""><div><h4>Entrepreneur</h4><p class="role">Kochi</p></div></div>
+            <p class="r-text">Legal desk + MSME + pricing playbook = quick compliance and better margins.</p>
+            <p class="r-meta">Sep 2025 • Mentor Match</p>
           </article>
 
           <article class="r-card">
-            <div class="r-head">
-              <img src="assets/user6.jpg" alt="Nitin S." />
-              <div><h4>Nitin S.</h4><p class="role">Manufacturer • Rajkot</p></div>
-            </div>
-            <p class="r-text">We manufacture steel bottles and utensils. Kyrtica connected us directly to new retailers from Tier-3 towns. Transparent pricing and integrated payments made the process trustworthy.</p>
-            <p class="r-meta">Oct 04, 2025 • <span class="src">via Kyrtica Manufacturing Hub</span></p>
+            <div class="r-head"><img src="assets/user6.jpg" alt=""><div><h4>Manufacturer</h4><p class="role">Rajkot</p></div></div>
+            <p class="r-text">Connected to Tier-3 retailers with transparent payment terms.</p>
+            <p class="r-meta">Oct 2025 • Mfg Hub</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Support / Resources -->
-    <section class="k-support" aria-labelledby="support-heading">
+    <!-- FAQ -->
+    <section class="faq">
       <div class="container">
-        <div class="k-support-head">
-          <h2 id="support-heading">Get the Support You Deserve for Your Business ✌️</h2>
-          <p>Guides, mentors, and tools to help wholesalers, retailers & founders grow faster with Kyrtica.</p>
-        </div>
+        <h2 class="faq-title">Frequently Asked Questions</h2>
 
-        <div class="k-support-grid">
-          <a class="k-card k-soft" href="help.html" aria-label="Help Center">
-            <div class="k-badge">?</div>
-            <h3>Help Center</h3>
-            <p>Step-by-step tutorials, sourcing playbooks, onboarding checklists, logistics & payments FAQs.</p>
-            <span class="k-link">Get Help →</span>
-          </a>
+        <div class="faq-grid" data-single>
+          <details class="faq-item">
+            <summary><span>Is Kyrtica free to start?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></summary>
+            <div class="faq-body">Yes. Browse and create an account for free. Pay only for services (3PL, packaging, legal filings, etc.).</div>
+          </details>
 
-          <a class="k-card k-soft" href="blog.html" aria-label="Blog">
-            <div class="k-badge">✎</div>
-            <h3>Blog</h3>
-            <p>Winning niches, supplier selection, pricing, GST tips, and growth tactics for Indian markets.</p>
-            <span class="k-link">Read →</span>
-          </a>
+          <details class="faq-item">
+            <summary><span>Do you support Shopify & Woo?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></summary>
+            <div class="faq-body">Yes. Inventory and orders auto-sync via app & webhooks. REST APIs for custom sites.</div>
+          </details>
 
-          <a class="k-card k-soft" href="mentors.html" aria-label="Mentor & Elites">
-            <div class="k-badge">★</div>
-            <h3>Mentors & Elites</h3>
-            <p>Get 1:1 mentor support, pitch in Investor Hub, access NBFC credit partners & legal desk.</p>
-            <span class="k-link">Learn →</span>
-          </a>
+          <details class="faq-item">
+            <summary><span>How fast is shipping?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></summary>
+            <div class="faq-body">Most orders dispatch in 24–48h. Transit depends on lane & carrier selection.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary><span>Can I get NBFC credit?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></summary>
+            <div class="faq-body">Eligible sellers can apply for invoice financing & working capital after KYC.</div>
+          </details>
         </div>
       </div>
     </section>
 
-    <!-- App promo -->
-    <section class="k-app" aria-labelledby="app-heading">
-      <div class="container k-app-wrap">
-        <div class="k-app-left">
-          <h2 id="app-heading">Put Kyrtica in your pocket</h2>
-          <p>Manage sourcing, quotes, orders, shipping & settlements on the go. Scan to install the app.</p>
-          <div class="k-stores">
-            <a class="store-badge" href="#" aria-label="Get it on App Store">
-              <img src="assets/appstore-badge.svg" alt="Download on the App Store" loading="lazy">
-            </a>
-            <a class="store-badge" href="#" aria-label="Get it on Google Play">
-              <img src="assets/googleplay-badge.svg" alt="Get it on Google Play" loading="lazy">
-            </a>
-          </div>
-          <div class="k-qr">
-            <img src="assets/qr-kyrtica.png" alt="QR code to download Kyrtica app" loading="lazy">
-            <span>Scan to download</span>
-          </div>
+    <!-- Bottom CTA -->
+    <section class="cta-banner">
+      <div class="container cta-banner-wrap">
+        <div class="cta-left">
+          <h3>Start Your Business Today with Kyrtica</h3>
+          <a class="btn btn-primary" href="#register">Try Kyrtica Free ↗</a>
         </div>
-
-        <div class="k-app-right">
-          <img class="k-phone" src="assets/app-mock-1.png" alt="Kyrtica mobile app screens" loading="lazy">
-        </div>
+        <ul class="cta-points">
+          <li>Verified Indian suppliers</li>
+          <li>Auto-sync store orders</li>
+          <li>Packaging, logistics & payments</li>
+          <li>Mentors, legal & NBFC credit</li>
+        </ul>
       </div>
     </section>
   </main>
 
   <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
 
-  <!-- Scripts -->
-  <script>
-    // sr-only utility
-    (function(){
-      const style = document.createElement('style');
-      style.textContent = '.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}';
-      document.head.appendChild(style);
-    })();
-
-    // Mobile menu toggle
-    const burger = document.querySelector('.hamburger');
-    const nav = document.getElementById('site-nav');
-    if (burger) {
-      burger.addEventListener('click', () => {
-        const open = nav.classList.toggle('open');
-        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }
-
-    // Carousel controls + wheel
-    const track = document.getElementById('track');
-    const ctrlPrev = document.querySelector('.ctrl[data-dir="prev"]');
-    const ctrlNext = document.querySelector('.ctrl[data-dir="next"]');
-
-    function scrollByCard(dir){
-      const card = track.querySelector('.card');
-      const step = (card ? card.getBoundingClientRect().width + 18 : 220) * (dir==='prev' ? -1 : 1);
-      track.scrollBy({ left: step, behavior: 'smooth' });
-    }
-    ctrlPrev.addEventListener('click', () => scrollByCard('prev'));
-    ctrlNext.addEventListener('click', () => scrollByCard('next'));
-
-    track.addEventListener('wheel', e => {
-      e.preventDefault();
-      track.scrollBy({ left: e.deltaY < 0 ? -200 : 200, behavior: 'smooth' });
-    });
-
-    track.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') scrollByCard('next');
-      if (e.key === 'ArrowLeft')  scrollByCard('prev');
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
