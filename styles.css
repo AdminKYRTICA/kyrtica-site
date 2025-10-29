@@ -1,7 +1,13 @@
 /* Kyrtica India multipage styles */
 :root{
   --bg:#0b0b0b; --card:#141414; --muted:#9aa0a6; --text:#eaecef; --brand:#e5b700; --max:1120px;
+  /* scoped vars for growth cards */
+  --k-brand-yellow: var(--brand);
+  --k-card-bg: #1a1a1a;
+  --k-muted: #bbb;
+  --overlay: rgba(0,0,0,.5); --modal:#151515; --ring:#2a2a2a;
 }
+
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Inter,Arial;line-height:1.6}
 a{color:var(--text);text-decoration:none}
@@ -57,8 +63,11 @@ img{max-width:100%;display:block}
 .badge{position:absolute;top:8px;left:8px;background:#0d0d0d;border:1px solid #2a2a2a;padding:4px 8px;border-radius:999px}
 .badge.fast{border-color:#2b7c2b}
 
-/* Forms */
-.form input,.form textarea{width:100%;background:#0e0e0e;color:#eaecef;border:1px solid #2a2a2a;border-radius:12px;padding:12px}
+/* Forms + focus */
+.form input,.form textarea,.form select{width:100%;background:#0e0e0e;color:#eaecef;border:1px solid #2a2a2a;border-radius:12px;padding:12px}
+.form textarea{resize:vertical}
+.form input:focus,.form textarea:focus,.form select:focus{outline:none;border-color:#3a3a3a;box-shadow:0 0 0 3px rgba(229,183,0,.15);transition: box-shadow .15s ease;}
+.grid-2 > .full{grid-column:1 / -1}
 
 /* Footer */
 .site-footer{padding:22px 0;border-top:1px solid #1f1f1f}
@@ -77,19 +86,12 @@ img{max-width:100%;display:block}
 }
 
 /* --- Animations & Modal (Partner Page) --- */
-:root { --overlay: rgba(0,0,0,.5); --modal:#151515; --ring:#2a2a2a; }
-
-/* subtle entrance */
 @keyframes fadeUp { from { opacity:0; transform: translateY(8px);} to{opacity:1; transform:none;} }
 .animate-in { animation: fadeUp .35s ease-out both; }
 .animate-in-delayed { animation: fadeUp .55s ease-out both; }
-
-/* role selector */
 .role-selector { display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 20px; }
 .role-option { display:flex; align-items:center; gap:8px; background:#101010; border:1px solid var(--ring); border-radius:12px; padding:10px 14px; cursor:pointer; }
 .role-option input { accent-color: var(--brand); }
-
-/* Modal shell */
 .modal-backdrop { position: fixed; inset: 0; background: var(--overlay); display:none; align-items: center; justify-content: center; padding: 16px; z-index: 999; }
 .modal-backdrop.show { display:flex; animation: fadeIn .2s ease-out; }
 @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
@@ -99,35 +101,9 @@ img{max-width:100%;display:block}
 .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top: 8px; }
 .modal-close { position:absolute; top:10px; right:10px; background:#0e0e0e; border:1px solid #2b2b2b; color:#eee; border-radius:10px; padding:6px 10px; cursor:pointer; }
 
-/* Smooth focus ring */
-.form input,.form textarea,.form select { width:100%; background:#0e0e0e; color:#eaecef; border:1px solid #2a2a2a; border-radius:12px; padding:12px }
-.form textarea{ resize:vertical }
-.form input:focus,.form textarea:focus,.form select:focus{ outline:none; border-color:#3a3a3a; box-shadow:0 0 0 3px rgba(229,183,0,.15); transition: box-shadow .15s ease; }
-.grid-2 > .full{ grid-column: 1 / -1; }
-
-/* Validation + Toasts */
-.error-hint { color: #ffb3b3; font-size: .85rem; margin-top: 6px; display:none; }
-.input-error { border-color: #7a2b2b !important; box-shadow: 0 0 0 3px rgba(255,0,0,.1) !important; }
-.toast-root { position: fixed; z-index: 1000; right: 16px; bottom: 16px; display: grid; gap: 10px; }
-.toast { background:#141414; border:1px solid #2a2a2a; border-left:4px solid #5bb98a; padding:12px 14px; border-radius:12px; box-shadow: 0 12px 28px rgba(0,0,0,.35); animation: toastIn .2s ease-out; }
-.toast.error { border-left-color:#e55; }
-@keyframes toastIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform:none;} }
-
-/* Slight lift on info-cards you already use */
-.info-card { transition: transform .18s ease, box-shadow .18s ease; }
-.info-card:hover { transform: translateY(-3px); box-shadow: 0 16px 30px rgba(0,0,0,.35); }
-
 /* =========================================
    Kyrtica Growth Cards (scoped, conflict-free)
    ========================================= */
-:root{
-  /* new vars, namespaced to avoid conflicts */
-  --k-brand-yellow: var(--brand, #ffc300);
-  --k-card-bg: #1a1a1a;
-  --k-muted: #bbb; /* for descriptions in dark theme */
-}
-
-/* Section wrapper */
 .k-section{
   background: linear-gradient(180deg, #000, #111 100%);
   border-top: 4px solid var(--k-brand-yellow);
@@ -140,136 +116,79 @@ img{max-width:100%;display:block}
 }
 .k-sub{color:var(--k-muted);max-width:60ch}
 
-/* Grid */
+/* Growth grid */
 .k-grid{display:grid;gap:18px;margin-top:28px}
 @media (min-width:640px){.k-grid{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1000px){.k-grid{grid-template-columns:repeat(3,1fr)}}
 
-/* Card */
-.k-card{
-  display:block;               /* important: anchors become blocks */
-  position:relative;
-  background:var(--k-card-bg);
-  border-radius:14px;
-  padding:20px 18px;
-  color:#fff;
-  text-decoration:none;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 1px 0 rgba(255,255,255,.05), 0 6px 24px rgba(0,0,0,.25);
-  transform:translateY(6px);
-  opacity:0;
-  transition:transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, opacity .5s ease;
-}
-.k-card.in-view{transform:translateY(0);opacity:1}
-.k-card:hover{box-shadow:0 10px 28px rgba(0,0,0,.5)}
-
-/* Hover top bar */
-.k-topbar{
-  position:absolute;left:0;top:0;right:0;height:4px;
-  background:linear-gradient(90deg,var(--k-brand-yellow),#ffe27a);
-  transform:translateY(-6px);opacity:0;transition:all .4s ease
-}
-.k-card:hover .k-topbar{opacity:1;transform:translateY(0)}
-
-/* Icon */
-.k-icon{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:44px;height:44px;border-radius:10px;background:#2a2a2a;
-  border:1px solid rgba(255,255,255,.08);margin-bottom:10px
-}
-.k-icon svg{width:22px!important;height:22px!important;display:block}
-
-/* Text */
-.k-title{font-weight:700;font-size:1.05rem;margin:0 0 4px}
-.k-desc{color:var(--k-muted);font-size:.95rem;margin:0}
-.k-chip{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-weight:600;font-size:.9rem;color:#fff}
-.k-dot{width:6px;height:6px;border-radius:50%;background:var(--k-brand-yellow);box-shadow:0 0 0 3px rgba(255,195,0,.25)}
-
-/* Reduced motion */
-@media (prefers-reduced-motion:reduce){
-  .k-card{transition:none;transform:none!important;opacity:1}
-}
-/* ===== Kyrtica Growth Cards – final overrides (place at end of styles.css) ===== */
-.k-section .k-grid{
-  display: grid !important;
-  gap: 18px !important;
-  margin-top: 28px !important;
-  grid-template-columns: 1fr !important;
-}
-@media (min-width:640px){
-  .k-section .k-grid{ grid-template-columns: repeat(2, 1fr) !important; }
-}
-@media (min-width:1000px){
-  .k-section .k-grid{ grid-template-columns: repeat(3, 1fr) !important; }
-}
-
+/* Growth card (scoped) */
 .k-section .k-card{
-  display: block !important;
-  position: relative !important;
-  background: #1a1a1a !important;
-  color: #fff !important;
-  text-decoration: none !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  border-radius: 14px !important;
-  padding: 20px 18px !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 6px 24px rgba(0,0,0,.25) !important;
-  transform: translateY(6px) !important;
-  opacity: 1; /* show even if JS not run yet */
+  display:block;position:relative;background:var(--k-card-bg);color:#fff;text-decoration:none;
+  border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 18px;
+  box-shadow:0 1px 0 rgba(255,255,255,.05), 0 6px 24px rgba(0,0,0,.25);
+  transform:translateY(6px);opacity:1;transition:transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
 }
+.k-section .k-card:hover{transform:translateY(0);box-shadow:0 10px 28px rgba(0,0,0,.5)}
+.k-section .k-topbar{position:absolute;left:0;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--k-brand-yellow),#ffe27a);opacity:0;transform:translateY(-6px);transition:.4s}
+.k-section .k-card:hover .k-topbar{opacity:1;transform:translateY(0)}
+.k-section .k-icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:#2a2a2a;border:1px solid rgba(255,255,255,.08);margin-bottom:10px}
+.k-section .k-icon svg{width:22px;height:22px;display:block}
+.k-section .k-title{font-weight:700;font-size:1.05rem;margin:0 0 4px}
+.k-section .k-desc{color:var(--k-muted);font-size:.95rem;margin:0}
+.k-section .k-chip{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-weight:600;font-size:.9rem;color:#fff}
+.k-section .k-dot{width:6px;height:6px;border-radius:50%;background:var(--k-brand-yellow);box-shadow:0 0 0 3px rgba(255,195,0,.25)}
 
-.k-section .k-icon{
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 10px !important;
-  background: #2a2a2a !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  margin-bottom: 10px !important;
-}
-.k-section .k-icon svg{
-  width: 22px !important;
-  height: 22px !important;
-  display: block !important;
-}
-
-.k-section .k-title{ font-weight: 700 !important; font-size: 1.05rem !important; margin: 0 0 4px !important; }
-.k-section .k-desc{ color: #bbb !important; font-size: .95rem !important; margin: 0 !important; }
-.k-section .k-chip{ display: inline-flex !important; gap: 6px !important; margin-top: 12px !important; font-weight: 600 !important; font-size: .9rem !important; color:#fff !important; }
-.k-section .k-dot{ width: 6px !important; height: 6px !important; border-radius: 50% !important; background: #ffc300 !important; box-shadow: 0 0 0 3px rgba(255,195,0,.25) !important; }
-/* Support / Resources */
-.k-support{background:#161616;border-top:1px solid var(--border);padding:48px 0}
-.k-support-head{text-align:center;margin-bottom:18px}
-.k-support-head h2{color:var(--brand);margin-bottom:6px}
+/* =========================
+   Support / Resources strip
+   ========================= */
+.k-support{background:#161616;border-top:1px solid #1f1f1f;padding:48px 0}
+.k-support-head{text-align:center;margin-bottom:24px}
+.k-support-head h2{color:var(--brand);margin-bottom:8px}
 .k-support-head p{color:var(--muted)}
+
+/* Horizontal grid on desktop */
 .k-support-grid{
-  display:grid;gap:18px;margin-top:14px;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  max-width:1100px;
+  margin:0 auto;
 }
-@media (max-width:900px){.k-support-grid{grid-template-columns:1fr}}
-.k-card{
-  background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:18px;transition:.25s;position:relative;overflow:hidden
+@media (max-width:900px){.k-support-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.k-support-grid{grid-template-columns:1fr}}
+
+/* Card styles scoped to support section (avoid clash with growth cards) */
+.k-support .k-card{
+  background:var(--card);
+  border:1px solid #262626;
+  border-radius:14px;
+  padding:24px 20px;
+  color:#fff;
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+  min-height:210px;
+  display:flex;flex-direction:column;justify-content:space-between;
 }
-.k-card:hover{transform:translateY(-3px);border-color:var(--brand)}
+.k-support .k-card:hover{transform:translateY(-5px);border-color:var(--brand);box-shadow:0 0 12px rgba(245,196,0,.25)}
 .k-soft::before{
-  content:"";position:absolute;inset:-40% -10% auto -10%;
-  height:180px;background:linear-gradient(90deg,#f5c40022,#ffffff00);
-  border-radius:32px;filter:blur(6px)
+  content:"";position:absolute;inset:-40% -10% auto -10%;height:180px;
+  background:linear-gradient(90deg,#f5c40022,#ffffff00);border-radius:32px;filter:blur(6px)
 }
 .k-badge{
-  width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
-  background:#000;border:1px solid var(--border);color:var(--brand);font-weight:800;margin-bottom:10px
+  width:44px;height:44px;border-radius:10px;display:grid;place-items:center;
+  background:#000;border:1px solid #2a2a2a;color:var(--brand);font-weight:800;margin-bottom:14px;font-size:1.1rem
 }
-.k-card h3{margin:6px 0 6px;font-size:1.06rem}
-.k-card p{color:#ddd}
-.k-link{display:inline-block;margin-top:10px;color:var(--brand);font-weight:700}
+.k-support .k-card h3{margin:6px 0 6px;font-size:1.1rem;color:var(--brand)}
+.k-support .k-card p{color:#ccc;font-size:.95rem;margin-bottom:10px}
+.k-link{display:inline-block;margin-top:auto;color:var(--brand);font-weight:700}
 
-/* App promo */
+/* =========================
+     App promo banner
+   ========================= */
 .k-app{
   background:#0f0f0f url('assets/app-bg.jpg') center/cover no-repeat;
-  border-top:1px solid var(--border);padding:42px 0
+  border-top:1px solid #1f1f1f;padding:42px 0
 }
 .k-app-wrap{display:grid;gap:24px;grid-template-columns:1.15fr .85fr;align-items:center}
 @media (max-width:980px){.k-app-wrap{grid-template-columns:1fr}}
@@ -283,3 +202,7 @@ img{max-width:100%;display:block}
 .k-qr span{color:var(--muted)}
 .k-app-right{display:flex;justify-content:center}
 .k-phone{max-width:360px;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,.6);border:1px solid #222}
+
+/* Hover lift on info-cards */
+.info-card{transition:transform .18s ease, box-shadow .18s ease}
+.info-card:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(0,0,0,.35)}
