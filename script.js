@@ -1,31 +1,103 @@
-// ===== Kyrtica Global Script =====
+// =======================================
+// Kyrtica Website — Main Script (Final)
+// =======================================
+'use strict';
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  // 0) Screen-reader utility: adds .sr-only class (safe to load multiple times)
+  (function(){
+    if (!document.querySelector('style[data-sr-only]')) {
+      const s = document.createElement('style');
+      s.setAttribute('data-sr-only','');
+      s.textContent = `
+        .sr-only{
+          position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+          overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0
+        }`;
+      document.head.appendChild(s);
+    }
+  })();
+
+  // Small helpers
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
   /* ==============================
    * 1) Mobile Menu Toggle
    * ============================== */
   (function () {
-    const toggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
-    if (toggle && menu) {
-      toggle.addEventListener('click', () => menu.classList.toggle('show'));
-    }
+    // Support both .hamburger (new) and .menu-toggle (old)
+    const toggle = $('.hamburger') || $('.menu-toggle');
+    const menu = $('#site-nav') || $('.menu');
+    if (!toggle || !menu) return;
+
+    const openMenu = (open) => {
+      menu.classList.toggle('show', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+
+    toggle.addEventListener('click', () => openMenu(!menu.classList.contains('show')));
+
+    // Close when clicking outside on small screens
+    document.addEventListener('click', (e) => {
+      if (!menu.classList.contains('show')) return;
+      if (!menu.contains(e.target) && e.target !== toggle) openMenu(false);
+    });
+
+    // Esc to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('show')) openMenu(false);
+    });
   })();
 
   /* ==============================
-   * 2) Partner Modal + Dynamic Fields
+   * 2) Carousel (if present)
+   * ============================== */
+  (function () {
+    const track = document.getElementById('track');
+    if (!track) return;
+
+    const prev = document.querySelector('.ctrl[data-dir="prev"]');
+    const next = document.querySelector('.ctrl[data-dir="next"]');
+
+    function scrollByCard(dir){
+      const card = track.querySelector('.card');
+      const gap = 18;
+      const step = (card ? card.getBoundingClientRect().width + gap : 240) * (dir==='prev' ? -1 : 1);
+      track.scrollBy({ left: step, behavior: 'smooth' });
+    }
+
+    prev && prev.addEventListener('click', () => scrollByCard('prev'));
+    next && next.addEventListener('click', () => scrollByCard('next'));
+
+    // Horizontal scroll with mouse wheel
+    track.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      track.scrollBy({ left: e.deltaY < 0 ? -200 : 200, behavior: 'smooth' });
+    }, { passive:false });
+
+    // Keyboard arrows
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') scrollByCard('next');
+      if (e.key === 'ArrowLeft')  scrollByCard('prev');
+    });
+  })();
+
+  /* ==============================
+   * 3) Partner Modal + Dynamic Fields
    * ============================== */
   (function () {
     const modal = document.getElementById('modal');
     const form = document.getElementById('partner-form');
     if (!modal || !form) return;
 
-    const openButtons = document.querySelectorAll('.open-modal');
-    const closeBtn = modal.querySelector('.modal-close');
-    const cancelBtn = modal.querySelector('.modal-cancel');
-    const roleField = document.getElementById('role-field');
+    const openButtons = $$('.open-modal');
+    const closeBtn   = modal.querySelector('.modal-close');
+    const cancelBtn  = modal.querySelector('.modal-cancel');
+    const roleField  = document.getElementById('role-field');
     const fieldsWrap = document.getElementById('dynamic-fields');
 
-    // --- Field presets ---
     const STATES = [
       "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana",
       "Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur",
@@ -39,14 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
       { name:'signatory_name', ph:'Authorised Signatory Name', required:true },
       { name:'contact', ph:'Mobile Number', required:true },
       { name:'email', ph:'Email', type:'email', required:true },
-      { name:'gst', ph:'GSTIN', required:false },
+      { name:'gst', ph:'GSTIN' },
       { name:'state', type:'select', ph:'State', required:true, options: STATES },
       { name:'city', ph:'City', required:true },
       { name:'pincode', ph:'Pincode (6 digits)', required:true },
       { name:'address', type:'textarea', ph:'Full Address (Door No, Street, Area)', required:true, full:true }
     ];
 
-    // Expose to window for safety if other scripts reference it
     const roleConfigs = {
       wholesaler: {
         title: 'Apply as Wholesaler',
@@ -78,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
       }
     };
-    window.roleConfigs = roleConfigs;
+    window.roleConfigs = roleConfigs; // optional external access
 
     function renderFields(cfg) {
       fieldsWrap.innerHTML = '';
@@ -113,8 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function openForRole(role) {
       const cfg = roleConfigs[role];
       if (!cfg) return;
-      document.getElementById('modal-title').textContent = cfg.title;
-      document.getElementById('modal-subtitle').textContent = cfg.subtitle;
+      const title = document.getElementById('modal-title');
+      const subtitle = document.getElementById('modal-subtitle');
+      if (title) title.textContent = cfg.title;
+      if (subtitle) subtitle.textContent = cfg.subtitle;
       if (roleField) roleField.value = role;
       renderFields(cfg);
       modal.classList.add('show');
@@ -131,17 +204,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     openButtons.forEach(btn => btn.addEventListener('click', () => openForRole(btn.dataset.role)));
-    const radios = document.querySelectorAll('input[name="role"]');
-    radios.forEach(r => r.addEventListener('change', () => openForRole(r.value)));
+    $$('#partner-roles input[name="role"]').forEach(r => r.addEventListener('change', () => openForRole(r.value)));
 
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    closeBtn && closeBtn.addEventListener('click', closeModal);
+    cancelBtn && cancelBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
   })();
 
   /* ==============================
-   * 3) Toasts, UTM Capture, Validation & Submit
+   * 4) Toasts, UTM Capture, Validation & Submit
    * ============================== */
   (function () {
     const modal = document.getElementById('modal');
@@ -151,20 +223,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const toastRoot = document.getElementById('toast-root');
 
     function showToast(msg, isError = false) {
-      if (!toastRoot) {
-        alert(msg);
-        return;
-      }
+      if (!toastRoot) { alert(msg); return; }
       const el = document.createElement('div');
       el.className = 'toast' + (isError ? ' error' : '');
       el.textContent = msg;
       toastRoot.appendChild(el);
-      setTimeout(() => { el.remove(); }, 4200);
+      setTimeout(() => el.remove(), 4200);
     }
 
-    // UTM capture (preserve in sessionStorage and fill hidden inputs if present)
+    // UTM capture
     const params = new URLSearchParams(window.location.search);
-    const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    const utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
     utmKeys.forEach(k => {
       const v = params.get(k) || sessionStorage.getItem(k) || '';
       if (v) sessionStorage.setItem(k, v);
@@ -191,8 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearError(input) {
       const hint = input.nextElementSibling;
       if (hint && hint.classList && hint.classList.contains('error-hint')) {
-        hint.style.display = 'none';
-        hint.textContent = '';
+        hint.style.display = 'none'; hint.textContent = '';
       }
       input.classList.remove('input-error');
     }
@@ -201,53 +269,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const v = (input.value || '').trim();
       const n = input.name;
 
-      if (input.required && !v) {
-        setError(input, 'This field is required');
-        return false;
-      }
-      if (n === 'email' && v) {
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-          setError(input, 'Enter a valid email');
-          return false;
-        }
-      }
-      if ((n === 'contact' || n === 'phone') && v) {
-        // Strict 10-digit Indian mobile
-        if (!/^[6-9]\d{9}$/.test(v)) {
-          setError(input, 'Enter a valid 10-digit mobile');
-          return false;
-        }
-      }
-      if (n === 'pincode' && v) {
-        if (!/^\d{6}$/.test(v)) {
-          setError(input, 'Enter a valid 6-digit pincode');
-          return false;
-        }
-      }
-      if (n === 'gst' && v) {
-        if (!/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(v.toUpperCase())) {
-          setError(input, 'GSTIN format looks invalid');
-          return false;
-        }
+      if (input.required && !v) { setError(input, 'This field is required'); return false; }
+      if (n === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { setError(input, 'Enter a valid email'); return false; }
+      if ((n === 'contact' || n === 'phone') && v && !/^[6-9]\d{9}$/.test(v)) { setError(input, 'Enter a valid 10-digit mobile'); return false; }
+      if (n === 'pincode' && v && !/^\d{6}$/.test(v)) { setError(input, 'Enter a valid 6-digit pincode'); return false; }
+      if (n === 'gst' && v && !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(v.toUpperCase())) {
+        setError(input, 'GSTIN format looks invalid'); return false;
       }
       return true;
     }
 
-    // Validate on blur
     form.addEventListener('focusout', (e) => {
       const t = e.target;
       if (t && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) validateInput(t);
     });
 
-    // Keep hidden role in sync if radios exist
+    // Keep hidden role synced
     const roleField = document.getElementById('role-field');
-    document.querySelectorAll('input[name="role"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        if (roleField) roleField.value = radio.value;
-      });
+    $$('input[name="role"]').forEach(radio => {
+      radio.addEventListener('change', () => { if (roleField) roleField.value = radio.value; });
     });
 
-    // Submit with fetch
+    // Submit
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const inputs = form.querySelectorAll('input,select,textarea');
@@ -260,19 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fd.append('submitted_at', new Date().toISOString());
         fd.append('page', location.pathname + location.search);
 
-        const resp = await fetch(form.action, {
-          method: 'POST',
-          body: fd,
-          headers: { 'Accept': 'application/json' }
-        });
-
+        const resp = await fetch(form.action || '#', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
         if (resp.ok) {
           showToast('Thanks! Your application has been submitted.');
           form.reset();
-          setTimeout(() => {
-            const close = modal.querySelector('.modal-close');
-            if (close) close.click();
-          }, 600);
+          setTimeout(() => { const close = modal.querySelector('.modal-close'); close && close.click(); }, 600);
         } else {
           showToast('Submission failed. Please try again.', true);
         }
@@ -282,25 +317,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  // Reveal-on-scroll for Kyrtica cards
-(function () {
-  const cards = document.querySelectorAll('.k-card');
-  if (!cards.length) return;
+  /* ==============================
+   * 5) FAQ single-open behavior
+   * ============================== */
+  (function(){
+    const faqGrid = document.querySelector('.faq-grid[data-single]');
+    if (!faqGrid) return;
+    faqGrid.addEventListener('toggle', (e) => {
+      if (e.target.tagName.toLowerCase() !== 'details' || !e.target.open) return;
+      faqGrid.querySelectorAll('details[open]').forEach(d => { if (d !== e.target) d.open = false; });
+    }, true);
+  })();
 
-  if (!('IntersectionObserver' in window)) {
-    cards.forEach(c => c.classList.add('in-view'));
-    return;
-  }
+  /* ==============================
+   * 6) Reveal-on-scroll for .k-card
+   * ============================== */
+  (function () {
+    const cards = $$('.k-card');
+    if (!cards.length) return;
 
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.18 });
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach(c => c.classList.add('in-view'));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    cards.forEach(c => io.observe(c));
+  })();
 
-  cards.forEach(c => io.observe(c));
-})();
 });
