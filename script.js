@@ -527,3 +527,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   sections.forEach(sec => observer.observe(sec));
 })();
+// -----------------------------------------
+// Section animation (fade+slide on scroll)
+// -----------------------------------------
+(() => {
+  const sections = document.querySelectorAll('.snap');
+  if (!sections.length) return;
+
+  const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduce || !('IntersectionObserver' in window)) {
+    sections.forEach(sec => sec.classList.add('in'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      } else {
+        entry.target.classList.remove('in'); // keep animation replayable
+      }
+    });
+  }, { threshold: 0.25 });
+
+  sections.forEach(sec => observer.observe(sec));
+})();
