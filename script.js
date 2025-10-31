@@ -429,5 +429,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     map.forEach((_, sec) => io.observe(sec));
   })();
+  <script>
+(function(){
+  // 1) Check that CSS loaded by looking for a known rule
+  var cssOk = !!getComputedStyle(document.documentElement).getPropertyValue('--bg');
+
+  // 2) Check script loaded (this code itself proves it), but also test DOMContentLoaded handler ran
+  var jsOk = true;
+
+  // 3) Check a few critical assets exist (adjust paths to match your actual structure)
+  var assets = [
+    '/assets/hero.jpg',
+    '/assets/logo.svg',
+    '/assets/shopify.svg',
+    '/assets/woocommerce.svg'
+  ];
+  var missing = [];
+  var checks = assets.map(function (url){
+    return new Promise(function(resolve){
+      var img = new Image();
+      img.onload = function(){ resolve({url, ok:true}); };
+      img.onerror = function(){ resolve({url, ok:false}); };
+      img.src = url + '?v=' + Date.now();
+    });
+  });
+
+  Promise.all(checks).then(function(results){
+    results.forEach(function(r){ if(!r.ok) missing.push(r.url); });
+
+    // Visual badge if anything is wrong
+    var badge = document.createElement('div');
+    badge.style.cssText = 'position:fixed;bottom:12px;right:12px;padding:10px 12px;border-radius:10px;background:#1b1b1b;color:#fff;border:1px solid #333;font:600 12px/1.2 system-ui;z-index:99999';
+    var ok = cssOk && jsOk && missing.length === 0;
+    badge.style.background = ok ? '#0d1f0d' : '#2a0f10';
+    badge.style.borderColor = ok ? '#1f4d1f' : '#5a1f22';
+    badge.textContent = ok ? '✅ All core assets loaded' : ('❌ Missing: ' + missing.join(', '));
+    document.body.appendChild(badge);
+
+    // Console details
+    console.group('%cKyrtica debug', 'color:#f5c400;font-weight:700');
+    console.log('CSS custom properties present:', cssOk);
+    console.log('script.js executed:', jsOk);
+    console.log('Missing assets:', missing);
+    console.groupEnd();
+  });
+})();
+</script>
 
 });
