@@ -477,3 +477,28 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 });
+// -----------------------------------------
+// 9) Section-level smooth entrance animation
+// -----------------------------------------
+(() => {
+  const sections = document.querySelectorAll('.snap');
+  if (!sections.length) return;
+
+  const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduce || !('IntersectionObserver' in window)) {
+    sections.forEach(s => s.classList.add('in'));
+    return;
+  }
+
+  const onIntersect = (entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        obs.unobserve(entry.target);
+      }
+    });
+  };
+
+  const io = new IntersectionObserver(onIntersect, { threshold: 0.25 });
+  sections.forEach(sec => io.observe(sec));
+})();
