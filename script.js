@@ -351,4 +351,12 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach(c => io.observe(c));
   })();
 
+  <script>
+  const onIntersect = (entries, obs) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }});
+  };
+  const io = new IntersectionObserver(onIntersect, { threshold: 0.2 });
+  document.querySelectorAll('.cashless .reveal').forEach(el => io.observe(el));
+</script>
+
 });
