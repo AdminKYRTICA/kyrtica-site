@@ -300,3 +300,23 @@ footer{border-top:1px solid #1f1f1f;background:#000;color:#aaa;text-align:center
   font-size:1.05rem;
   color:#eaecef;
 }
+/* ============================================================
+   Section-level Smooth Reveal Animations
+   ============================================================ */
+
+.snap {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.snap.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional: slight delay stagger for children */
+.snap .reveal {
+  transition-delay: 0.1s;
+}
