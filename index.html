@@ -6,11 +6,14 @@
   <title>Kyrtica — India’s B2B Commerce OS</title>
   <meta name="description" content="Kyrtica connects Indian wholesalers, retailers, and manufacturers with dropship fulfilment, brand packaging, logistics, payments, legal and credit — all in one place." />
   <meta name="theme-color" content="#0e0e0e" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/hero.jpg" />
-  <link rel="stylesheet" href="styles.css?v=1" />
-  <!-- Marks <html> with .js so CSS can enable enter animations; safe even without the rest of JS -->
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="/assets/hero.jpg" />
+  <!-- bump the version to bust old cache -->
+  <link rel="stylesheet" href="/styles.css?v=2" />
+  <!-- enable CSS-based reveals even if external JS is slow -->
   <script>document.documentElement.classList.add('js');</script>
+  <!-- load main script safely (no blocking, cache-busted) -->
+  <script defer src="/script.js?v=2"></script>
 </head>
 
 <body>
@@ -421,6 +424,5 @@
   <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
 
   <!-- keep your existing script.js include; we’ll add scroll/reveal logic there next -->
-  <script src="script.js"></script>
 </body>
 </html>
