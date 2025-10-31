@@ -360,3 +360,48 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 });
+<script>
+(function(){
+  const el = document.getElementById('visit-counter');
+  if(!el) return;
+
+  const NAMESPACE = 'kyrtica.in';
+  const KEY = 'homepage';
+  const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+  const lsFlagKey = `vc_${KEY}_date`;
+  const last = localStorage.getItem(lsFlagKey);
+
+  // Helper: GET current value (no increment)
+  const readCount = () =>
+    fetch(`https://api.countapi.xyz/get/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`)
+      .then(r => r.json())
+      .then(d => (d?.value ?? 0));
+
+  // Helper: HIT increments by +1
+  const hitCount = () =>
+    fetch(`https://api.countapi.xyz/hit/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`)
+      .then(r => r.json())
+      .then(d => (d?.value ?? 0));
+
+  // Update UI safely
+  const setUI = (n) => { el.textContent = Number(n).toLocaleString(); };
+
+  // Strategy: increment once per device per day; otherwise just read
+  const go = async () => {
+    try {
+      let value;
+      if (last === today) {
+        value = await readCount();
+      } else {
+        value = await hitCount();
+        localStorage.setItem(lsFlagKey, today);
+      }
+      setUI(value);
+    } catch (e) {
+      el.textContent = 'offline';
+    }
+  };
+
+  go();
+})();
+</script>
