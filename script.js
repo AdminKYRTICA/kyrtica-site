@@ -502,3 +502,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const io = new IntersectionObserver(onIntersect, { threshold: 0.25 });
   sections.forEach(sec => io.observe(sec));
 })();
+// -----------------------------------------
+// 10) Parallax-style section animation
+// -----------------------------------------
+(() => {
+  const sections = document.querySelectorAll('.snap');
+  if (!sections.length) return;
+
+  const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduce || !('IntersectionObserver' in window)) {
+    sections.forEach(sec => sec.classList.add('in'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      } else {
+        entry.target.classList.remove('in'); // remove to re-trigger on scroll up
+      }
+    });
+  }, { threshold: 0.25, rootMargin: '0px 0px -20px 0px' });
+
+  sections.forEach(sec => observer.observe(sec));
+})();
