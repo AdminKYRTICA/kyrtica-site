@@ -105,13 +105,32 @@ select{
 .sub{color:#a9a9a9}
 
 /* ========================= Logos strip ========================= */
-.logos-strip{border-top:1px solid #1f1f1f}
-.logos-wrap{
-  display:flex;gap:28px;align-items:center;justify-content:center;
-  padding:18px 0;flex-wrap:wrap
+.logos-strip{
+  background:#fff;                           /* white background */
+  border-top:1px solid #e5e5e5;              /* light separators */
+  border-bottom:1px solid #e5e5e5;
+  padding:24px 0;
 }
-.logos-wrap img{height:30px;filter:grayscale(100%) brightness(1.2);opacity:.85}
-.logos-wrap img:hover{filter:none;opacity:1}
+
+.logos-wrap{
+  display:flex;
+  gap:36px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.logos-wrap img{
+  height:32px;
+  filter:none;                               /* remove grayscale */
+  opacity:.9;
+  transition:opacity .2s ease, transform .2s ease;
+}
+
+.logos-wrap img:hover{
+  opacity:1;
+  transform:translateY(-2px);                /* small lift on hover */
+}
 
 /* ========================= Hubs ========================= */
 .k-section{padding:48px 0;border-top:1px solid #1f1f1f}
