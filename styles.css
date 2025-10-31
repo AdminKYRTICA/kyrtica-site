@@ -254,3 +254,30 @@ select{
 
 /* ========================= Footer ========================= */
 footer{border-top:1px solid #1f1f1f;background:#000;color:#aaa;text-align:center;padding:22px 20px}
+
+/* Visitors counter (Kyrtica style) */
+.visit-count{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:linear-gradient(180deg, #121212, #0d0d0d);
+  box-shadow:0 6px 18px rgba(245,196,0,.08) inset;
+}
+.vc-label{
+  font-weight:800;
+  letter-spacing:.02em;
+  color:var(--brand);
+  background:rgba(245,196,0,.12);
+  border:1px solid rgba(245,196,0,.35);
+  padding:4px 8px;
+  border-radius:999px;
+}
+.vc-value{
+  font-variant-numeric:tabular-nums;
+  font-weight:900;
+  font-size:1.05rem;
+  color:#eaecef;
+}
