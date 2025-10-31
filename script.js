@@ -1,15 +1,21 @@
 // =======================================
-// Kyrtica Website — Main Script (Final)
+// Kyrtica Website — Main Script (Optimized)
 // =======================================
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // 0) Screen-reader utility: adds .sr-only class (safe to load multiple times)
-  (function(){
+  // ---------------------------
+  // 0) Utilities & a11y helpers
+  // ---------------------------
+  const $  = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  // Screen-reader utility (idempotent)
+  (() => {
     if (!document.querySelector('style[data-sr-only]')) {
       const s = document.createElement('style');
-      s.setAttribute('data-sr-only','');
+      s.setAttribute('data-sr-only', '');
       s.textContent = `
         .sr-only{
           position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
@@ -19,17 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  // Small helpers
-  const $ = (sel, root=document) => root.querySelector(sel);
-  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
-  /* ==============================
-   * 1) Mobile Menu Toggle
-   * ============================== */
-  (function () {
-    // Support both .hamburger (new) and .menu-toggle (old)
+  // --------------------------------
+  // 1) Mobile Menu (hamburger toggle)
+  // --------------------------------
+  (() => {
     const toggle = $('.hamburger') || $('.menu-toggle');
-    const menu = $('#site-nav') || $('.menu');
+    const menu   = $('#site-nav')   || $('.menu');
     if (!toggle || !menu) return;
 
     const openMenu = (open) => {
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toggle.addEventListener('click', () => openMenu(!menu.classList.contains('show')));
 
-    // Close when clicking outside on small screens
+    // Close when clicking outside
     document.addEventListener('click', (e) => {
       if (!menu.classList.contains('show')) return;
       if (!menu.contains(e.target) && e.target !== toggle) openMenu(false);
@@ -51,22 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  /* ==============================
-   * 2) Carousel (if present)
-   * ============================== */
-  (function () {
-    const track = document.getElementById('track');
+  // -----------------------
+  // 2) Carousel (if present)
+  // -----------------------
+  (() => {
+    const track = $('#track');
     if (!track) return;
 
-    const prev = document.querySelector('.ctrl[data-dir="prev"]');
-    const next = document.querySelector('.ctrl[data-dir="next"]');
+    const prev = $('.ctrl[data-dir="prev"]');
+    const next = $('.ctrl[data-dir="next"]');
 
-    function scrollByCard(dir){
+    const scrollByCard = (dir) => {
       const card = track.querySelector('.card');
-      const gap = 18;
-      const step = (card ? card.getBoundingClientRect().width + gap : 240) * (dir==='prev' ? -1 : 1);
+      const gap  = 18;
+      const step = (card ? card.getBoundingClientRect().width + gap : 240) * (dir === 'prev' ? -1 : 1);
       track.scrollBy({ left: step, behavior: 'smooth' });
-    }
+    };
 
     prev && prev.addEventListener('click', () => scrollByCard('prev'));
     next && next.addEventListener('click', () => scrollByCard('next'));
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     track.addEventListener('wheel', (e) => {
       e.preventDefault();
       track.scrollBy({ left: e.deltaY < 0 ? -200 : 200, behavior: 'smooth' });
-    }, { passive:false });
+    }, { passive: false });
 
     // Keyboard arrows
     track.addEventListener('keydown', (e) => {
@@ -84,38 +85,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  /* ==============================
-   * 3) Partner Modal + Dynamic Fields
-   * ============================== */
-  (function () {
-    const modal = document.getElementById('modal');
-    const form = document.getElementById('partner-form');
+  // ---------------------------------------------
+  // 3) Partner Modal + Dynamic Fields (if present)
+  // ---------------------------------------------
+  (() => {
+    const modal = $('#modal');
+    const form  = $('#partner-form');
     if (!modal || !form) return;
 
     const openButtons = $$('.open-modal');
-    const closeBtn   = modal.querySelector('.modal-close');
-    const cancelBtn  = modal.querySelector('.modal-cancel');
-    const roleField  = document.getElementById('role-field');
-    const fieldsWrap = document.getElementById('dynamic-fields');
+    const closeBtn    = modal.querySelector('.modal-close');
+    const cancelBtn   = modal.querySelector('.modal-cancel');
+    const roleField   = $('#role-field');
+    const fieldsWrap  = $('#dynamic-fields');
 
     const STATES = [
-      "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana",
-      "Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur",
-      "Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana",
-      "Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Andaman and Nicobar Islands","Chandigarh",
-      "Dadra and Nagar Haveli and Daman and Diu","Delhi","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"
+      'Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana',
+      'Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur',
+      'Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana',
+      'Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Andaman and Nicobar Islands','Chandigarh',
+      'Dadra and Nagar Haveli and Daman and Diu','Delhi','Jammu and Kashmir','Ladakh','Lakshadweep','Puducherry'
     ];
 
     const COMMON_FIELDS = [
-      { name:'business_name', ph:'Business Name', required:true },
+      { name:'business_name',  ph:'Business Name', required:true },
       { name:'signatory_name', ph:'Authorised Signatory Name', required:true },
-      { name:'contact', ph:'Mobile Number', required:true },
-      { name:'email', ph:'Email', type:'email', required:true },
-      { name:'gst', ph:'GSTIN' },
-      { name:'state', type:'select', ph:'State', required:true, options: STATES },
-      { name:'city', ph:'City', required:true },
-      { name:'pincode', ph:'Pincode (6 digits)', required:true },
-      { name:'address', type:'textarea', ph:'Full Address (Door No, Street, Area)', required:true, full:true }
+      { name:'contact',        ph:'Mobile Number', required:true },
+      { name:'email',          ph:'Email', type:'email', required:true },
+      { name:'gst',            ph:'GSTIN' },
+      { name:'state',          type:'select', ph:'State', required:true, options: STATES },
+      { name:'city',           ph:'City', required:true },
+      { name:'pincode',        ph:'Pincode (6 digits)', required:true },
+      { name:'address',        type:'textarea', ph:'Full Address (Door No, Street, Area)', required:true, full:true }
     ];
 
     const roleConfigs = {
@@ -125,8 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fields: [
           ...COMMON_FIELDS,
           { name:'categories', ph:'Categories (e.g., kitchenware, electronics)' },
-          { name:'moq', ph:'Typical MOQ (e.g., 20, 50)' },
-          { name:'website', ph:'Website (optional)' }
+          { name:'moq',        ph:'Typical MOQ (e.g., 20, 50)' },
+          { name:'website',    ph:'Website (optional)' }
         ]
       },
       retailer: {
@@ -134,8 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         subtitle: 'We’ll help you source and sync products.',
         fields: [
           ...COMMON_FIELDS,
-          { name:'store_name', ph:'Store Name', required:true },
-          { name:'platform', ph:'Platform (Shopify / Woo / Dukaan)', required:true },
+          { name:'store_name',     ph:'Store Name', required:true },
+          { name:'platform',       ph:'Platform (Shopify / Woo / Dukaan)', required:true },
           { name:'monthly_orders', ph:'Estimated Monthly Orders' }
         ]
       },
@@ -151,7 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.roleConfigs = roleConfigs; // optional external access
 
-    function renderFields(cfg) {
+    const renderFields = (cfg) => {
+      if (!fieldsWrap) return;
       fieldsWrap.innerHTML = '';
       cfg.fields.forEach(f => {
         let el;
@@ -179,70 +181,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         fieldsWrap.appendChild(el);
       });
-    }
+    };
 
-    function openForRole(role) {
+    const openForRole = (role) => {
       const cfg = roleConfigs[role];
       if (!cfg) return;
-      const title = document.getElementById('modal-title');
-      const subtitle = document.getElementById('modal-subtitle');
-      if (title) title.textContent = cfg.title;
+      const title    = $('#modal-title');
+      const subtitle = $('#modal-subtitle');
+      if (title)    title.textContent    = cfg.title;
       if (subtitle) subtitle.textContent = cfg.subtitle;
-      if (roleField) roleField.value = role;
+      if (roleField) roleField.value     = role;
       renderFields(cfg);
       modal.classList.add('show');
       modal.setAttribute('aria-hidden', 'false');
       setTimeout(() => {
-        const first = fieldsWrap.querySelector('input,select,textarea');
-        if (first) first.focus();
+        const first = fieldsWrap && fieldsWrap.querySelector('input,select,textarea');
+        first && first.focus();
       }, 30);
-    }
+    };
 
-    function closeModal() {
+    const closeModal = () => {
       modal.classList.remove('show');
       modal.setAttribute('aria-hidden', 'true');
-    }
+    };
 
     openButtons.forEach(btn => btn.addEventListener('click', () => openForRole(btn.dataset.role)));
     $$('#partner-roles input[name="role"]').forEach(r => r.addEventListener('change', () => openForRole(r.value)));
-
-    closeBtn && closeBtn.addEventListener('click', closeModal);
+    closeBtn  && closeBtn.addEventListener('click', closeModal);
     cancelBtn && cancelBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
   })();
 
-  /* ==============================
-   * 4) Toasts, UTM Capture, Validation & Submit
-   * ============================== */
-  (function () {
-    const modal = document.getElementById('modal');
-    const form = document.getElementById('partner-form');
+  // ----------------------------------------------------
+  // 4) Toasts, UTM Capture, Validation & Submit (modal)
+  // ----------------------------------------------------
+  (() => {
+    const modal = $('#modal');
+    const form  = $('#partner-form');
     if (!modal || !form) return;
 
-    const toastRoot = document.getElementById('toast-root');
+    const toastRoot = $('#toast-root');
 
-    function showToast(msg, isError = false) {
+    const showToast = (msg, isError = false) => {
       if (!toastRoot) { alert(msg); return; }
       const el = document.createElement('div');
       el.className = 'toast' + (isError ? ' error' : '');
       el.textContent = msg;
       toastRoot.appendChild(el);
       setTimeout(() => el.remove(), 4200);
-    }
+    };
 
     // UTM capture
-    const params = new URLSearchParams(window.location.search);
+    const params  = new URLSearchParams(window.location.search);
     const utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
     utmKeys.forEach(k => {
       const v = params.get(k) || sessionStorage.getItem(k) || '';
       if (v) sessionStorage.setItem(k, v);
-      const input = document.getElementById(k);
+      const input = $('#' + k);
       if (input) input.value = v || '';
     });
 
     // Validation helpers
-    function ensureHint(input) {
+    const ensureHint = (input) => {
       let hint = input.nextElementSibling;
       if (!hint || !hint.classList || !hint.classList.contains('error-hint')) {
         hint = document.createElement('div');
@@ -250,21 +251,21 @@ document.addEventListener('DOMContentLoaded', () => {
         input.insertAdjacentElement('afterend', hint);
       }
       return hint;
-    }
-    function setError(input, msg) {
+    };
+    const setError = (input, msg) => {
       const hint = ensureHint(input);
       hint.textContent = msg;
       hint.style.display = 'block';
       input.classList.add('input-error');
-    }
-    function clearError(input) {
+    };
+    const clearError = (input) => {
       const hint = input.nextElementSibling;
       if (hint && hint.classList && hint.classList.contains('error-hint')) {
         hint.style.display = 'none'; hint.textContent = '';
       }
       input.classList.remove('input-error');
-    }
-    function validateInput(input) {
+    };
+    const validateInput = (input) => {
       clearError(input);
       const v = (input.value || '').trim();
       const n = input.name;
@@ -277,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setError(input, 'GSTIN format looks invalid'); return false;
       }
       return true;
-    }
+    };
 
     form.addEventListener('focusout', (e) => {
       const t = e.target;
@@ -285,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Keep hidden role synced
-    const roleField = document.getElementById('role-field');
+    const roleField = $('#role-field');
     $$('input[name="role"]').forEach(radio => {
       radio.addEventListener('change', () => { if (roleField) roleField.value = radio.value; });
     });
@@ -311,16 +312,16 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           showToast('Submission failed. Please try again.', true);
         }
-      } catch (err) {
+      } catch {
         showToast('Network error. Please try again.', true);
       }
     });
   })();
 
-  /* ==============================
-   * 5) FAQ single-open behavior
-   * ============================== */
-  (function(){
+  // -----------------------------------
+  // 5) FAQ single-open (accordion style)
+  // -----------------------------------
+  (() => {
     const faqGrid = document.querySelector('.faq-grid[data-single]');
     if (!faqGrid) return;
     faqGrid.addEventListener('toggle', (e) => {
@@ -329,79 +330,104 @@ document.addEventListener('DOMContentLoaded', () => {
     }, true);
   })();
 
-  /* ==============================
-   * 6) Reveal-on-scroll for .k-card
-   * ============================== */
-  (function () {
-    const cards = $$('.k-card');
-    if (!cards.length) return;
+  // -----------------------------------------
+  // 6) Reveal-on-scroll (global, lightweight)
+  // -----------------------------------------
+  (() => {
+    const prefersReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = $$('.reveal');
+    if (!targets.length) return;
 
-    if (!('IntersectionObserver' in window)) {
-      cards.forEach(c => c.classList.add('in-view'));
+    // No IO or motion? Just show everything.
+    if (prefersReduce || !('IntersectionObserver' in window)) {
+      targets.forEach(t => t.classList.add('in'));
       return;
     }
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
+
+    const onIntersect = (entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.18 });
-    cards.forEach(c => io.observe(c));
+    };
+
+    const io = new IntersectionObserver(onIntersect, {
+      threshold: 0.18,
+      rootMargin: '0px 0px -40px 0px' // nudge reveal a bit earlier
+    });
+
+    targets.forEach(el => io.observe(el));
   })();
 
-  <script>
-  const onIntersect = (entries, obs) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }});
-  };
-  const io = new IntersectionObserver(onIntersect, { threshold: 0.2 });
-  document.querySelectorAll('.cashless .reveal').forEach(el => io.observe(el));
-</script>
+  // -----------------------------------------
+  // 7) Visit Counter (CountAPI, once/day/device)
+  // -----------------------------------------
+  (() => {
+    const el = $('#visit-counter');
+    if (!el) return;
+
+    const NAMESPACE = 'kyrtica.in';
+    const KEY       = 'homepage';
+    const today     = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+    const lsKey     = `vc_${KEY}_date`;
+    const last      = localStorage.getItem(lsKey);
+
+    const readCount = () =>
+      fetch(`https://api.countapi.xyz/get/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`)
+        .then(r => r.json())
+        .then(d => (d && typeof d.value === 'number') ? d.value : 0);
+
+    const hitCount = () =>
+      fetch(`https://api.countapi.xyz/hit/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`)
+        .then(r => r.json())
+        .then(d => (d && typeof d.value === 'number') ? d.value : 0);
+
+    const setUI = (n) => { el.textContent = Number(n).toLocaleString(); };
+
+    (async () => {
+      try {
+        const value = (last === today) ? await readCount() : await hitCount();
+        if (last !== today) localStorage.setItem(lsKey, today);
+        setUI(value);
+      } catch {
+        el.textContent = 'offline';
+      }
+    })();
+  })();
+
+  // -----------------------------------------
+  // 8) Optional: highlight nav link on scroll
+  // -----------------------------------------
+  (() => {
+    const nav = $('#site-nav');
+    if (!nav || !('IntersectionObserver' in window)) return;
+
+    const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+    if (!links.length) return;
+
+    const map = new Map();
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const sec = id && document.getElementById(id);
+      if (sec) map.set(sec, a);
+    });
+    if (!map.size) return;
+
+    const clearActive = () => links.forEach(a => a.classList.remove('active'));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          clearActive();
+          const a = map.get(e.target);
+          a && a.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+
+    map.forEach((_, sec) => io.observe(sec));
+  })();
 
 });
-<script>
-(function(){
-  const el = document.getElementById('visit-counter');
-  if(!el) return;
-
-  const NAMESPACE = 'kyrtica.in';
-  const KEY = 'homepage';
-  const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
-  const lsFlagKey = `vc_${KEY}_date`;
-  const last = localStorage.getItem(lsFlagKey);
-
-  // Helper: GET current value (no increment)
-  const readCount = () =>
-    fetch(`https://api.countapi.xyz/get/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`)
-      .then(r => r.json())
-      .then(d => (d?.value ?? 0));
-
-  // Helper: HIT increments by +1
-  const hitCount = () =>
-    fetch(`https://api.countapi.xyz/hit/${encodeURIComponent(NAMESPACE)}/${encodeURIComponent(KEY)}`)
-      .then(r => r.json())
-      .then(d => (d?.value ?? 0));
-
-  // Update UI safely
-  const setUI = (n) => { el.textContent = Number(n).toLocaleString(); };
-
-  // Strategy: increment once per device per day; otherwise just read
-  const go = async () => {
-    try {
-      let value;
-      if (last === today) {
-        value = await readCount();
-      } else {
-        value = await hitCount();
-        localStorage.setItem(lsFlagKey, today);
-      }
-      setUI(value);
-    } catch (e) {
-      el.textContent = 'offline';
-    }
-  };
-
-  go();
-})();
-</script>
