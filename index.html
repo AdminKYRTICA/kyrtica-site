@@ -414,5 +414,50 @@
   <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
 
   <script src="script.js"></script>
+  <script>
+(function(){
+  const counter = document.getElementById('visit-counter');
+  if(!counter) return;
+
+  // Your custom namespace and key (each pair tracks separately)
+  const NAMESPACE = 'kyrtica_in';
+  const KEY = 'homepage_visits';
+  const today = new Date().toISOString().slice(0,10);
+  const flagKey = `${KEY}_last_visit`;
+
+  const read = async () => {
+    const r = await fetch(`https://api.countapi.xyz/get/${NAMESPACE}/${KEY}`);
+    const d = await r.json();
+    return d.value || 0;
+  };
+
+  const hit = async () => {
+    const r = await fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`);
+    const d = await r.json();
+    return d.value || 0;
+  };
+
+  const render = (n) => {
+    counter.textContent = n.toLocaleString('en-IN');
+  };
+
+  (async () => {
+    try {
+      let val;
+      // increment only once per device per day
+      if (localStorage.getItem(flagKey) === today) {
+        val = await read();
+      } else {
+        val = await hit();
+        localStorage.setItem(flagKey, today);
+      }
+      render(val);
+    } catch (err) {
+      counter.textContent = '—';
+      console.error('Visitor counter error:', err);
+    }
+  })();
+})();
+</script>
 </body>
 </html>
