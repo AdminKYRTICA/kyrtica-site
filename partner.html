@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Partner — Kyrtica</title>
+  <meta name="description" content="Partner page for Kyrtica" />
+  <meta name="theme-color" content="#0e0e0e" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container navwrap">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.svg" alt="Kyrtica" />
+        Kyrtica
+      </a>
+
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="site-nav" class="menu">
+        <a href="index.html">Home</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="hubs.html">Hubs</a>
+        <a href="services.html">Services</a>
+        <a href="learning.html">Learning</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="right">
+        <select aria-label="Language & Currency">
+          <option>English-INR</option>
+          <option>தமிழ்-INR</option>
+        </select>
+        <a class="btn btn-outline" href="#signin">Sign In</a>
+        <a class="btn btn-primary" href="#register">Register</a>
+      </div>
+    </div>
+  </header>
+<main>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <h1>Partner With Us</h1>
+      <p>Onboard as a wholesaler, manufacturer or logistics partner. Verification is quick.</p>
+    </div>
+  </div>
+</section>
+
+<section class="k-section">
+  <div class="container">
+    <p class="k-eyebrow">Apply Now</p>
+    <h2 class="k-title-xl">Business Details</h2>
+    <form class="k-grid" action="#" method="post">
+      <div class="k-card"><div class="k-topbar"></div>
+        <label>Business Name</label><input class="input" name="business" required />
+        <label>Contact Person</label><input class="input" name="person" required />
+        <label>Email</label><input class="input" type="email" name="email" required />
+        <label>Phone</label><input class="input" name="phone" required />
+      </div>
+      <div class="k-card"><div class="k-topbar"></div>
+        <label>Type</label>
+        <select class="input" name="type">
+          <option>Wholesaler</option>
+          <option>Manufacturer</option>
+          <option>3PL / Logistics</option>
+        </select>
+        <label>City</label><input class="input" name="city" />
+        <label>Website (optional)</label><input class="input" name="website" />
+        <label>Description</label><textarea class="input" rows="5" name="desc"></textarea>
+      </div>
+      <div class="k-card"><div class="k-topbar"></div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+  <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
+<script src="script.js"></script>
+</body>
+</html>
