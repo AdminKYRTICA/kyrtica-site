@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Partner — Kyrtica</title>
-  <meta name="description" content="Partner page for Kyrtica" />
+  <title>Partner With Us — Kyrtica</title>
+  <meta name="description" content="Onboard as manufacturer, wholesaler, retail business, logistics, legal/CA or other service partner." />
   <meta name="theme-color" content="#0e0e0e" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css?v=1" />
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (same classes as your index) -->
   <header class="site-header">
     <div class="container navwrap">
       <a class="brand" href="index.html">
@@ -41,48 +41,92 @@
       </div>
     </div>
   </header>
-<main>
 
-<section class="hero">
-  <div class="container hero-inner">
-    <div class="hero-copy">
-      <h1>Partner With Us</h1>
-      <p>Onboard as a wholesaler, manufacturer or logistics partner. Verification is quick.</p>
+  <main>
+    <!-- HERO (no background image) -->
+    <section class="hero" style="background:none">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>Partner With Us</h1>
+          <p>
+            Onboard as a <strong>Manufacturer</strong>, <strong>Wholesaler</strong>, <strong>Retail Business</strong>,
+            <strong>Logistics (3PL)</strong>, <strong>Legal Consultant</strong>, <strong>Chartered Accountant</strong>,
+            or other <strong>Service Provider</strong>. Select a tile to begin.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#apply">Start Application</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROLE TILES -->
+    <section class="k-section" id="apply">
+      <div class="container">
+        <p class="k-eyebrow">Choose Your Role</p>
+        <h2 class="k-title-xl">Apply Now</h2>
+
+        <div class="k-grid" id="role-tiles">
+          <button class="k-card role-tile" data-role="manufacturer">
+            <div class="k-topbar"></div>
+            <h3>Manufacturer</h3><p>Factories, OEM, job-work</p>
+          </button>
+
+          <button class="k-card role-tile" data-role="wholesaler">
+            <div class="k-topbar"></div>
+            <h3>Wholesaler / Distributor</h3><p>Stock & sell in bulk</p>
+          </button>
+
+          <button class="k-card role-tile" data-role="retail">
+            <div class="k-topbar"></div>
+            <h3>Retail Business Entity</h3><p>Retailers, D2C, online</p>
+          </button>
+
+          <button class="k-card role-tile" data-role="logistics">
+            <div class="k-topbar"></div>
+            <h3>Logistics / 3PL</h3><p>Courier, warehousing</p>
+          </button>
+
+          <button class="k-card role-tile" data-role="legal">
+            <div class="k-topbar"></div>
+            <h3>Legal Consultants</h3><p>GST, MSME, IEC, TM</p>
+          </button>
+
+          <button class="k-card role-tile" data-role="ca">
+            <div class="k-topbar"></div>
+            <h3>Chartered Accountants</h3><p>Compliance & audit</p>
+          </button>
+
+          <button class="k-card role-tile" data-role="service">
+            <div class="k-topbar"></div>
+            <h3>Other Service Provider</h3><p>Packaging, IT, design…</p>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DYNAMIC FORM RENDER TARGET -->
+    <section class="k-section">
+      <div class="container">
+        <div id="form-container" class="k-grid">
+          <div class="k-card">
+            <div class="k-topbar"></div>
+            <p>Select a tile above to load a role-specific form. You can also upload a catalogue (CSV/XLSX/PDF/Images).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simple toast -->
+    <div id="toast" class="card" style="position:fixed;right:14px;bottom:14px;display:none;z-index:50">
+      <div class="card-head">Submitted</div>
+      <div>Your application has been recorded. We’ll reach out soon.</div>
     </div>
-  </div>
-</section>
+  </main>
 
-<section class="k-section">
-  <div class="container">
-    <p class="k-eyebrow">Apply Now</p>
-    <h2 class="k-title-xl">Business Details</h2>
-    <form class="k-grid" action="#" method="post">
-      <div class="k-card"><div class="k-topbar"></div>
-        <label>Business Name</label><input class="input" name="business" required />
-        <label>Contact Person</label><input class="input" name="person" required />
-        <label>Email</label><input class="input" type="email" name="email" required />
-        <label>Phone</label><input class="input" name="phone" required />
-      </div>
-      <div class="k-card"><div class="k-topbar"></div>
-        <label>Type</label>
-        <select class="input" name="type">
-          <option>Wholesaler</option>
-          <option>Manufacturer</option>
-          <option>3PL / Logistics</option>
-        </select>
-        <label>City</label><input class="input" name="city" />
-        <label>Website (optional)</label><input class="input" name="website" />
-        <label>Description</label><textarea class="input" rows="5" name="desc"></textarea>
-      </div>
-      <div class="k-card"><div class="k-topbar"></div>
-        <button class="btn btn-primary" type="submit">Submit</button>
-      </div>
-    </form>
-  </div>
-</section>
-
-</main>
   <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
-<script src="script.js"></script>
+
+  <script src="script.js"></script>
+  <script src="script-partner.js"></script>
 </body>
 </html>
