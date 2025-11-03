@@ -331,3 +331,32 @@ select:focus {
   border-color: #f7c71f !important; /* Kyrtica gold accent */
   background-color: #1b1b1b !important;
 }
+/* ——— Mobile menu core styles ——— */
+.menu-toggle { display:inline-flex; flex-direction:column; gap:4px; padding:8px; background:transparent; border:0; }
+.menu-toggle .bar { width:22px; height:2px; background:#fff; display:block; }
+
+/* header stacking to keep button tappable */
+.site-header { position:sticky; top:0; z-index: 2000; }
+
+/* desktop: show menu normally */
+@media (min-width: 768px) {
+  .menu-toggle { display:none; }
+  .menu { display:flex !important; gap:20px; position:static; height:auto; background:transparent; }
+  .menu[hidden] { display:flex !important; } /* override hidden on desktop */
+}
+
+/* mobile: slide-down panel */
+@media (max-width: 767px) {
+  .menu {
+    position: fixed; inset: 60px 0 0 0;
+    background: #0b0b0b; border-top:1px solid #1f1f1f;
+    display: none; flex-direction: column; padding:16px; gap:12px;
+  }
+  .menu.open { display:flex; }
+  .no-scroll { overflow:hidden; }
+}
+
+/* optional basic layout helpers if you don’t have them */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+.nav { display:flex; align-items:center; justify-content:space-between; height:60px; }
+.brand { font-weight:700; color:#fff; text-decoration:none; }
