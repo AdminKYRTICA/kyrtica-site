@@ -9,56 +9,51 @@
   <link rel="stylesheet" href="styles.css?v=1" />
 
   <style>
-    /* === DARK THEME & FORM FIX === */
-    body {
-      background:#0b0b0b;
-      color:#fff;
-      font-family:system-ui,Segoe UI,Roboto,Inter,Arial;
+    /* ===== Kyrtica Partner Page Fix ===== */
+    body { background: #0b0b0b; color: #fff; font-family: system-ui, Segoe UI, Roboto, Inter, Arial; }
+    .k-card { cursor: pointer; transition: 0.3s; }
+    .k-card:hover { border-color: #f7c71f; transform: translateY(-4px); }
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9); display: none; align-items: center;
+      justify-content: center; z-index: 100;
     }
-    input,textarea,select {
-      background:#1a1a1a;
-      color:#fff;
-      border:1px solid #333;
-      border-radius:6px;
-      padding:8px;
-      width:100%;
-      margin-top:4px;
+    .modal {
+      background: #111; border: 1px solid #f7c71f; border-radius: 12px;
+      width: 90%; max-width: 640px; max-height: 90vh; overflow-y: auto;
+      padding: 24px;
     }
-    input::placeholder,textarea::placeholder {color:#aaa;}
-    label{display:block;margin-top:10px;color:#eaecef;font-size:14px;}
-    input:focus,textarea:focus,select:focus {
-      outline:none;border-color:#f7c71f;background:#222;
+    .modal h2 { margin-top: 0; color: #f7c71f; }
+    .close-btn { float: right; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+    input, textarea, select {
+      background: #1a1a1a; color: #fff; border: 1px solid #333;
+      border-radius: 6px; padding: 8px; width: 100%; margin-top: 4px;
     }
-    .btn-primary{
-      background:#f7c71f;color:#000;border:none;
-      padding:10px 18px;border-radius:6px;font-weight:600;cursor:pointer;
+    label { display: block; margin-top: 10px; color: #eaecef; font-size: 14px; }
+    input::placeholder, textarea::placeholder { color: #aaa; }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: #f7c71f; background: #222;
     }
-    .btn-primary:hover{background:#ffdf4d;}
-    .role-tile{cursor:pointer;transition:.3s;border:1px solid #333;border-radius:10px;padding:16px;text-align:left;}
-    .role-tile:hover{border-color:#f7c71f;background:#111;}
-    .role-tile.active{border:2px solid #f7c71f;background:#1b1b1b;}
-    /* === POPUP FORM === */
-    .modal-overlay{
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:100;
+    .btn-primary {
+      background: #f7c71f; color: #000; border: none; padding: 10px 18px;
+      border-radius: 6px; font-weight: 600; cursor: pointer;
     }
-    .modal{
-      background:#111;border:1px solid #f7c71f;border-radius:12px;
-      width:90%;max-width:640px;max-height:90vh;overflow-y:auto;padding:24px;
-    }
-    .modal h2{margin-top:0;color:#f7c71f;}
-    .close-btn{float:right;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;}
-    .required::after {content:" *";color:#f7c71f;}
+    .btn-primary:hover { background: #ffdf4d; }
+    .required::after { content: " *"; color: #f7c71f; }
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <header class="site-header">
     <div class="container navwrap">
-      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="Kyrtica"/> Kyrtica</a>
+      <a class="brand" href="index.html">
+        <img src="assets/logo.svg" alt="Kyrtica" /> Kyrtica
+      </a>
       <nav class="menu">
         <a href="index.html">Home</a>
         <a href="marketplace.html">Marketplace</a>
+        <a href="partner.html" class="active">Partner With Us</a>
         <a href="hubs.html">Hubs</a>
         <a href="services.html">Services</a>
         <a href="learning.html">Learning</a>
@@ -67,34 +62,89 @@
     </div>
   </header>
 
-  <main>
-    <section class="hero" style="background:none;">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <h1>Partner With Us</h1>
-          <p>Select your business category to begin onboarding with Kyrtica.</p>
-        </div>
+  <!-- Hero -->
+  <section class="hero" style="background:none;">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <h1>Partner With Us</h1>
+        <p>Onboard your business to Kyrtica — select your category below to start.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="k-section">
-      <div class="container">
-        <div class="k-grid" id="role-tiles">
-          <div class="role-tile" data-role="manufacturer"><h3>Manufacturer</h3><p>Factories, OEM, job-work units</p></div>
-          <div class="role-tile" data-role="wholesaler"><h3>Wholesaler / Distributor</h3><p>Stock & sell in bulk</p></div>
-          <div class="role-tile" data-role="retail"><h3>Retail Business</h3><p>Retailers, D2C, online stores</p></div>
-          <div class="role-tile" data-role="dropshipper"><h3>Dropshipper</h3><p>Source and sell online</p></div>
-          <div class="role-tile" data-role="packaging"><h3>Packaging Partner</h3><p>Boxes, sleeves, labels, branding</p></div>
-          <div class="role-tile" data-role="logistics"><h3>Logistics / 3PL</h3><p>Courier, warehouse, transport</p></div>
-          <div class="role-tile" data-role="legal"><h3>Legal Consultants</h3><p>GST, MSME, IEC, trademark</p></div>
-          <div class="role-tile" data-role="ca"><h3>Chartered Accountants</h3><p>Compliance & audit</p></div>
-          <div class="role-tile" data-role="service"><h3>Other Service Provider</h3><p>IT, design, marketing, etc.</p></div>
+  <!-- Partner Tiles -->
+  <section class="k-section">
+    <div class="container">
+      <div class="k-grid" id="role-tiles">
+
+        <div class="k-card role-tile" data-role="manufacturer">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H4zM2 18h20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Manufacturer</h3>
+          <p>Factories, OEM, job-work units</p>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <!-- POPUP FORM -->
+        <div class="k-card role-tile" data-role="wholesaler">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M3 7h18M6 7v10m12-10v10M3 17h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Wholesaler / Distributor</h3>
+          <p>Stock & sell in bulk</p>
+        </div>
+
+        <div class="k-card role-tile" data-role="retail">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M3 12l3-3h8l3 3v7H3z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Retail Business</h3>
+          <p>Retailers, D2C, online stores</p>
+        </div>
+
+        <div class="k-card role-tile" data-role="dropshipper">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M12 2l7 4-7 4-7-4zM3 10l9 5 9-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Dropshipper</h3>
+          <p>Sell online without inventory</p>
+        </div>
+
+        <div class="k-card role-tile" data-role="packaging">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4zm0 0v10l9 4 9-4V7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Packaging Partner</h3>
+          <p>Boxes, sleeves, labels & branding</p>
+        </div>
+
+        <div class="k-card role-tile" data-role="logistics">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M4 10h16M4 14h16M6 18h12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Logistics / 3PL</h3>
+          <p>Courier, warehouse, transport</p>
+        </div>
+
+        <div class="k-card role-tile" data-role="legal">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3 9-7 11-4-2-7-6-7-11V6l7-4z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Legal Consultants</h3>
+          <p>GST, MSME, IEC, trademark</p>
+        </div>
+
+        <div class="k-card role-tile" data-role="ca">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M4 18l6-6 4 4 6-8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+          <h3>Chartered Accountants</h3>
+          <p>Compliance & audit</p>
+        </div>
+
+        <div class="k-card role-tile" data-role="service">
+          <div class="k-topbar"></div>
+          <div class="k-icon"><svg viewBox="0 0 24 24"><path d="M5 6h14M4 10h16M7 18h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <h3>Other Service Providers</h3>
+          <p>IT, design, marketing, and more</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Popup Form -->
   <div class="modal-overlay" id="modal">
     <div class="modal">
       <button class="close-btn" id="closeModal">×</button>
@@ -104,15 +154,12 @@
         <label class="required">Contact Person<input type="text" name="person" required></label>
         <label class="required">Email<input type="email" name="email" required></label>
         <label class="required">Phone<input type="tel" name="phone" required></label>
-        <label>GSTIN / PAN<input type="text" name="gst"></label>
-        <label>Business Registration No.<input type="text" name="regno"></label>
         <label class="required">Full Address<textarea name="address" rows="3" required placeholder="Street, City, State, Pincode"></textarea></label>
         <label>Languages Known<input type="text" name="languages" placeholder="English, Hindi, Tamil…"></label>
+        <label>GSTIN / PAN<input type="text" name="gst"></label>
+        <label>Registration No.<input type="text" name="regno"></label>
         <label>Website / Store Link<input type="url" name="website"></label>
-        <label>Bank Account Holder Name<input type="text" name="accname"></label>
-        <label>Bank Account Number<input type="text" name="accno"></label>
-        <label>IFSC Code<input type="text" name="ifsc"></label>
-        <label class="required">Upload Business Catalogue<input type="file" name="catalog" required accept=".pdf,.csv,.xlsx,.jpg,.png"></label>
+        <label>Upload Business Catalogue<input type="file" name="catalog" required accept=".pdf,.csv,.xlsx,.jpg,.png"></label>
         <label>Additional Notes<textarea name="notes" rows="3"></textarea></label>
         <div style="margin-top:16px;text-align:center;">
           <button class="btn-primary" type="submit">Submit Application</button>
@@ -134,7 +181,7 @@
       tile.addEventListener("click",()=>{
         tiles.forEach(t=>t.classList.remove("active"));
         tile.classList.add("active");
-        formTitle.textContent = tile.textContent.trim()+" Application";
+        formTitle.textContent = tile.querySelector("h3").textContent + " Application";
         modal.style.display="flex";
       });
     });
