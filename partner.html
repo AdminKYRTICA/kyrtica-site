@@ -4,97 +4,58 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Partner With Us — Kyrtica</title>
-  <meta name="description" content="Onboard as manufacturer, wholesaler, retailer, logistics, legal, CA, or service provider with Kyrtica." />
   <meta name="theme-color" content="#0e0e0e" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css?v=1" />
 
   <style>
-    /* === Kyrtica Form & Tile Fix === */
-    body input,
-    body textarea,
-    body select {
-      color: #ffffff !important;
-      background-color: #141414 !important;
-      border: 1px solid #333 !important;
-      caret-color: #f7c71f !important;
-      padding: 8px;
-      width: 100%;
-      border-radius: 6px;
+    /* ---------- DARK THEME FIX ---------- */
+    body {
+      background:#0b0b0b;
+      color:#fff;
+      font-family:system-ui,Segoe UI,Roboto,Inter,Arial;
     }
-
-    body input::placeholder,
-    body textarea::placeholder {
-      color: #aaaaaa !important;
+    input,textarea,select {
+      background:#1a1a1a;
+      color:#fff;
+      border:1px solid #333;
+      border-radius:6px;
+      padding:8px;
+      width:100%;
+      margin-top:4px;
     }
-
-    body label {
-      color: #eaecef !important;
-      font-size: 14px;
-      display: block;
-      margin-top: 8px;
+    input::placeholder,textarea::placeholder {color:#aaa;}
+    label{display:block;margin-top:10px;color:#eaecef;font-size:14px;}
+    input:focus,textarea:focus,select:focus {
+      outline:none;border-color:#f7c71f;background:#222;
     }
-
-    body input[type="file"] {
-      color: #ffffff !important;
+    .btn-primary{
+      background:#f7c71f;color:#000;border:none;
+      padding:10px 18px;border-radius:6px;font-weight:600;cursor:pointer;
     }
-
-    body input:focus,
-    body textarea:focus,
-    body select:focus {
-      outline: none !important;
-      border-color: #f7c71f !important;
-      background-color: #1b1b1b !important;
-      color: #ffffff !important;
+    .btn-primary:hover{background:#ffdf4d;}
+    .role-tile{cursor:pointer;transition:.3s;border:1px solid #333;border-radius:10px;padding:16px;text-align:left;}
+    .role-tile:hover{border-color:#f7c71f;background:#111;}
+    .role-tile.active{border:2px solid #f7c71f;background:#1b1b1b;}
+    /* ---------- POPUP ---------- */
+    .modal-overlay{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:100;
     }
-
-    .role-tile.active {
-      border: 2px solid #f7c71f;
-      background-color: #1a1a1a;
+    .modal{
+      background:#111;border:1px solid #f7c71f;border-radius:12px;
+      width:90%;max-width:640px;max-height:90vh;overflow-y:auto;padding:20px;
     }
-
-    .k-card {
-      transition: 0.3s ease;
-    }
-
-    .k-card:hover {
-      transform: translateY(-4px);
-      border-color: #f7c71f;
-    }
-
-    .btn-primary {
-      background-color: #f7c71f;
-      color: #000;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background-color: #ffdb4d;
-    }
-
-    .hero {
-      background: none !important;
-    }
+    .modal h2{margin-top:0;color:#f7c71f;}
+    .close-btn{float:right;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;}
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="site-header">
     <div class="container navwrap">
-      <a class="brand" href="index.html">
-        <img src="assets/logo.svg" alt="Kyrtica" />
-        Kyrtica
-      </a>
-
-      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav id="site-nav" class="menu">
+      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="Kyrtica"/> Kyrtica</a>
+      <nav class="menu">
         <a href="index.html">Home</a>
         <a href="marketplace.html">Marketplace</a>
         <a href="hubs.html">Hubs</a>
@@ -102,128 +63,95 @@
         <a href="learning.html">Learning</a>
         <a href="contact.html">Contact</a>
       </nav>
-
-      <div class="right">
-        <select aria-label="Language & Currency">
-          <option>English-INR</option>
-          <option>தமிழ்-INR</option>
-        </select>
-        <a class="btn btn-outline" href="#signin">Sign In</a>
-        <a class="btn btn-primary" href="#register">Register</a>
-      </div>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero" style="background:none;">
       <div class="container hero-inner">
         <div class="hero-copy">
           <h1>Partner With Us</h1>
-          <p>
-            Onboard as a <strong>Manufacturer</strong>, <strong>Wholesaler</strong>, 
-            <strong>Retail Business</strong>, <strong>Logistics</strong>, 
-            <strong>Legal Consultant</strong>, <strong>Chartered Accountant</strong>, 
-            or <strong>Service Provider</strong>. Select your category below to apply.
-          </p>
+          <p>Select your business type to onboard with Kyrtica.</p>
         </div>
       </div>
     </section>
 
-    <!-- ROLE TILES -->
     <section class="k-section">
       <div class="container">
-        <h2 class="k-title-xl">Choose Your Role</h2>
         <div class="k-grid" id="role-tiles">
-          <button class="k-card role-tile" data-role="manufacturer"><h3>Manufacturer</h3><p>Factories, OEM, job-work</p></button>
-          <button class="k-card role-tile" data-role="wholesaler"><h3>Wholesaler / Distributor</h3><p>Stock & sell in bulk</p></button>
-          <button class="k-card role-tile" data-role="retail"><h3>Retail Business Entity</h3><p>Retailers, D2C, online</p></button>
-          <button class="k-card role-tile" data-role="logistics"><h3>Logistics / 3PL</h3><p>Courier, warehouse, transport</p></button>
-          <button class="k-card role-tile" data-role="legal"><h3>Legal Consultants</h3><p>GST, MSME, IEC, TM</p></button>
-          <button class="k-card role-tile" data-role="ca"><h3>Chartered Accountants</h3><p>Compliance & audit</p></button>
-          <button class="k-card role-tile" data-role="service"><h3>Other Service Provider</h3><p>Packaging, IT, design…</p></button>
+          <div class="role-tile" data-role="manufacturer"><h3>🏭 Manufacturer</h3><p>Factories, OEM, job-work units</p></div>
+          <div class="role-tile" data-role="wholesaler"><h3>📦 Wholesaler / Distributor</h3><p>Stock & sell in bulk</p></div>
+          <div class="role-tile" data-role="retail"><h3>🛍 Retail Business</h3><p>Retailers, D2C, online stores</p></div>
+          <div class="role-tile" data-role="logistics"><h3>🚚 Logistics / 3PL</h3><p>Courier, warehouse, transport</p></div>
+          <div class="role-tile" data-role="legal"><h3>⚖️ Legal Consultants</h3><p>GST, MSME, IEC, trademark</p></div>
+          <div class="role-tile" data-role="ca"><h3>💼 Chartered Accountants</h3><p>Compliance & filings</p></div>
+          <div class="role-tile" data-role="service"><h3>🧩 Other Service Provider</h3><p>Packaging, IT, design…</p></div>
         </div>
       </div>
     </section>
-
-    <!-- FORM CONTAINER -->
-    <section class="k-section">
-      <div class="container">
-        <div id="form-container" class="k-grid">
-          <div class="k-card"><p>Select a tile above to load the relevant form.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TOAST -->
-    <div id="toast" class="card" style="position:fixed;right:14px;bottom:14px;display:none;z-index:50;background:#141414;color:#fff;padding:10px 20px;border-radius:8px;border:1px solid #f7c71f;">
-      <div><strong>✔ Submitted</strong> — Your application has been recorded.</div>
-    </div>
   </main>
 
-  <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
+  <!-- POPUP FORM -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <button class="close-btn" id="closeModal">×</button>
+      <h2 id="formTitle">Partner Form</h2>
+      <form id="partnerForm">
+        <label>Business Name<input type="text" name="business" required></label>
+        <label>Contact Person<input type="text" name="person" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Phone<input type="tel" name="phone" required></label>
+        <label>Business Type<select name="type" required>
+          <option>Manufacturer</option><option>Wholesaler</option><option>Retail</option>
+          <option>Logistics</option><option>Legal Consultant</option><option>Chartered Accountant</option><option>Service Provider</option>
+        </select></label>
+        <label>GSTIN / PAN<input type="text" name="gst"></label>
+        <label>Business Registration No.<input type="text" name="regno"></label>
+        <label>Full Address<textarea name="address" rows="3" placeholder="Street, City, State, Pincode"></textarea></label>
+        <label>Languages Known<input type="text" name="languages" placeholder="English, Hindi, Tamil…"></label>
+        <label>Website / Store Link<input type="url" name="website"></label>
+        <label>Bank Account Holder Name<input type="text" name="accname"></label>
+        <label>Bank Account Number<input type="text" name="accno"></label>
+        <label>IFSC Code<input type="text" name="ifsc"></label>
+        <label>Upload Business Catalogue<input type="file" name="catalog" accept=".pdf,.csv,.xlsx,.jpg,.png"></label>
+        <label>Additional Notes<textarea name="notes" rows="3"></textarea></label>
+        <div style="margin-top:16px;text-align:center;">
+          <button class="btn-primary" type="submit">Submit Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:20px 0;color:#999;">© 2025 Kyrtica — Built for Indian Business.</footer>
 
   <script>
-    (() => {
-      const roles = {
-        manufacturer: ["Business Name", "Contact Person", "Email", "Phone", "GSTIN", "Factory Address", "Product Categories", "Production Capacity", "MOQ", "Website", "Catalogue Upload"],
-        wholesaler: ["Business Name", "Contact Person", "Email", "Phone", "GSTIN", "Warehouse City", "Brands Carried", "MOQ", "Dispatch Time", "Catalogue Upload"],
-        retail: ["Store Name", "Owner Name", "Email", "Phone", "City", "Website", "Interested Categories", "Order Volume"],
-        logistics: ["Company Name", "Contact Person", "Email", "Phone", "Service Regions", "Services Offered", "TAT"],
-        legal: ["Firm Name", "Contact Person", "Email", "Phone", "Services Offered", "Cities Served"],
-        ca: ["Firm Name", "Contact Person", "Email", "Phone", "Compliance Type", "Cities Served"],
-        service: ["Business Name", "Contact Person", "Email", "Phone", "Service Category", "Cities Served"]
-      };
+    const modal=document.getElementById("modal");
+    const closeBtn=document.getElementById("closeModal");
+    const formTitle=document.getElementById("formTitle");
+    const tiles=document.querySelectorAll(".role-tile");
+    const form=document.getElementById("partnerForm");
 
-      const tiles = document.querySelectorAll(".role-tile");
-      const formContainer = document.getElementById("form-container");
-      const toast = document.getElementById("toast");
-
-      tiles.forEach(tile => {
-        tile.addEventListener("click", () => {
-          tiles.forEach(t => t.classList.remove("active"));
-          tile.classList.add("active");
-          const role = tile.dataset.role;
-          renderForm(role);
-        });
+    tiles.forEach(tile=>{
+      tile.addEventListener("click",()=>{
+        tiles.forEach(t=>t.classList.remove("active"));
+        tile.classList.add("active");
+        formTitle.textContent = tile.textContent.trim()+" Application";
+        modal.style.display="flex";
       });
+    });
 
-      function renderForm(role) {
-        formContainer.innerHTML = "";
-        const card = document.createElement("div");
-        card.className = "k-card";
-        const form = document.createElement("form");
-        form.id = "partner-form";
+    closeBtn.addEventListener("click",()=>{modal.style.display="none";});
 
-        roles[role].forEach(field => {
-          const label = document.createElement("label");
-          label.textContent = field;
-          form.appendChild(label);
+    window.addEventListener("click",e=>{
+      if(e.target===modal) modal.style.display="none";
+    });
 
-          const input = document.createElement("input");
-          input.className = "input";
-          input.type = field.includes("Email") ? "email" : (field.includes("Phone") ? "tel" : "text");
-          if (field.includes("Catalogue")) input.type = "file";
-          form.appendChild(input);
-        });
-
-        const btn = document.createElement("button");
-        btn.className = "btn-primary";
-        btn.type = "submit";
-        btn.textContent = "Submit Application";
-        form.appendChild(btn);
-
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          toast.style.display = "block";
-          setTimeout(() => toast.style.display = "none", 3000);
-          form.reset();
-        });
-
-        card.appendChild(form);
-        formContainer.appendChild(card);
-      }
-    })();
+    form.addEventListener("submit",e=>{
+      e.preventDefault();
+      alert("✅ Application submitted successfully! We’ll contact you soon.");
+      modal.style.display="none";
+      form.reset();
+    });
   </script>
 </body>
 </html>
