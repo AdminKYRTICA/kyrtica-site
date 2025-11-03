@@ -3,16 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kyrtica — India’s B2B Commerce OS</title>
-  <meta name="description" content="Kyrtica connects Indian wholesalers, retailers, and manufacturers with dropship fulfilment, brand packaging, logistics, payments, legal and credit — all in one place." />
+  <title>Partner With Us — Kyrtica</title>
+  <meta name="description" content="Onboard as manufacturer, wholesaler, retail business, logistics, legal/CA or other service partner." />
   <meta name="theme-color" content="#0e0e0e" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/hero.jpg" />
   <link rel="stylesheet" href="styles.css?v=1" />
 </head>
-
 <body>
- <!-- Header -->
+  <!-- Header (same classes as your index) -->
   <header class="site-header">
     <div class="container navwrap">
       <a class="brand" href="index.html">
@@ -25,12 +23,12 @@
       </button>
 
       <nav id="site-nav" class="menu">
-        <a href="#market">Marketplace</a>
-        <a href="partner.html">Partner With Us</a>
-        <a href="#hubs">Hubs</a>
-        <a href="#services">Services</a>
-        <a href="#learning">Learning</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="hubs.html">Hubs</a>
+        <a href="services.html">Services</a>
+        <a href="learning.html">Learning</a>
+        <a href="contact.html">Contact</a>
       </nav>
 
       <div class="right">
@@ -45,419 +43,90 @@
   </header>
 
   <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-overlay"></div>
+    <!-- HERO (no background image) -->
+    <section class="hero" style="background:none">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <h1>India’s Unified B2B Platform for Wholesalers, Retailers & Entrepreneurs</h1>
-<p>Connect, build, and grow your business — from sourcing and dropshipping to packaging, store creation, logistics, legal setup, mentorship, manufacturing, investment, and credit. Everything your business needs — all in one place.</p>          <div class="cta-row">
-            <a class="btn btn-primary" href="#hubs">Explore Hubs</a>
-            <a class="btn btn-ghost" href="#services">Connect Your Store</a>
+          <h1>Partner With Us</h1>
+          <p>
+            Onboard as a <strong>Manufacturer</strong>, <strong>Wholesaler</strong>, <strong>Retail Business</strong>,
+            <strong>Logistics (3PL)</strong>, <strong>Legal Consultant</strong>, <strong>Chartered Accountant</strong>,
+            or other <strong>Service Provider</strong>. Select a tile to begin.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#apply">Start Application</a>
           </div>
-
-          <form class="searchbar" role="search" action="#market">
-            <input name="q" placeholder="Search wholesale products or manufacturers…" />
-            <button type="submit">Search</button>
-          </form>
-
-          <ul class="hero-points">
-            <li>Verified Indian suppliers</li>
-            <li>Auto-sync to Shopify/Woo</li>
-            <li>Fast settlement</li>
-            <li>Mentors & legal desk</li>
-          </ul>
         </div>
-
-        <aside class="hero-cards">
-          <div class="card">
-            <div class="card-head">Average Dispatch</div>
-            <div class="big">24–48h</div>
-            <div class="sub">Pan-India 3PL network</div>
-          </div>
-          <div class="card">
-            <div class="card-head">Retailers Onboarded</div>
-            <div class="big">10,000+</div>
-            <div class="sub">Tier-2 & Tier-3 first</div>
-          </div>
-          <div class="card">
-            <div class="card-head">Payment Success</div>
-            <div class="big">99.3%</div>
-            <div class="sub">GST invoicing built-in</div>
-          </div>
-        </aside>
       </div>
     </section>
 
-    <!-- Marquee logos (optional) -->
-    <section class="logos-strip">
-      <div class="container logos-wrap">
-        <img src="assets/shopify.svg" alt="Shopify" />
-        <img src="assets/woocommerce.svg" alt="WooCommerce" />
-        <img src="assets/dukaan.svg" alt="Dukaan" />
-        <img src="assets/razorpay.svg" alt="Razorpay" />
-        <img src="assets/delhivery.svg" alt="Delhivery" />
-        <img src="assets/xpressbees.svg" alt="Xpressbees" />
-      </div>
-    </section>
-
-    <!-- Core Hubs (your key ideas) -->
-    <section id="hubs" class="k-section">
+    <!-- ROLE TILES -->
+    <section class="k-section" id="apply">
       <div class="container">
-        <p class="k-eyebrow">Built for Indian Business</p>
-        <h2 class="k-title-xl">Choose a Hub to Get Started</h2>
-        <p class="k-sub">Kyrtica connects wholesalers, retailers, manufacturers, mentors, investors and credit partners across India.</p>
+        <p class="k-eyebrow">Choose Your Role</p>
+        <h2 class="k-title-xl">Apply Now</h2>
 
-        <div class="k-grid">
-          <!-- 1 Easy connect between wholesaler & retailers -->
-          <a class="k-card" href="#market">
+        <div class="k-grid" id="role-tiles">
+          <button class="k-card role-tile" data-role="manufacturer">
             <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M3 7h18M6 7v10m12-10v10M3 17h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Wholesale Marketplace</h3>
-            <p>Match retailers with verified wholesalers. Post RFQs, compare quotes, close deals.</p>
-            <span class="k-chip"><span class="k-dot"></span>Find suppliers</span>
-          </a>
+            <h3>Manufacturer</h3><p>Factories, OEM, job-work</p>
+          </button>
 
-          <!-- 2 Dropshipping fulfilment -->
-          <a class="k-card" href="#services">
+          <button class="k-card role-tile" data-role="wholesaler">
             <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M3 12l3-3h8l3 3v7H3zM17 12h4v7h-4z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Dropship Fulfilment</h3>
-            <p>Pick, pack & ship from partner 3PLs. Auto-sync orders to your store.</p>
-            <span class="k-chip"><span class="k-dot"></span>Start shipping</span>
-          </a>
+            <h3>Wholesaler / Distributor</h3><p>Stock & sell in bulk</p>
+          </button>
 
-          <!-- 3 Brand packaging -->
-          <a class="k-card" href="#services">
+          <button class="k-card role-tile" data-role="retail">
             <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4zm0 0v10l9 4 9-4V7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Brand Packaging</h3>
-            <p>Low-MOQ boxes, sleeves & labels. Private-label made simple.</p>
-            <span class="k-chip"><span class="k-dot"></span>Upgrade my brand</span>
-          </a>
+            <h3>Retail Business Entity</h3><p>Retailers, D2C, online</p>
+          </button>
 
-          <!-- 4 Online store creation -->
-          <a class="k-card" href="#services">
+          <button class="k-card role-tile" data-role="logistics">
             <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M4 4h16v12H4zM2 18h20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Online Store Creation</h3>
-            <p>Launch a commission-free storefront with payments & GST.</p>
-            <span class="k-chip"><span class="k-dot"></span>Create my site</span>
-          </a>
+            <h3>Logistics / 3PL</h3><p>Courier, warehousing</p>
+          </button>
 
-          <!-- 5 Integrated logistics & payments -->
-          <a class="k-card" href="#services">
+          <button class="k-card role-tile" data-role="legal">
             <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M4 10h16M4 14h16M6 18h12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Logistics & Payments</h3>
-            <p>Multi-carrier shipping, COD/Prepaid, fast settlement & reconciliations.</p>
-            <span class="k-chip"><span class="k-dot"></span>Connect now</span>
-          </a>
+            <h3>Legal Consultants</h3><p>GST, MSME, IEC, TM</p>
+          </button>
 
-          <!-- 6 Business ideas & mentors -->
-          <a class="k-card" href="#learning">
+          <button class="k-card role-tile" data-role="ca">
             <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 3l9 4-9 4-9-4 9-4zm-5 9v5a5 5 0 0 0 10 0v-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Mentors & Academy</h3>
-            <p>Courses, playbooks & 1:1 mentors to grow from Starter to Pro.</p>
-            <span class="k-chip"><span class="k-dot"></span>Explore courses</span>
-          </a>
+            <h3>Chartered Accountants</h3><p>Compliance & audit</p>
+          </button>
 
-          <!-- 7 Legal advice & cheap registration -->
-          <a class="k-card" href="#services">
+          <button class="k-card role-tile" data-role="service">
             <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5-3 9-7 11-4-2-7-6-7-11V6l7-4zM9 11h6M9 15h6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Legal & Compliance</h3>
-            <p>MSME, GST, IEC, trademark — docs automated, costs transparent.</p>
-            <span class="k-chip"><span class="k-dot"></span>Get help</span>
-          </a>
-
-          <!-- 8 Manufacturers Hub -->
-          <a class="k-card" href="#market">
-            <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M3 10h18M5 6h14M4 14h16M7 18h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Manufacturers Hub</h3>
-            <p>Discover factories from Jammu to Kanyakumari. NDAs & specs handled.</p>
-            <span class="k-chip"><span class="k-dot"></span>Post a requirement</span>
-          </a>
-
-          <!-- 9 Investors Hub -->
-          <a class="k-card" href="#invest">
-            <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M4 18l6-6 4 4 6-8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-            </div>
-            <h3>Investors Hub</h3>
-            <p>Pitch to angels for inventory cycles & growth capital.</p>
-            <span class="k-chip"><span class="k-dot"></span>Apply to pitch</span>
-          </a>
-
-          <!-- 10 Credit with NBFCs -->
-          <a class="k-card" href="#credit">
-            <div class="k-topbar"></div>
-            <div class="k-icon">
-              <svg viewBox="0 0 24 24"><path d="M3 7h18v10H3zM7 11h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-            </div>
-            <h3>Credit via NBFC Partners</h3>
-            <p>Invoice financing & working capital for eligible sellers.</p>
-            <span class="k-chip"><span class="k-dot"></span>Check eligibility</span>
-          </a>
+            <h3>Other Service Provider</h3><p>Packaging, IT, design…</p>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- How it works -->
-    <section class="steps">
+    <!-- DYNAMIC FORM RENDER TARGET -->
+    <section class="k-section">
       <div class="container">
-        <h2>How Kyrtica Works</h2>
-        <div class="grid-3">
-          <div class="step">
-            <div class="badge">1</div>
-            <h3>Create your account</h3>
-            <p>Tell us if you’re a wholesaler, retailer or manufacturer. KYC is quick.</p>
-          </div>
-          <div class="step">
-            <div class="badge">2</div>
-            <h3>Connect hubs & tools</h3>
-            <p>Enable marketplace, dropship, packaging, payments, logistics & legal.</p>
-          </div>
-          <div class="step">
-            <div class="badge">3</div>
-            <h3>Scale with mentors & credit</h3>
-            <p>Join cohorts, pitch investors, and access NBFC working capital.</p>
+        <div id="form-container" class="k-grid">
+          <div class="k-card">
+            <div class="k-topbar"></div>
+            <p>Select a tile above to load a role-specific form. You can also upload a catalogue (CSV/XLSX/PDF/Images).</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Reviews -->
-    <section class="reviews">
-      <div class="container">
-        <h2 class="reviews-title">What Do Our Entrepreneurs Say?</h2>
-        <p class="reviews-sub">Trusted by 10,000+ wholesalers, retailers & startups • <strong>4.9 ★</strong></p>
-
-        <div class="review-grid">
-          <!-- 6 sample review cards (use your own images) -->
-          <article class="r-card">
-            <div class="r-head"><img src="assets/user1.jpg" alt=""><div><h4>Private-Label Seller</h4><p class="role">Delhi</p></div></div>
-            <p class="r-text">Brand packaging + dropship made my launch painless. First 500 units shipped in a week.</p>
-            <p class="r-meta">May 2025 • Shopify</p>
-          </article>
-
-          <article class="r-card">
-            <div class="r-head"><img src="assets/user2.jpg" alt=""><div><h4>Wholesaler</h4><p class="role">Coimbatore</p></div></div>
-            <p class="r-text">Uploaded catalogue and instantly got retailer RFQs. Integrated payments are smooth.</p>
-            <p class="r-meta">Jun 2025 • Partner App</p>
-          </article>
-
-          <article class="r-card">
-            <div class="r-head"><img src="assets/user3.jpg" alt=""><div><h4>Founder</h4><p class="role">Hyderabad</p></div></div>
-            <p class="r-text">Mentor + Investor Hub helped fund my first inventory cycle.</p>
-            <p class="r-meta">Jul 2025 • Investor Hub</p>
-          </article>
-
-          <article class="r-card">
-            <div class="r-head"><img src="assets/user4.jpg" alt=""><div><h4>Retailer</h4><p class="role">Lucknow</p></div></div>
-            <p class="r-text">No inventory, national reach. Dropship fulfilment is a lifesaver.</p>
-            <p class="r-meta">Aug 2025 • Facebook</p>
-          </article>
-
-          <article class="r-card">
-            <div class="r-head"><img src="assets/user5.jpg" alt=""><div><h4>Entrepreneur</h4><p class="role">Kochi</p></div></div>
-            <p class="r-text">Legal desk + MSME + pricing playbook = quick compliance and better margins.</p>
-            <p class="r-meta">Sep 2025 • Mentor Match</p>
-          </article>
-
-          <article class="r-card">
-            <div class="r-head"><img src="assets/user6.jpg" alt=""><div><h4>Manufacturer</h4><p class="role">Rajkot</p></div></div>
-            <p class="r-text">Connected to Tier-3 retailers with transparent payment terms.</p>
-            <p class="r-meta">Oct 2025 • Mfg Hub</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-      <div class="container">
-        <h2 class="faq-title">Frequently Asked Questions</h2>
-
-        <div class="faq-grid" data-single>
-          <details class="faq-item">
-            <summary><span>Is Kyrtica free to start?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></summary>
-            <div class="faq-body">Yes. Browse and create an account for free. Pay only for services (3PL, packaging, legal filings, etc.).</div>
-          </details>
-
-          <details class="faq-item">
-            <summary><span>Do you support Shopify & Woo?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></summary>
-            <div class="faq-body">Yes. Inventory and orders auto-sync via app & webhooks. REST APIs for custom sites.</div>
-          </details>
-
-          <details class="faq-item">
-            <summary><span>How fast is shipping?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></summary>
-            <div class="faq-body">Most orders dispatch in 24–48h. Transit depends on lane & carrier selection.</div>
-          </details>
-
-          <details class="faq-item">
-            <summary><span>Can I get NBFC credit?</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></summary>
-            <div class="faq-body">Eligible sellers can apply for invoice financing & working capital after KYC.</div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================== CASHLESS / DIGITAL SECTION ================== -->
-<section id="cashless" class="cashless">
-  <div class="container">
-    <div class="cashless-grid">
-      <div class="cashless-copy reveal">
-        <div class="badge">No COD — 100% Digital</div>
-        <h2>Cashless by Default. <span>UPI-first.</span></h2>
-        <p>
-          We’re building India’s B2B commerce with an all-digital checkout:
-          instant UPI, cards, net banking, and BNPL—no cash handling, no delays.
-          Faster settlements, cleaner books, stronger trust.
-        </p>
-
-        <ul class="pill-list">
-          <li>UPI</li>
-          <li>Debit/Credit Cards</li>
-          <li>Net Banking</li>
-          <li>BNPL (B2B)</li>
-          <li>Auto-recon</li>
-          <li>GST-ready Invoices</li>
-        </ul>
-
-        <div class="kv">
-          <div><strong>₹0</strong><span>Cash Handling</span></div>
-          <div><strong>&lt; T+1</strong><span>Settlements*</span></div>
-          <div><strong>99.95%</strong><span>Uptime</span></div>
-        </div>
-
-        <div class="cta-row">
-          <a href="#onboard" class="btn-primary">Go 100% Digital</a>
-          <a href="#how-it-works" class="link">See how it works →</a>
-        </div>
-        <small class="note">*Subject to payment partner cut-off and risk checks.</small>
-      </div>
-
-      <div class="cashless-art reveal">
-        <div class="glass">
-          <div class="tick">✔</div>
-          <h3>Instant Refunds</h3>
-          <p> Fast, automatic reversals for failed or cancelled transactions.  
-    Refunds are credited instantly through UPI and card rails—no support tickets, no waiting.</p>
-        </div>
-        <div class="glass">
-          <div class="tick">✔</div>
-          <h3>Cards & NetBanking</h3>
-          <p>All major issuers & banks with 2-factor auth. PCI-ready gateways.</p>
-        </div>
-        <div class="glass">
-          <div class="tick">✔</div>
-          <h3>BNPL for B2B</h3>
-          <p>Eligible buyers get short-term credit and seamless repayments.</p>
-        </div>
-      </div>
+    <!-- Simple toast -->
+    <div id="toast" class="card" style="position:fixed;right:14px;bottom:14px;display:none;z-index:50">
+      <div class="card-head">Submitted</div>
+      <div>Your application has been recorded. We’ll reach out soon.</div>
     </div>
-
-    <div class="logos reveal" aria-label="Supported rails">
-      <img src="assets/upi.svg" alt="UPI" />
-      <img src="assets/visa.svg" alt="Visa" />
-      <img src="assets/mastercard.svg" alt="Mastercard" />
-      <img src="assets/rupay.svg" alt="RuPay" />
-      <img src="assets/netbanking.svg" alt="NetBanking" />
-    </div>
-  </div>
-</section>
-<!-- ================================================================ -->
-
-    <!-- Visitors Counter -->
-<div class="visit-count" aria-live="polite">
-  <span class="vc-label">Visitors</span>
-  <span class="vc-value" id="visit-counter">—</span>
-</div>
-
-    <!-- Bottom CTA -->
-    <section class="cta-banner">
-      <div class="container cta-banner-wrap">
-        <div class="cta-left">
-          <h3>Start Your Business Today with Kyrtica</h3>
-          <a class="btn btn-primary" href="#register">Try Kyrtica Free ↗</a>
-        </div>
-        <ul class="cta-points">
-          <li>Verified Indian suppliers</li>
-          <li>Auto-sync store orders</li>
-          <li>Packaging, logistics & payments</li>
-          <li>Mentors, legal & NBFC credit</li>
-        </ul>
-      </div>
-    </section>
   </main>
 
   <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
 
   <script src="script.js"></script>
-  <script>
-(function(){
-  const counter = document.getElementById('visit-counter');
-  if(!counter) return;
-
-  // Your custom namespace and key (each pair tracks separately)
-  const NAMESPACE = 'kyrtica_in';
-  const KEY = 'homepage_visits';
-  const today = new Date().toISOString().slice(0,10);
-  const flagKey = ${KEY}_last_visit;
-
-  const read = async () => {
-    const r = await fetch(https://api.countapi.xyz/get/${NAMESPACE}/${KEY});
-    const d = await r.json();
-    return d.value || 0;
-  };
-
-  const hit = async () => {
-    const r = await fetch(https://api.countapi.xyz/hit/${NAMESPACE}/${KEY});
-    const d = await r.json();
-    return d.value || 0;
-  };
-
-  const render = (n) => {
-    counter.textContent = n.toLocaleString('en-IN');
-  };
-
-  (async () => {
-    try {
-      let val;
-      // increment only once per device per day
-      if (localStorage.getItem(flagKey) === today) {
-        val = await read();
-      } else {
-        val = await hit();
-        localStorage.setItem(flagKey, today);
-      }
-      render(val);
-    } catch (err) {
-      counter.textContent = '—';
-      console.error('Visitor counter error:', err);
-    }
-  })();
-})();
-</script>
+  <script src="script-partner.js"></script>
 </body>
 </html>
