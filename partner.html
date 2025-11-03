@@ -63,6 +63,19 @@
     .lang-hint { color:#9aa0a6; font-size:12px; margin-top:6px; }
     .lang-count { color:#f7c71f; font-weight:700; }
   </style>
+  <style>
+  /* Make empty fields look truly empty */
+  .modal input::placeholder,
+  .modal textarea::placeholder {
+    color: transparent !important;   /* hide by default */
+  }
+  .modal input:focus::placeholder,
+  .modal textarea:focus::placeholder {
+    color: #6b7280 !important;       /* very faint hint on focus */
+    opacity: .5 !important;
+    font-style: italic;
+  }
+</style>
 </head>
 
 <body>
