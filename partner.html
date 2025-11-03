@@ -9,26 +9,30 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css?v=1" />
 
-  <!-- Minimal, high-specificity fixes so inputs are readable on your dark theme -->
+  <!-- Minimal overrides to ensure perfect dark theme + modal styling -->
   <style>
-    body .modal input,
-    body .modal textarea,
-    body .modal select {
-      color:#fff !important; background:#1a1a1a !important; border:1px solid #333 !important;
-      border-radius:8px; padding:10px; width:100%;
+    /* Inputs readable on dark */
+    .modal input, .modal textarea, .modal select {
+      color:#fff; background:#1a1a1a; border:1px solid #333;
+      border-radius:10px; padding:10px; width:100%;
     }
-    body .modal input::placeholder, body .modal textarea::placeholder { color:#aaa !important; }
-    body .modal label { color:#eaecef !important; display:block; margin-top:10px; font-size:14px; }
-    body .modal input:focus, body .modal textarea:focus, body .modal select:focus {
-      outline:none; border-color:#f7c71f !important; background:#222 !important;
+    .modal input::placeholder, .modal textarea::placeholder { color:#9aa0a6; }
+    .modal label { color:#eaecef; display:block; margin-top:10px; font-size:14px; }
+    .modal input:focus, .modal textarea:focus, .modal select:focus {
+      outline:none; border-color:#f7c71f; background:#222;
     }
-    .required::after { content:" *"; color:#f7c71f; }
-    .k-card { cursor:pointer; transition:transform .25s ease; }
+
+    /* Do NOT auto-append asterisks after inputs */
+    .required::after { content: none !important; }
+
+    /* Cards hover like home */
+    .k-card { cursor:pointer; transition:transform .25s ease, border-color .25s ease; }
     .k-card:hover { transform:translateY(-4px); border-color:#f7c71f; }
+
     /* Modal shell */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:100;}
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999;}
     .modal{
-      background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;max-width:720px;width:92%;
+      background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;max-width:760px;width:92%;
       max-height:90vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.6);
     }
     .modal header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #1e1e1e}
@@ -38,11 +42,31 @@
     .btn-primary{background:#f7c71f;color:#000;border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer}
     .btn-ghost{background:transparent;border:1px solid #333;color:#eaecef;padding:10px 16px;border-radius:10px;cursor:pointer}
     .close-x{background:transparent;border:0;color:#eaecef;font-size:22px;cursor:pointer;line-height:1}
+
+    /* Language tag selector */
+    .lang-wrap { grid-column: 1 / -1; }
+    .lang-label { display:block; color:#eaecef; margin-top:10px; font-size:14px; }
+    .lang-box {
+      background:#1a1a1a; border:1px solid #333; border-radius:10px; padding:8px;
+      display:flex; flex-wrap:wrap; gap:8px; min-height:44px;
+    }
+    .lang-chip {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px; border-radius:999px; background:#222; border:1px solid #444; color:#fff; font-size:13px;
+    }
+    .lang-chip button {
+      background:transparent; border:0; color:#f7c71f; cursor:pointer; font-size:14px; line-height:1;
+    }
+    .lang-input {
+      flex:1; min-width:160px; border:0; outline:none; background:transparent; color:#fff; padding:6px 4px;
+    }
+    .lang-hint { color:#9aa0a6; font-size:12px; margin-top:6px; }
+    .lang-count { color:#f7c71f; font-weight:700; }
   </style>
 </head>
 
 <body>
-  <!-- Header (EXACT markup from your index) -->
+  <!-- Header (same as index) -->
   <header class="site-header">
     <div class="container navwrap">
       <a class="brand" href="index.html">
@@ -75,7 +99,7 @@
   </header>
 
   <main>
-    <!-- Hero (same structure as index; no image background) -->
+    <!-- Hero (no image) -->
     <section class="hero">
       <div class="hero-overlay"></div>
       <div class="container hero-inner">
@@ -88,7 +112,7 @@
           </div>
         </div>
 
-        <!-- Optional stats cards to mirror index style -->
+        <!-- Stats cards for visual parity with home -->
         <aside class="hero-cards">
           <div class="card"><div class="card-head">Avg Approval</div><div class="big">24–72h</div><div class="sub">After KYC</div></div>
           <div class="card"><div class="card-head">Verified Partners</div><div class="big">5,000+</div><div class="sub">Pan-India</div></div>
@@ -97,7 +121,7 @@
       </div>
     </section>
 
-    <!-- Tiles (same design tokens as hubs on home) -->
+    <!-- Tiles -->
     <section id="partner-tiles" class="k-section">
       <div class="container">
         <p class="k-eyebrow">Built for Indian Business</p>
@@ -176,12 +200,11 @@
             <p>IT, design, marketing, finance</p>
             <span class="k-chip"><span class="k-dot"></span>Apply</span>
           </button>
-
         </div>
       </div>
     </section>
 
-    <!-- Reuse your FAQ block for consistency -->
+    <!-- FAQs -->
     <section id="faq" class="faq">
       <div class="container">
         <h2 class="faq-title">Partnering — FAQs</h2>
@@ -198,7 +221,7 @@
       </div>
     </section>
 
-    <!-- CTA banner just like home -->
+    <!-- CTA banner -->
     <section class="cta-banner">
       <div class="container cta-banner-wrap">
         <div class="cta-left">
@@ -217,140 +240,165 @@
 
   <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
 
-  <!-- Your global JS, then the modal logic -->
+  <!-- Global JS, then modal logic -->
   <script src="script.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', function () {
-  // ----- Modal element (created once) -----
-  let overlay = document.querySelector('.modal-overlay');
-  if (!overlay) {
-    overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999;';
-    overlay.innerHTML = `
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title"
-           style="background:#0f0f0f;border:1px solid #2a2a2a;border-radius:16px;max-width:720px;width:92%;max-height:90vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.6)">
-        <header style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #1e1e1e">
-          <h3 id="m-title" style="margin:0;color:#f7c71f">Partner Application</h3>
-          <button class="close-x" aria-label="Close" style="background:transparent;border:0;color:#eaecef;font-size:22px;cursor:pointer;line-height:1">×</button>
-        </header>
-        <div class="m-body" style="padding:18px 20px">
-          <form id="partner-form" enctype="multipart/form-data">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              
-              <label class="required" style="grid-column:1/-1"><span>Business Name *</span>
-                <input name="business" required placeholder="Your registered business name" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label class="required"><span>Contact Person *</span>
-                <input name="person" required placeholder="Primary contact" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label class="required"><span>Email *</span>
-                <input type="email" name="email" required placeholder="name@domain.com" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label class="required"><span>Phone *</span>
-                <input type="tel" name="phone" required placeholder="+91-XXXXXXXXXX" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label class="required" style="grid-column:1/-1"><span>Full Address *</span>
-                <textarea name="address" required rows="3" placeholder="Street, City, State, Pincode" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%"></textarea>
-              </label>
+  document.addEventListener('DOMContentLoaded', function () {
+    /* ---------- Build modal once ---------- */
+    let overlay = document.querySelector('.modal-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:9999;';
+      overlay.innerHTML = `
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+          <header>
+            <h3 id="m-title">Partner Application</h3>
+            <button class="close-x" aria-label="Close">×</button>
+          </header>
+          <div class="m-body">
+            <form id="partner-form" enctype="multipart/form-data">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <label class="required" style="grid-column:1/-1"><span>Business Name *</span>
+                  <input name="business" required placeholder="Your registered business name">
+                </label>
+                <label class="required"><span>Contact Person *</span>
+                  <input name="person" required placeholder="Primary contact">
+                </label>
+                <label class="required"><span>Email *</span>
+                  <input type="email" name="email" required placeholder="name@domain.com">
+                </label>
+                <label class="required"><span>Phone *</span>
+                  <input type="tel" name="phone" required placeholder="+91-XXXXXXXXXX">
+                </label>
+                <label class="required" style="grid-column:1/-1"><span>Full Address *</span>
+                  <textarea name="address" required rows="3" placeholder="Street, City, State, Pincode"></textarea>
+                </label>
 
-              <label><span>Languages Known</span>
-                <select name="languages" multiple size="5" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-                  <option value="Assamese">Assamese</option>
-                  <option value="Bengali">Bengali</option>
-                  <option value="Bodo">Bodo</option>
-                  <option value="Dogri">Dogri</option>
-                  <option value="English">English</option>
-                  <option value="Gujarati">Gujarati</option>
-                  <option value="Hindi">Hindi</option>
-                  <option value="Kannada">Kannada</option>
-                  <option value="Kashmiri">Kashmiri</option>
-                  <option value="Konkani">Konkani</option>
-                  <option value="Maithili">Maithili</option>
-                  <option value="Malayalam">Malayalam</option>
-                  <option value="Manipuri">Manipuri</option>
-                  <option value="Marathi">Marathi</option>
-                  <option value="Nepali">Nepali</option>
-                  <option value="Odia">Odia</option>
-                  <option value="Punjabi">Punjabi</option>
-                  <option value="Sanskrit">Sanskrit</option>
-                  <option value="Santali">Santali</option>
-                  <option value="Sindhi">Sindhi</option>
-                  <option value="Tamil">Tamil</option>
-                  <option value="Telugu">Telugu</option>
-                  <option value="Urdu">Urdu</option>
-                </select>
-                <small style="display:block;color:#aaa;margin-top:4px;font-size:12px;">Hold Ctrl (Windows) or Cmd (Mac) to select multiple.</small>
-              </label>
+                <!-- Language tag selector -->
+                <div class="lang-wrap">
+                  <label class="lang-label"><span>Languages Known (max 5) *</span></label>
+                  <div class="lang-box" id="langBox">
+                    <input id="langInput" class="lang-input" list="langList" placeholder="Type a language and press Enter">
+                    <input type="hidden" name="languages" id="langHidden" required>
+                  </div>
+                  <datalist id="langList">
+                    <option value="Assamese"></option><option value="Bengali"></option><option value="Bodo"></option>
+                    <option value="Dogri"></option><option value="English"></option><option value="Gujarati"></option>
+                    <option value="Hindi"></option><option value="Kannada"></option><option value="Kashmiri"></option>
+                    <option value="Konkani"></option><option value="Maithili"></option><option value="Malayalam"></option>
+                    <option value="Manipuri"></option><option value="Marathi"></option><option value="Nepali"></option>
+                    <option value="Odia"></option><option value="Punjabi"></option><option value="Sanskrit"></option>
+                    <option value="Santali"></option><option value="Sindhi"></option><option value="Tamil"></option>
+                    <option value="Telugu"></option><option value="Urdu"></option>
+                  </datalist>
+                  <div class="lang-hint">Selected: <span class="lang-count" id="langCount">0/5</span>. Press Enter to add, Backspace to remove last.</div>
+                </div>
 
-              <label><span>GSTIN / PAN</span>
-                <input name="gst" placeholder="GSTIN or PAN" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label><span>Registration No.</span>
-                <input name="regno" placeholder="UDYAM/MSME/Other" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label><span>Website / Store Link</span>
-                <input type="url" name="website" placeholder="https://" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label class="required" style="grid-column:1/-1"><span>Upload Catalogue *</span>
-                <input type="file" name="catalog" required accept=".pdf,.csv,.xlsx,.xls,.jpg,.jpeg,.png" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%">
-              </label>
-              
-              <label style="grid-column:1/-1"><span>Additional Notes</span>
-                <textarea name="notes" rows="3" placeholder="Anything else we should know?" style="color:#fff;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px;width:100%"></textarea>
-              </label>
-
-              <input type="hidden" name="role" id="role-input">
-            </div>
-          </form>
+                <label><span>GSTIN / PAN</span>
+                  <input name="gst" placeholder="GSTIN or PAN">
+                </label>
+                <label><span>Registration No.</span>
+                  <input name="regno" placeholder="UDYAM/MSME/Other">
+                </label>
+                <label><span>Website / Store Link</span>
+                  <input type="url" name="website" placeholder="https://">
+                </label>
+                <label class="required" style="grid-column:1/-1"><span>Upload Catalogue *</span>
+                  <input type="file" name="catalog" required accept=".pdf,.csv,.xlsx,.xls,.jpg,.jpeg,.png">
+                </label>
+                <label style="grid-column:1/-1"><span>Additional Notes</span>
+                  <textarea name="notes" rows="3" placeholder="Anything else we should know?"></textarea>
+                </label>
+                <input type="hidden" name="role" id="role-input">
+              </div>
+            </form>
+          </div>
+          <div class="m-actions">
+            <button class="close-x btn-ghost">Cancel</button>
+            <button class="btn-primary" form="partner-form">Submit Application</button>
+          </div>
         </div>
-        <div class="m-actions" style="padding:16px 20px;border-top:1px solid #1e1e1e;display:flex;gap:10px;justify-content:flex-end">
-          <button class="close-x" style="background:transparent;border:1px solid #333;color:#eaecef;padding:10px 16px;border-radius:10px;cursor:pointer">Cancel</button>
-          <button class="btn-primary" form="partner-form" style="background:#f7c71f;color:#000;border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer">Submit Application</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-  }
+      `;
+      document.body.appendChild(overlay);
+    }
 
-  const form = overlay.querySelector('#partner-form');
-  const showModal = (title, roleValue) => {
-    overlay.querySelector('#m-title').textContent = title + ' — Application';
-    overlay.querySelector('#role-input').value = roleValue || '';
-    form.reset(); // 💡 ensure form starts blank every time
-    overlay.style.display = 'flex';
-  };
-  const hideModal = () => overlay.style.display = 'none';
+    const form = overlay.querySelector('#partner-form');
+    const roleInput = overlay.querySelector('#role-input');
 
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) hideModal(); });
-  overlay.querySelectorAll('.close-x').forEach(b => b.addEventListener('click', hideModal));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
+    /* ---------- Language component ---------- */
+    const LANG_LIMIT = 5;
+    const langBox = overlay.querySelector('#langBox');
+    const langInput = overlay.querySelector('#langInput');
+    const langHidden = overlay.querySelector('#langHidden');
+    const langCount = overlay.querySelector('#langCount');
 
-  // Bind to tiles
-  document.querySelectorAll('#partner-tiles .role, .k-grid .role, [data-role]').forEach(el => {
-    el.addEventListener('click', (e) => {
-      if (el.tagName === 'A') e.preventDefault();
-      const role = el.getAttribute('data-role') || '';
-      const title = el.querySelector('h3') ? el.querySelector('h3').textContent.trim() : 'Partner';
-      showModal(title, role);
+    function getLangs(){ return (langHidden.value.trim()?langHidden.value.split(/\s*,\s*/):[]).filter(Boolean); }
+    function setLangs(arr){
+      langBox.querySelectorAll('.lang-chip').forEach(n=>n.remove());
+      arr.forEach(v=>{
+        const chip=document.createElement('span');
+        chip.className='lang-chip';
+        chip.innerHTML=`${v} <button type="button" aria-label="Remove ${v}">×</button>`;
+        chip.querySelector('button').addEventListener('click',()=>{
+          setLangs(getLangs().filter(x=>x!==v));
+        });
+        langBox.insertBefore(chip, langInput);
+      });
+      langHidden.value=arr.join(', ');
+      langCount.textContent=`${arr.length}/${LANG_LIMIT}`;
+    }
+    function addLang(v){
+      v=(v||'').trim(); if(!v) return;
+      const list=getLangs();
+      if(list.includes(v)) return;
+      if(list.length>=LANG_LIMIT) return;
+      setLangs([...list, v]);
+    }
+    langInput.addEventListener('keydown',(e)=>{
+      if(e.key==='Enter'){
+        e.preventDefault();
+        addLang(langInput.value);
+        langInput.value='';
+      } else if(e.key==='Backspace' && !langInput.value){
+        const list=getLangs(); if(list.length) setLangs(list.slice(0,-1));
+      }
+    });
+    langInput.addEventListener('change',()=>{ if(langInput.value){ addLang(langInput.value); langInput.value=''; } });
+
+    /* ---------- Modal open/close ---------- */
+    const showModal=(title, roleVal)=>{
+      form.reset();                // clear native fields
+      setLangs([]);                // clear languages
+      overlay.querySelector('#m-title').textContent = title + ' — Application';
+      roleInput.value = roleVal || '';
+      overlay.style.display='flex';
+      setTimeout(()=>form.querySelector('input[name="business"]')?.focus(),0);
+    };
+    const hideModal=()=> overlay.style.display='none';
+
+    overlay.addEventListener('click',(e)=>{ if(e.target===overlay) hideModal(); });
+    overlay.querySelectorAll('.close-x').forEach(b=>b.addEventListener('click', hideModal));
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') hideModal(); });
+
+    // Bind to tiles
+    document.querySelectorAll('#partner-tiles .role, .k-grid .role, [data-role].role').forEach(el=>{
+      el.addEventListener('click',(e)=>{
+        if(el.tagName==='A') e.preventDefault();
+        const title = el.querySelector('h3')?.textContent.trim() || 'Partner';
+        const role = el.getAttribute('data-role') || '';
+        showModal(title, role);
+      });
+    });
+
+    // Demo submit
+    form.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      // const data = new FormData(form); // send via fetch(...)
+      alert('✅ Application submitted! We will contact you soon.');
+      form.reset(); setLangs([]); hideModal();
     });
   });
-
-  // Submit action
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('✅ Application submitted successfully! We will contact you soon.');
-    form.reset();
-    hideModal();
-  });
-});
-</script>
+  </script>
 </body>
 </html>
