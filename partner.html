@@ -4,13 +4,85 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Partner With Us — Kyrtica</title>
-  <meta name="description" content="Onboard as manufacturer, wholesaler, retail business, logistics, legal/CA or other service partner." />
+  <meta name="description" content="Onboard as manufacturer, wholesaler, retailer, logistics, legal, CA, or service provider with Kyrtica." />
   <meta name="theme-color" content="#0e0e0e" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css?v=1" />
+
+  <style>
+    /* === Kyrtica Form & Tile Fix === */
+    body input,
+    body textarea,
+    body select {
+      color: #ffffff !important;
+      background-color: #141414 !important;
+      border: 1px solid #333 !important;
+      caret-color: #f7c71f !important;
+      padding: 8px;
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    body input::placeholder,
+    body textarea::placeholder {
+      color: #aaaaaa !important;
+    }
+
+    body label {
+      color: #eaecef !important;
+      font-size: 14px;
+      display: block;
+      margin-top: 8px;
+    }
+
+    body input[type="file"] {
+      color: #ffffff !important;
+    }
+
+    body input:focus,
+    body textarea:focus,
+    body select:focus {
+      outline: none !important;
+      border-color: #f7c71f !important;
+      background-color: #1b1b1b !important;
+      color: #ffffff !important;
+    }
+
+    .role-tile.active {
+      border: 2px solid #f7c71f;
+      background-color: #1a1a1a;
+    }
+
+    .k-card {
+      transition: 0.3s ease;
+    }
+
+    .k-card:hover {
+      transform: translateY(-4px);
+      border-color: #f7c71f;
+    }
+
+    .btn-primary {
+      background-color: #f7c71f;
+      color: #000;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: #ffdb4d;
+    }
+
+    .hero {
+      background: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Header (same classes as your index) -->
+  <!-- Header -->
   <header class="site-header">
     <div class="container navwrap">
       <a class="brand" href="index.html">
@@ -43,90 +115,115 @@
   </header>
 
   <main>
-    <!-- HERO (no background image) -->
-    <section class="hero" style="background:none">
+    <!-- HERO -->
+    <section class="hero" style="background:none;">
       <div class="container hero-inner">
         <div class="hero-copy">
           <h1>Partner With Us</h1>
           <p>
-            Onboard as a <strong>Manufacturer</strong>, <strong>Wholesaler</strong>, <strong>Retail Business</strong>,
-            <strong>Logistics (3PL)</strong>, <strong>Legal Consultant</strong>, <strong>Chartered Accountant</strong>,
-            or other <strong>Service Provider</strong>. Select a tile to begin.
+            Onboard as a <strong>Manufacturer</strong>, <strong>Wholesaler</strong>, 
+            <strong>Retail Business</strong>, <strong>Logistics</strong>, 
+            <strong>Legal Consultant</strong>, <strong>Chartered Accountant</strong>, 
+            or <strong>Service Provider</strong>. Select your category below to apply.
           </p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#apply">Start Application</a>
-          </div>
         </div>
       </div>
     </section>
 
     <!-- ROLE TILES -->
-    <section class="k-section" id="apply">
+    <section class="k-section">
       <div class="container">
-        <p class="k-eyebrow">Choose Your Role</p>
-        <h2 class="k-title-xl">Apply Now</h2>
-
+        <h2 class="k-title-xl">Choose Your Role</h2>
         <div class="k-grid" id="role-tiles">
-          <button class="k-card role-tile" data-role="manufacturer">
-            <div class="k-topbar"></div>
-            <h3>Manufacturer</h3><p>Factories, OEM, job-work</p>
-          </button>
-
-          <button class="k-card role-tile" data-role="wholesaler">
-            <div class="k-topbar"></div>
-            <h3>Wholesaler / Distributor</h3><p>Stock & sell in bulk</p>
-          </button>
-
-          <button class="k-card role-tile" data-role="retail">
-            <div class="k-topbar"></div>
-            <h3>Retail Business Entity</h3><p>Retailers, D2C, online</p>
-          </button>
-
-          <button class="k-card role-tile" data-role="logistics">
-            <div class="k-topbar"></div>
-            <h3>Logistics / 3PL</h3><p>Courier, warehousing</p>
-          </button>
-
-          <button class="k-card role-tile" data-role="legal">
-            <div class="k-topbar"></div>
-            <h3>Legal Consultants</h3><p>GST, MSME, IEC, TM</p>
-          </button>
-
-          <button class="k-card role-tile" data-role="ca">
-            <div class="k-topbar"></div>
-            <h3>Chartered Accountants</h3><p>Compliance & audit</p>
-          </button>
-
-          <button class="k-card role-tile" data-role="service">
-            <div class="k-topbar"></div>
-            <h3>Other Service Provider</h3><p>Packaging, IT, design…</p>
-          </button>
+          <button class="k-card role-tile" data-role="manufacturer"><h3>Manufacturer</h3><p>Factories, OEM, job-work</p></button>
+          <button class="k-card role-tile" data-role="wholesaler"><h3>Wholesaler / Distributor</h3><p>Stock & sell in bulk</p></button>
+          <button class="k-card role-tile" data-role="retail"><h3>Retail Business Entity</h3><p>Retailers, D2C, online</p></button>
+          <button class="k-card role-tile" data-role="logistics"><h3>Logistics / 3PL</h3><p>Courier, warehouse, transport</p></button>
+          <button class="k-card role-tile" data-role="legal"><h3>Legal Consultants</h3><p>GST, MSME, IEC, TM</p></button>
+          <button class="k-card role-tile" data-role="ca"><h3>Chartered Accountants</h3><p>Compliance & audit</p></button>
+          <button class="k-card role-tile" data-role="service"><h3>Other Service Provider</h3><p>Packaging, IT, design…</p></button>
         </div>
       </div>
     </section>
 
-    <!-- DYNAMIC FORM RENDER TARGET -->
+    <!-- FORM CONTAINER -->
     <section class="k-section">
       <div class="container">
         <div id="form-container" class="k-grid">
-          <div class="k-card">
-            <div class="k-topbar"></div>
-            <p>Select a tile above to load a role-specific form. You can also upload a catalogue (CSV/XLSX/PDF/Images).</p>
-          </div>
+          <div class="k-card"><p>Select a tile above to load the relevant form.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- Simple toast -->
-    <div id="toast" class="card" style="position:fixed;right:14px;bottom:14px;display:none;z-index:50">
-      <div class="card-head">Submitted</div>
-      <div>Your application has been recorded. We’ll reach out soon.</div>
+    <!-- TOAST -->
+    <div id="toast" class="card" style="position:fixed;right:14px;bottom:14px;display:none;z-index:50;background:#141414;color:#fff;padding:10px 20px;border-radius:8px;border:1px solid #f7c71f;">
+      <div><strong>✔ Submitted</strong> — Your application has been recorded.</div>
     </div>
   </main>
 
   <footer>© 2025 Kyrtica — Built for Indian Business.</footer>
 
-  <script src="script.js"></script>
-  <script src="script-partner.js"></script>
+  <script>
+    (() => {
+      const roles = {
+        manufacturer: ["Business Name", "Contact Person", "Email", "Phone", "GSTIN", "Factory Address", "Product Categories", "Production Capacity", "MOQ", "Website", "Catalogue Upload"],
+        wholesaler: ["Business Name", "Contact Person", "Email", "Phone", "GSTIN", "Warehouse City", "Brands Carried", "MOQ", "Dispatch Time", "Catalogue Upload"],
+        retail: ["Store Name", "Owner Name", "Email", "Phone", "City", "Website", "Interested Categories", "Order Volume"],
+        logistics: ["Company Name", "Contact Person", "Email", "Phone", "Service Regions", "Services Offered", "TAT"],
+        legal: ["Firm Name", "Contact Person", "Email", "Phone", "Services Offered", "Cities Served"],
+        ca: ["Firm Name", "Contact Person", "Email", "Phone", "Compliance Type", "Cities Served"],
+        service: ["Business Name", "Contact Person", "Email", "Phone", "Service Category", "Cities Served"]
+      };
+
+      const tiles = document.querySelectorAll(".role-tile");
+      const formContainer = document.getElementById("form-container");
+      const toast = document.getElementById("toast");
+
+      tiles.forEach(tile => {
+        tile.addEventListener("click", () => {
+          tiles.forEach(t => t.classList.remove("active"));
+          tile.classList.add("active");
+          const role = tile.dataset.role;
+          renderForm(role);
+        });
+      });
+
+      function renderForm(role) {
+        formContainer.innerHTML = "";
+        const card = document.createElement("div");
+        card.className = "k-card";
+        const form = document.createElement("form");
+        form.id = "partner-form";
+
+        roles[role].forEach(field => {
+          const label = document.createElement("label");
+          label.textContent = field;
+          form.appendChild(label);
+
+          const input = document.createElement("input");
+          input.className = "input";
+          input.type = field.includes("Email") ? "email" : (field.includes("Phone") ? "tel" : "text");
+          if (field.includes("Catalogue")) input.type = "file";
+          form.appendChild(input);
+        });
+
+        const btn = document.createElement("button");
+        btn.className = "btn-primary";
+        btn.type = "submit";
+        btn.textContent = "Submit Application";
+        form.appendChild(btn);
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          toast.style.display = "block";
+          setTimeout(() => toast.style.display = "none", 3000);
+          form.reset();
+        });
+
+        card.appendChild(form);
+        formContainer.appendChild(card);
+      }
+    })();
+  </script>
 </body>
 </html>
