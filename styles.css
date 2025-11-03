@@ -300,3 +300,34 @@ footer{border-top:1px solid #1f1f1f;background:#000;color:#aaa;text-align:center
   font-size:1.05rem;
   color:#eaecef;
 }
+/* === Form Input Visibility Fix === */
+.input,
+input,
+textarea,
+select {
+  color: #fff !important;              /* White text */
+  background-color: #141414 !important; /* Match card background */
+  border: 1px solid #333 !important;
+}
+
+.input::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: #aaa !important; /* lighter gray placeholder */
+}
+
+label {
+  color: #eaecef !important; /* match your site text color */
+}
+
+input[type="file"] {
+  color: #fff !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #f7c71f !important; /* Kyrtica gold accent */
+  background-color: #1b1b1b !important;
+}
