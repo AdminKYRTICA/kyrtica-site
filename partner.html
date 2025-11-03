@@ -22,7 +22,7 @@
       outline:none; border-color:#f7c71f; background:#222;
     }
 
-    /* Do NOT auto-append asterisks after inputs */
+    /* Show asterisks only in label text (we’ll write them manually) */
     .required::after { content: none !important; }
 
     /* Cards hover like home */
@@ -62,20 +62,22 @@
     }
     .lang-hint { color:#9aa0a6; font-size:12px; margin-top:6px; }
     .lang-count { color:#f7c71f; font-weight:700; }
+
+    /* Make empty fields look truly empty until focus */
+    .modal input::placeholder, .modal textarea::placeholder { color:transparent !important; }
+    .modal input:focus::placeholder, .modal textarea:focus::placeholder {
+      color:#6b7280 !important; opacity:.5 !important; font-style:italic;
+    }
+
+    /* Validation styles */
+    .is-invalid { border-color:#e5484d !important; box-shadow:0 0 0 2px rgba(229,72,77,.2); }
+    .err { color:#ffb4b8; font-size:12px; margin-top:6px; }
+    .form-alert {
+      background:rgba(229,72,77,.10); border:1px solid #e5484d; color:#ffd9db;
+      padding:10px 12px; border-radius:10px; margin:0 0 14px 0; display:none;
+    }
+    .form-alert ul { margin:6px 0 0 18px; }
   </style>
-  <style>
-  /* Make empty fields look truly empty */
-  .modal input::placeholder,
-  .modal textarea::placeholder {
-    color: transparent !important;   /* hide by default */
-  }
-  .modal input:focus::placeholder,
-  .modal textarea:focus::placeholder {
-    color: #6b7280 !important;       /* very faint hint on focus */
-    opacity: .5 !important;
-    font-style: italic;
-  }
-</style>
 </head>
 
 <body>
@@ -125,7 +127,6 @@
           </div>
         </div>
 
-        <!-- Stats cards for visual parity with home -->
         <aside class="hero-cards">
           <div class="card"><div class="card-head">Avg Approval</div><div class="big">24–72h</div><div class="sub">After KYC</div></div>
           <div class="card"><div class="card-head">Verified Partners</div><div class="big">5,000+</div><div class="sub">Pan-India</div></div>
@@ -270,22 +271,23 @@
             <button class="close-x" aria-label="Close">×</button>
           </header>
           <div class="m-body">
-            <form id="partner-form" enctype="multipart/form-data">
+            <div id="form-alert" class="form-alert"></div>
+            <form id="partner-form" enctype="multipart/form-data" novalidate>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                <label class="required" style="grid-column:1/-1"><span>Business Name *</span>
-                  <input name="business" required placeholder="Your registered business name">
+                <label style="grid-column:1/-1"><span>Business Name *</span>
+                  <input name="business" placeholder="Your registered business name">
                 </label>
-                <label class="required"><span>Contact Person *</span>
-                  <input name="person" required placeholder="Primary contact">
+                <label><span>Contact Person *</span>
+                  <input name="person" placeholder="Primary contact">
                 </label>
-                <label class="required"><span>Email *</span>
-                  <input type="email" name="email" required placeholder="name@domain.com">
+                <label><span>Email *</span>
+                  <input type="email" name="email" placeholder="name@domain.com">
                 </label>
-                <label class="required"><span>Phone *</span>
-                  <input type="tel" name="phone" required placeholder="+91-XXXXXXXXXX">
+                <label><span>Phone *</span>
+                  <input type="tel" name="phone" placeholder="+91-XXXXXXXXXX">
                 </label>
-                <label class="required" style="grid-column:1/-1"><span>Full Address *</span>
-                  <textarea name="address" required rows="3" placeholder="Street, City, State, Pincode"></textarea>
+                <label style="grid-column:1/-1"><span>Full Address *</span>
+                  <textarea name="address" rows="3" placeholder="Street, City, State, Pincode"></textarea>
                 </label>
 
                 <!-- Language tag selector -->
@@ -293,7 +295,7 @@
                   <label class="lang-label"><span>Languages Known (max 5) *</span></label>
                   <div class="lang-box" id="langBox">
                     <input id="langInput" class="lang-input" list="langList" placeholder="Type a language and press Enter">
-                    <input type="hidden" name="languages" id="langHidden" required>
+                    <input type="hidden" name="languages" id="langHidden">
                   </div>
                   <datalist id="langList">
                     <option value="Assamese"></option><option value="Bengali"></option><option value="Bodo"></option>
@@ -308,8 +310,8 @@
                   <div class="lang-hint">Selected: <span class="lang-count" id="langCount">0/5</span>. Press Enter to add, Backspace to remove last.</div>
                 </div>
 
-                <label><span>GSTIN / PAN</span>
-                  <input name="gst" placeholder="GSTIN or PAN">
+                <label><span>PAN / GSTIN</span>
+                  <input name="gst" placeholder="PAN (AAAAA9999A) or GSTIN (15 chars)">
                 </label>
                 <label><span>Registration No.</span>
                   <input name="regno" placeholder="UDYAM/MSME/Other">
@@ -317,12 +319,16 @@
                 <label><span>Website / Store Link</span>
                   <input type="url" name="website" placeholder="https://">
                 </label>
-                <label class="required" style="grid-column:1/-1"><span>Upload Catalogue *</span>
-                  <input type="file" name="catalog" required accept=".pdf,.csv,.xlsx,.xls,.jpg,.jpeg,.png">
+
+                <!-- OPTIONAL upload -->
+                <label style="grid-column:1/-1"><span>Upload Catalogue (optional)</span>
+                  <input type="file" name="catalog" accept=".pdf,.csv,.xlsx,.xls,.jpg,.jpeg,.png">
                 </label>
+
                 <label style="grid-column:1/-1"><span>Additional Notes</span>
                   <textarea name="notes" rows="3" placeholder="Anything else we should know?"></textarea>
                 </label>
+
                 <input type="hidden" name="role" id="role-input">
               </div>
             </form>
@@ -338,8 +344,9 @@
 
     const form = overlay.querySelector('#partner-form');
     const roleInput = overlay.querySelector('#role-input');
+    const alertBox = overlay.querySelector('#form-alert');
 
-    /* ---------- Language component ---------- */
+    /* ---------- Language chips ---------- */
     const LANG_LIMIT = 5;
     const langBox = overlay.querySelector('#langBox');
     const langInput = overlay.querySelector('#langInput');
@@ -353,9 +360,7 @@
         const chip=document.createElement('span');
         chip.className='lang-chip';
         chip.innerHTML=`${v} <button type="button" aria-label="Remove ${v}">×</button>`;
-        chip.querySelector('button').addEventListener('click',()=>{
-          setLangs(getLangs().filter(x=>x!==v));
-        });
+        chip.querySelector('button').addEventListener('click',()=> setLangs(getLangs().filter(x=>x!==v)));
         langBox.insertBefore(chip, langInput);
       });
       langHidden.value=arr.join(', ');
@@ -369,20 +374,16 @@
       setLangs([...list, v]);
     }
     langInput.addEventListener('keydown',(e)=>{
-      if(e.key==='Enter'){
-        e.preventDefault();
-        addLang(langInput.value);
-        langInput.value='';
-      } else if(e.key==='Backspace' && !langInput.value){
-        const list=getLangs(); if(list.length) setLangs(list.slice(0,-1));
-      }
+      if(e.key==='Enter'){ e.preventDefault(); addLang(langInput.value); langInput.value=''; }
+      else if(e.key==='Backspace' && !langInput.value){ const list=getLangs(); if(list.length) setLangs(list.slice(0,-1)); }
     });
     langInput.addEventListener('change',()=>{ if(langInput.value){ addLang(langInput.value); langInput.value=''; } });
 
     /* ---------- Modal open/close ---------- */
     const showModal=(title, roleVal)=>{
-      form.reset();                // clear native fields
-      setLangs([]);                // clear languages
+      form.reset(); setLangs([]);
+      alertBox.style.display='none'; alertBox.innerHTML='';
+      clearErrors();
       overlay.querySelector('#m-title').textContent = title + ' — Application';
       roleInput.value = roleVal || '';
       overlay.style.display='flex';
@@ -394,7 +395,7 @@
     overlay.querySelectorAll('.close-x').forEach(b=>b.addEventListener('click', hideModal));
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') hideModal(); });
 
-    // Bind to tiles
+    // Bind tiles
     document.querySelectorAll('#partner-tiles .role, .k-grid .role, [data-role].role').forEach(el=>{
       el.addEventListener('click',(e)=>{
         if(el.tagName==='A') e.preventDefault();
@@ -404,9 +405,91 @@
       });
     });
 
-    // Demo submit
+    /* ---------- Validation ---------- */
+    const get = (name) => form.querySelector(`[name="${name}"]`);
+    const patterns = {
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      phone: /^(?:\+?91[-\s]*)?(?:[6-9]\d{9})$/,               // +91 optional; 10 digits start 6-9
+      pan: /^[A-Z]{5}\d{4}[A-Z]$/,                             // AAAAA9999A
+      gstin: /^\d{2}[A-Z]{5}\d{4}[A-Z][A-Z\d]Z[A-Z\d]$/,       // 15 chars
+      url: /^(https?:\/\/)([\w\-]+\.)+[\w\-]{2,}(\/.*)?$/i
+    };
+
+    function showAlert(items){
+      alertBox.innerHTML = '<strong>Please fix the following:</strong><ul>' +
+        items.map(li=>`<li>${li}</li>`).join('') + '</ul>';
+      alertBox.style.display = 'block';
+    }
+    function hideAlert(){ alertBox.style.display='none'; alertBox.innerHTML=''; }
+
+    function setError(el, msg){
+      if(!el) return;
+      el.classList.add('is-invalid');
+      const old = el.parentElement.querySelector('.err');
+      if(old) old.remove();
+      const e = document.createElement('div');
+      e.className = 'err';
+      e.textContent = msg;
+      el.parentElement.appendChild(e);
+    }
+    function clearErrors(){
+      form.querySelectorAll('.is-invalid').forEach(el=>el.classList.remove('is-invalid'));
+      form.querySelectorAll('.err').forEach(el=>el.remove());
+    }
+
     form.addEventListener('submit',(e)=>{
       e.preventDefault();
+      clearErrors(); hideAlert();
+
+      const errs = [];
+
+      const business = get('business');
+      const person   = get('person');
+      const email    = get('email');
+      const phone    = get('phone');
+      const address  = get('address');
+      const gst      = get('gst');
+      const website  = get('website');
+
+      // Required checks
+      if(!business.value.trim()){ setError(business,'Business name is required.'); errs.push('Business name is required.'); }
+      if(!person.value.trim()){ setError(person,'Contact person is required.'); errs.push('Contact person is required.'); }
+      if(!email.value.trim()){ setError(email,'Email is required.'); errs.push('Email is required.'); }
+      if(!phone.value.trim()){ setError(phone,'Phone is required.'); errs.push('Phone is required.'); }
+      if(!address.value.trim()){ setError(address,'Full address is required.'); errs.push('Full address is required.'); }
+      if(getLangs().length < 1){ setError(langInput,'Select at least one language.'); errs.push('Select at least one language (max 5).'); }
+
+      // Format checks
+      if(email.value && !patterns.email.test(email.value.trim())){
+        setError(email,'Enter a valid email address.'); errs.push('Email format is invalid.');
+      }
+      if(phone.value){
+        const normalized = phone.value.replace(/[^\d]/g,'').replace(/^91(?=\d{10}$)/,'');
+        if(!/^[6-9]\d{9}$/.test(normalized)){
+          setError(phone,'Enter a valid 10-digit Indian mobile starting 6–9 (with/without +91).');
+          errs.push('Phone number is invalid.');
+        }
+      }
+      if(gst.value){
+        const v = gst.value.toUpperCase().trim();
+        if(!(patterns.pan.test(v) || patterns.gstin.test(v))){
+          setError(gst,'Enter a valid PAN (AAAAA9999A) or GSTIN (15 chars).');
+          errs.push('PAN/GSTIN format is invalid.');
+        }
+      }
+      if(website.value && !patterns.url.test(website.value.trim())){
+        setError(website,'Enter a valid URL starting with http:// or https://');
+        errs.push('Website URL is invalid.');
+      }
+
+      if(errs.length){
+        showAlert(errs);
+        const firstInvalid = form.querySelector('.is-invalid');
+        if(firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // All good — submit (demo)
       // const data = new FormData(form); // send via fetch(...)
       alert('✅ Application submitted! We will contact you soon.');
       form.reset(); setLangs([]); hideModal();
