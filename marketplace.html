@@ -106,15 +106,35 @@ button{cursor:pointer}
 </head>
 <body>
 
-<!-- STATIC header (match your home nav) -->
+<!-- ===== Header (same as index) ===== -->
 <header class="site-header">
-  <div class="container header-wrap">
-    <div class="logo"><span class="mark"></span> Kyrtica</div>
-    <nav class="nav">
-      <a href="/" >Home</a>
-      <a href="/marketplace.html" class="active">Marketplace</a>
-      <a href="/partner.html">Partner With Us</a>
+  <div class="container navwrap">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="Kyrtica" />
+      Kyrtica
+    </a>
+
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="site-nav" class="menu">
+      <a href="marketplace.html">Market place</a>
+      <a href="partner.html">Partner With Us</a>
+      <a href="#hubs">Hubs</a>
+      <a href="#services">Services</a>
+      <a href="#learning">Learning</a>
+      <a href="#contact">Contact</a>
     </nav>
+
+    <div class="right">
+      <select aria-label="Language & Currency">
+        <option>English-INR</option>
+        <option>தமிழ்-INR</option>
+      </select>
+      <a class="btn btn-outline" href="#signin">Sign In</a>
+      <a class="btn btn-primary" href="#register">Register</a>
+    </div>
   </div>
 </header>
 
