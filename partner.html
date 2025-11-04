@@ -496,5 +496,32 @@
     });
   });
   </script>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // Accept either #apply=wholesale or ?apply=wholesale
+    const hash = (location.hash || '').toLowerCase();
+    const params = new URLSearchParams(location.search);
+    const wantsWholesale = hash.includes('apply=wholesale') || params.get('apply') === 'wholesale';
+
+    if (wantsWholesale) {
+      // Example hooks – adjust selectors to your actual form/modal ids
+      // Open the Partner modal
+      const openBtn = document.querySelector('[data-open-partner-modal]'); // fallback trigger if you have one
+      const modal = document.getElementById('modal'); // your modal panel
+      if (openBtn) openBtn.click(); else if (modal) modal.style.display = 'block';
+
+      // Preselect Wholesaler/Distributor option
+      const roleSelect = document.querySelector('#partner-form [name="partnerType"], #partner-type');
+      if (roleSelect) {
+        roleSelect.value = 'Wholesaler/Distributor';
+        roleSelect.dispatchEvent(new Event('change'));
+      }
+
+      // Optional: scroll into view
+      const form = document.getElementById('partner-form') || modal;
+      form && form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+</script>
 </body>
 </html>
